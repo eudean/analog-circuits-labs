@@ -1,0 +1,64 @@
+\documentclass{article}
+\usepackage{ee105}
+
+%% Makes figure labels bold
+\usepackage[labelfont=bf]{caption}
+
+\begin{document}
+
+%% Prevent headings on the first page, since we're not using \maketitle
+\thispagestyle{plain}
+
+%% Standard header. Title of the lab goes here.
+\report{5}{Single Stage BJT Amplifiers: Common Collector and Common Base}
+\name
+
+\section{Lab Questions}
+
+\begin {enumerate}
+	
+	\item[3.1.2--4] CB amplifier parameters: \\~\\
+    	$\boxed{A_{v}    = ~~~~~~~~~~~~~~~~~~~~~~~}$ \\ ~ \\
+    	$\boxed{R_{in}   = ~~~~~~~~~~~~~~~~~~~~~~~}$ \\ ~ \\
+    	$\boxed{R_{out}  = ~~~~~~~~~~~~~~~~~~~~~~~}$ \\ ~ \\
+	\item[3.1.5] Suppose the source resistance of $V_{IN}$ is \unit{50}{\ohm}. Would the CB amplifier amplify a signal from this source well? Why?
+	\\~\\~\\~\\~\\~\\~\\~\\~\\
+
+	\item[3.2.2] DC voltage values when biased at maximum output voltage swing: \\~\\
+    	$\boxed{V_{IN}   = ~~~~~~~~~~~~~~~~~~~~~~~}$ \\ ~ \\
+    	$\boxed{V_{OUT}  = ~~~~~~~~~~~~~~~~~~~~~~~}$ \\ ~ \\
+    	$\boxed{\text{Output Voltage Swing}	= ~~~~~~~~~~~~~~~~~~~~~~~}$ \\ ~ \\
+    	
+   	\item[3.2.3] CC amplifier parameters: \\~\\
+    	$\boxed{A_{v}    = ~~~~~~~~~~~~~~~~~~~~~~~}$ \\ ~ \\
+    	$\boxed{R_{in}   = ~~~~~~~~~~~~~~~~~~~~~~~}$ \\ ~ \\
+    	$\boxed{R_{out}  = ~~~~~~~~~~~~~~~~~~~~~~~}$ \\ ~ \\
+
+	\item[3.2.4] Another name for the CC amplifier is the emitter follower. Based on the gain that you have found, why do you think it has this name?
+	\\~\\~\\~\\~\\~\\~\\~\\~\\~\\~\\~\\~\\~\\~\\~\\
+	
+	\item[3.3.3] Is the output of the common collector speaker amplifier louder, quieter, or about the same as when the signal was directly applied using the function generator? Why? \hint{The output impedance of the function generator is \unit{50}{\ohm}.}
+	\\~\\~\\~\\~\\~\\~\\~\\~\\
+\end {enumerate}
+
+\section{Post-lab Questions}
+\subsection{Common Collector Amplifier as a Voltage Buffer}
+\begin{enumerate}
+\item Even though the common collector amplifier has almost unity gain, why is it still a useful amplifier configuration?
+\\~\\~\\~\\~\\~\\~\\~\\~\\
+\item What are the advantages or disadvantages of using a larger $R_E$ in our common collector amplifier?
+\\~\\~\\~\\~\\~\\~\\~\\~\\
+\end{enumerate}
+
+\subsection{Common Base Amplifier as a Current Buffer}
+\begin{enumerate}
+	\item The CB amplifier is rarely used as a voltage or transconductance amplifier; the CE amplifier is typically used instead. Based on the values of the CB and CE amplifier two-port parameters you found during the labs, explain why this is the case.
+	\\~\\~\\~\\~\\~\\~\\~\\~\\
+	\item The CB amplifier is commonly used as a current amplifier. Approximate the current gain of a CB amplifier (\hint{What is the relationship between the emitter and collector currents of a CB amplifier?}) Draw the two-port model of the CB current amplifier and find $A_i$.
+	\\~\\~\\~\\~\\~\\~\\~\\~\\
+	\item Suppose that a small signal current of \unit{10}{\micro\ampere} peak-to-peak is applied directly to a load resistor of \unit{5}{\kilo\ohm}. Assuming the source resistance is \unit{100}{\ohm}, what is the peak-to-peak current flowing through the load resistor?
+	\\~\\~\\~\\~\\~\\~\\~\\~\\~\\~\\~\\~\\~\\~\\~\\
+	\item Now, assume the small signal current of \unit{10}{\micro\ampere} peak-to-peak with source resistance of \unit{100}{\ohm} is applied to the input of the CB amplifier. Assume a \unit{5}{\kilo\ohm} load resistor is also attached to the output of the CB amplifier. Using the two port characteristics found during lab and the approximated current gain, what is the current flowing through the load resistor? Based on this result, why is the CB amplifier used as a current buffer?
+	\\~\\~\\~\\~\\~\\~\\~\\~\\
+\end{enumerate}
+\end{document}

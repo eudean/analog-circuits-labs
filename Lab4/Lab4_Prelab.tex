@@ -1,0 +1,154 @@
+\documentclass{article}
+\usepackage{ee105}
+
+%% Makes figure labels bold
+\usepackage[labelfont=bf]{caption}
+
+\begin{document}
+
+%% Prevent headings on the first page, since we're not using \maketitle
+\thispagestyle{plain}
+
+%% Standard header. Title of the lab goes here.
+\prelab{4}{Single Stage BJT Amplifiers: Common Emitter}
+\name
+
+\begin{figure}[!htb]
+	\input lab4_bjt
+	\centerline{\box\graph}
+	\caption{Common emitter amplifier}
+	\label{CEA_prelab}
+\end{figure}
+
+\begin{enumerate}
+
+	\item Let's analyze this common emitter amplifier! See Figure \ref{CEA_prelab}. Let $V_{CC} = \unit{5}{\volt}$, $V_{T} = \unit{26}{\milli\volt}$, $I_{S} = \unit{26.03}{\femto\ampere}$, $V_{A} = \unit{90.7}{\volt}$, $R_{C} = \unit{1}{\kilo\ohm}$, and $\beta = 270$.
+
+	\begin{enumerate}
+
+		\item For this transistor draw a graph (found on the next page) of $I_{C}$ vs. $V_{CE}$ for $V_{BE}$ = \unit{600}{\milli\volt}, \unit{620}{\milli\volt}, \unit{640}{\milli\volt}, \unit{660}{\milli\volt}, \unit{680}{\milli\volt}, and \unit{700}{\milli\volt}. Take care drawing this graph as it will be used in answering some of the following questions. Assume the boundary between deep saturation and forward active occurs at $V_{CE} = \unit{400}{\milli\volt}$. You can use a piecewise linear model for this graph.
+		
+		%% here we will insert some asymptote graphs once I learn how to draw them
+
+		\begin{figure}[!htb]
+		  \begin{center}
+		    \begin{asy}
+		      import graph;
+		      texpreamble("\def\Arg{\mathop {\rm Arg}\nolimits}");
+		      
+		      size(15cm,8cm,IgnoreAspect);
+		      
+		      scale(Linear,Linear);
+		      ylimits(0,15);
+		      xlimits(0,5);
+		      
+		      pen xthin=linewidth(0.5*linewidth());
+		      pen ythin=linewidth(0.5*linewidth());
+		      
+		      xaxis("$V_{CE}$ (V)",BottomTop,LeftTicks(begin=false,end=false,extend=false,ptick=xthin));
+		      yaxis("$I_{C}$ (mA)",LeftRight,RightTicks(begin=false,end=false,extend=false,ptick=ythin,N=0,n=0,Step=3,step=1));
+		      
+		      yequals(3,Dotted);
+		      yequals(6,Dotted);
+		      yequals(9,Dotted);
+		      yequals(12,Dotted);
+		      
+		      xequals(1,Dotted);
+		      xequals(2,Dotted);
+		      xequals(3,Dotted);
+		      xequals(4,Dotted);
+		      xequals(5,Dotted);
+\end{asy}
+		  \end{center}
+		\end{figure}
+
+		\item On this graph, draw the load line for $R_{C}$ in this circuit.
+
+		%% same
+
+		\item Using the intersection points, draw a graph (also found on the next page) of $V_{OUT}$ vs. $V_{IN}$. What is this graph useful for?
+		~\\~\\
+
+		%% same
+		\begin{figure}[!htb]
+		  \begin{center}
+		    \begin{asy}
+		      import graph;
+		      texpreamble("\def\Arg{\mathop {\rm Arg}\nolimits}");
+		      
+		      size(15cm,10cm,IgnoreAspect);
+		      
+		      scale(Linear,Linear);
+		      ylimits(0,5);
+		      xlimits(600,700);
+		      
+		      pen xthin=linewidth(0.5*linewidth());
+		      pen ythin=linewidth(0.5*linewidth());
+		      
+		      xaxis("$V_{IN}$ (mV)",BottomTop,LeftTicks(begin=false,end=false,extend=false,ptick=xthin,N=0,n=0,Step=10,step=5));
+		      yaxis("$V_{OUT}$ (V)",LeftRight,RightTicks(begin=false,end=false,extend=false,ptick=ythin));
+		      
+		      yequals(1,Dotted);
+		      yequals(2,Dotted);
+		      yequals(3,Dotted);
+		      yequals(4,Dotted);
+		      
+		      xequals(620,Dotted);
+		      xequals(640,Dotted);
+		      xequals(660,Dotted);
+		      xequals(680,Dotted);
+		      xequals(700,Dotted);
+\end{asy}
+		  \end{center}
+		\end{figure}
+
+		\item What is the gain for $V_{IN} = \unit{650}{\milli\volt}$? What is the region of operation of the transistor?
+		~\\~\\
+
+	\end{enumerate}
+
+	\item Now that we've analyzed the large-signal properties of the amplifier, let's analyze some of its small-signal properties. Assume $V_{IN} = \unit{650}{\milli\volt}$ for the rest of the prelab.
+
+	\begin{enumerate}
+
+		\item Draw the small signal model of the amplifier (answer space provided on next page).
+		~\\~\\~\\~\\~\\~\\~\\~\\~\\
+
+		\item Calculate the following (be sure to include the Early effect):
+			\begin{itemize}
+			\item $V_{OUT}$
+			\item $I_C$
+			\item Transconductance $g_{m}$
+			\item Output impedance $R_{out}$
+			\item Input impedance $R_{in}$
+			\item Gain $A_{v}$. Does this gain match your answer to question 1(d)?
+			\end{itemize}
+			~\\~\\~\\~\\~\\~\\~\\~\\~\\~\\~\\~\\~\\~\\~\\
+
+		\item If we change the bias point, which of the above properties change?
+		~\\~\\~\\~\\~\\~\\
+	\end{enumerate}
+
+	\item Let's explore what happens when we change the bias point by adding a load resistor.
+	
+	\begin{enumerate}
+		
+		\item Add a load of \unit{5}{\kilo\ohm} to the output of the circuit. Intuitively, how do you think this will affect the gain and why?
+		~\\~\\~\\~\\
+
+		\item Draw the new load line on the graph you made for question 1(a) (be sure to label which load line goes with which question).
+
+		\item If we keep the same bias point (i.e., the same $V_{BE}$ value), is the transistor still in forward active mode?
+		~\\~\\~\\
+
+		\item What happens to the gain? How about the output voltage swing? \note{The output voltage swing is the maximum and minimum values of $v_{OUT}$ for which all transistors stay in forward active.}
+		~\\~\\~\\
+
+		\item What is the load resistance value for which the amplifier's BJT begins to transition between forward active mode and deep saturation (i.e., where $V_{CE} = \unit{400}{\milli\volt}$)?
+		~\\~\\~\\~\\~\\
+
+	\end{enumerate}
+	
+\end{enumerate}
+
+\end{document}

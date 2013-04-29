@@ -1,0 +1,78 @@
+\documentclass{article}
+\usepackage{ee105}
+
+%% Makes figure labels bold
+\usepackage[labelfont=bf]{caption}
+
+\begin{document}
+
+%% Prevent headings on the first page, since we're not using \maketitle
+\thispagestyle{plain}
+
+%% Title goes here!
+\prelab{6}{Biasing Circuitry}
+\name
+
+\begin{enumerate}
+		\begin{figure}[!htb]
+			\input lab6_vsource2
+			\centerline{\box\graph}
+			\caption{Resistive divider ``voltage source''}
+			\label{resvsource}
+		\end{figure}
+	\item Consider the resistor network shown in Figure \ref{resvsource}. Let $V_{CC} = \unit{10}{\volt}$, $R_1 = \unit{9.35}{\kilo\ohm}$, and $R_2 = \unit{650}{\ohm}$. We can turn this resistive divider into a voltage source with an output resistance by taking its Th\'{e}venin equivalent. Find the open circuit output voltage and the output resistance of this voltage source.
+	\\~\\~\\~\\~\\~\\~\\~\\
+	
+		\begin{figure}[!htb]
+			\input lab6_prelab_vsource1
+			\centerline{\box\graph}
+			\caption{BJT voltage source}
+			\label{bjtvsource}
+		\end{figure}
+	\item Now, consider a BJT voltage source such as the one shown in Figure \ref{bjtvsource}. Size resistor $R_C$ to achieve an output voltage of \unit{650}{\milli\volt}. Let $V_{CC} = \unit{10}{\volt}$, $I_{S} = \unit{26.03}{\femto\ampere}$, and $V_{T} = \unit{26}{\milli\volt}$. Ignore the Early effect for this calculation.
+	\\~\\~\\~\\~\\~\\~\\~\\
+	\item Find the output impedance and the power dissipated by this BJT voltage source. \hint{Remember the definition of power, $P=IV$.}
+	\\~\\~\\~\\~\\~\\~\\~\\
+	\item If we were to resize the resistors of our resistive divider (Figure \ref{resvsource}) to achieve the same output impedance as the BJT voltage source given the same output voltage, what would be the values of the two resistors? How much power would it draw?
+	\\~\\~\\~\\~\\~\\~\\~\\
+	
+	\begin{figure}[!htb]
+		\input lab6_prelab_csource3
+		\centerline{\box\graph}
+		\caption{Resistor ``current source''}
+		\label{lab6_csource3}
+	\end{figure}
+	\item Consider the circuit shown in Figure \ref{lab6_csource3}. Let $V_{CC} = \unit{10}{\volt}$ and $R = \unit{10}{\kilo\ohm}$. Roughly sketch $I_{OUT}$ vs. $V_{OUT}$.
+
+\begin{figure}[!htb]
+    \begin{center}
+      \begin{asy}
+	import graph;
+	
+	size(15cm,10cm,IgnoreAspect);
+
+	scale(Linear,Linear);
+	xlimits(0,20);
+	ylimits(-1,1);
+	
+	pen thin=linewidth(0.5*linewidth());
+	
+	xaxis("$V_{OUT}$ (V)",BottomTop,LeftTicks(begin=false,end=false,extend=false,ptick=thin));
+	yaxis("$I_{OUT}$ (mA)",LeftRight,RightTicks(begin=false,end=false));
+
+	yequals(0,Dotted);
+
+	xequals(5,Dotted);
+	xequals(10,Dotted);
+	xequals(15,Dotted);	
+\end{asy}
+    \end{center}
+  \end{figure}
+
+	\item Find the short circuit output current and the output impedance of the current source.
+	\\~\\~\\~\\~\\~\\~\\~\\
+	\item Is it possible to increase the output impedance without decreasing the output current and without changing $V_{CC}$? Explain.
+	\\~\\~\\~\\~\\~\\~\\~\\
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage{ee105}
+
+%% Makes figure labels bold
+\usepackage[labelfont=bf]{caption}
+
+\begin{document}
+
+%% Prevent headings on the first page, since we're not using \maketitle
+\thispagestyle{plain}
+
+%% Standard header. Title of the lab goes here.
+\prelab{8}{Multi-stage Amplifiers}
+\name
+
+\begin{enumerate}
+
+	\begin{figure}[!htb]
+		\input lab8_cascode1
+		\centerline{\box\graph}
+		\caption{Cascode amplifier with ideal current source}
+		\label{cascode1}
+	\end{figure}
+
+	\item The cascode in Figure \ref{cascode1} is biased by an ideal current source. Let $R_S = \unit{51}{\ohm}$, $I_S = \unit{1\times10^{-15}}{\ampere}$, $V_A = \unit{100}{\volt}$, $\beta = 200$, $I_{SUP} = \unit{1}{\milli\ampere}$, $T = \unit{300}{\kelvin}$, $v_{OUT,DC} = \unit{3.5}{\volt}$, and $V_{BIAS2} = \unit{2}{\volt}$. Calculate $V_{BIAS1}$ to match these biasing conditions. \\~\\~\\~\\~\\~\\~\\~\\~\\~\\~\\~\\
+
+	\begin{align*}
+    		\boxed{V_{BIAS1} = ~~~~~~~~~~~~~~~~~~~~~~~~~ } \\
+      	\end{align*}
+
+	\item What is the gain of this amplifier? \\~\\~\\~\\~\\~\\~\\~\\~\\~\\~\\~\\
+
+	\begin{align*}
+    		\boxed{A_v = ~~~~~~~~~~~~~~~~~~~~~~~~ } \\
+  	\end{align*}
+
+	\begin{figure}[!htb]
+		\input lab8_multi
+		\centerline{\box\graph}
+		\caption{Multi-stage amplifier}
+		\label{multi}
+	\end{figure}
+
+	\item Now construct a SPICE netlist for the multi-stage amplifier shown in Figure \ref{multi}. Let $R_C = \unit{10}{\kilo\ohm}$, $R_S = \unit{51}{\ohm}$, and $R_{REF} = \unit{200}{\ohm}$. Bias transistor $Q_1$ with $V_{BE1} = \unit{560}{\milli\volt}$. What is the small signal gain ($A_{v1}$) between $v_{IN}$ and $v_{OUT1}$? What is the small signal gain ($A_{v2}$) between $v_{OUT1}$ and $v_{OUT2}$? Using $A_{v1}$ and $A_{v2}$, find the overall gain ($A_{v,tot}$) between $v_{IN}$ and $v_{OUT2}$. Attach the SPICE netlist to the end of this prelab. \\
+
+	\begin{align*}
+    		\boxed{A_{v1} = ~~~~~~~~~~~~~~~~~~~~~~~~~ } \\
+		\boxed{A_{v2} = ~~~~~~~~~~~~~~~~~~~~~~~~~ } \\
+		\boxed{A_{v,tot} = ~~~~~~~~~~~~~~~~~~~~~~~~~} \\
+  	\end{align*}
+
+\end{enumerate}
+
+\end{document}

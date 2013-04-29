@@ -1,0 +1,52 @@
+\documentclass{article}
+\usepackage{ee105}
+
+%% Makes figure labels bold
+\usepackage[labelfont=bf]{caption}
+
+\begin{document}
+
+%% Prevent headings on the first page, since we're not using \maketitle
+\thispagestyle{plain}
+
+%% Title goes here!
+\prelab{5}{Single Stage BJT Amplifiers: Common Collector and Common Base}
+\name
+
+\begin{figure}[!htb]
+  \input lab5_ccamp
+  \centerline{\box\graph}
+  \caption{Common collector amplifier}
+  \label{ccamp}
+\end{figure}
+
+\begin{enumerate}
+
+	\item Draw the small signal model for the common collector amplifier shown in Figure \ref{ccamp}.
+	~\\~\\~\\~\\~\\~\\~\\~\\~\\~\\~\\
+	\item State (do not derive) the formulas for the input impedance, output impedance, and voltage gain of a common collector amplifier.
+	~\\~\\~\\~\\~\\~\\~\\~\\~\\~\\~\\
+	\item Using the following parameters, calculate the numerical values of the properties above: $I_{S} = \unit{26.03}{\femto\ampere}$, $R_{S} = \unit{10}{\kilo\ohm}$, $R_{E} = \unit{100}{\ohm}$, $V_{IN} = \unit{6.350}{\volt}$, and $\beta = 270$. Ignore the Early effect and make approximations when appropriate.
+	~\\~\\~\\~\\~\\~\\~\\~\\~\\~\\~\\
+	\item How do these properties compare to those of the common emitter amplifier?
+	~\\~\\~\\~\\~\\~\\~\\~\\~\\~\\~\\
+
+	\begin{figure}[!htb]
+		\input lab5_cbamp_iin
+		\centerline{\box\graph}
+		\caption{Common base amplifier with a current input}
+		\label{cbamp}
+	\end{figure}
+
+	\item Draw the small signal model for the common base amplifier shown in Figure \ref{cbamp}. \note{The current source $i_{in}$ is a small-signal AC current source, not a DC current source, so you must include it in the small-signal model.}
+	~\\~\\~\\~\\~\\~\\~\\~\\~\\~\\~\\
+	\item State (do not derive) the formulas for input impedance, output impedance, and current gain ($A_i = i_{out}/i_{in}$) of a common base amplifier.
+	~\\~\\~\\~\\~\\~\\~\\~\\~\\~\\~\\
+	\item Using the following parameters, calculate the numerical value of the properties above: $I_S = \unit{26.03}{\femto\ampere}$, $R_{C} = \unit{1}{\kilo\ohm}$, and $V_{BE} = \unit{640}{\milli\volt}$. Ignore the Early effect and make approximations when appropriate.
+	~\\~\\~\\~\\~\\~\\~\\~\\~\\~\\~\\
+	\item How do these properties compare to those of the common emitter amplifier?
+	~\\~\\~\\~\\~\\~\\~\\~\\~\\~\\~\\
+
+\end{enumerate}
+
+\end{document}

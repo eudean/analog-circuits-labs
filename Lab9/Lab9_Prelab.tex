@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage{ee105}
+
+%% Makes figure labels bold
+\usepackage[labelfont=bf]{caption}
+
+\begin{document}
+
+%% Prevent headings on the first page, since we're not using \maketitle
+\thispagestyle{plain}
+
+%% Title goes here!
+\prelab{9}{MOS Characterization and Amplifiers}
+
+\name
+
+\begin{enumerate}
+
+	\begin{figure}[!htb]
+		\input lab9_cdamp
+		\centerline{\box\graph}
+		\caption{Common drain amplifier}
+		\label{cdamp}
+	\end{figure}
+
+	\item Draw the small signal model for the common drain amplifier shown in Figure \ref{cdamp}.
+	\\~\\~\\~\\~\\~\\~\\
+	\item Derive the output impedance.
+	\\~\\~\\~\\~\\~\\~\\
+	\item Derive the voltage gain.
+	\\~\\~\\~\\~\\~\\~\\
+
+	\begin{figure}[!htb]
+		\input lab9_cgamp
+		\centerline{\box\graph}
+		\caption{Common gate amplifier}
+		\label{cgamp}
+	\end{figure}
+
+	\item Draw the small signal model for the common gate amplifier shown in Figure \ref{cgamp}.
+	\\~\\~\\~\\~\\~\\~\\
+	\item Derive the output impedance.
+	\\~\\~\\~\\~\\~\\~\\
+	\item Derive the voltage gain.
+	\\~\\~\\~\\~\\~\\~\\
+
+\end{enumerate}
+
+\end{document}

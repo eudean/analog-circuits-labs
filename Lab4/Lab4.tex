@@ -1,0 +1,107 @@
+\documentclass{article}
+\usepackage{ee105}
+
+%% Makes figure labels bold
+\usepackage[labelfont=bf]{caption}
+
+\begin{document}
+
+%% Prevent headings on the first page, since we're not using \maketitle
+\thispagestyle{plain}
+
+%% Standard header. Title of the lab goes here.
+\lab{4}{Single Stage BJT Amplifiers: Common Emitter}
+
+\section{Objective}
+Design and analysis of analog amplifiers is not often done on the individual transistor level, but instead by grouping together known configurations of single transistor amplifiers to create a new amplifier with \textit{just} the right properties for the application. Those properties are input impedance, gain, and output impedance. Before analyzing and building these robust multi-transistor amplifiers, however, you must first understand the basics of the single transistor amplifier case.
+
+The objective of this lab is to familiarize you specifically with the single stage BJT common emitter (CE) amplifier and all its wonderful properties. The next lab will cover the same properties of the common base and common collector (a.k.a. emitter follower) cases. By the end of this lab and the next you will begin to see why these different configurations are useful and how they might be fit together to achieve specific properties.
+
+\section{Materials}
+
+\begin{table}[!htb]
+  \begin{center}
+    \begin{tabular}{|c|c|} \hline
+      Component & Quantity \\\hline
+      2N4401 NPN BJT & 1 \\
+      \unit{8}{\ohm} speaker & 1 \\
+      \unit{1}{\kilo\ohm} resistor & 1 \\
+      \unit{10}{\kilo\ohm} resistor & 1 \\
+      \unit{10}{\micro\farad} capacitor & 1 \\
+      \unit{10}{\kilo\ohm} potentiometer & 1 \\\hline
+    \end{tabular}
+    \caption{Components used in this lab}
+    \label{components}
+  \end{center}
+\end{table}
+
+\section{Procedure}
+
+\subsection{Biasing for Maximum Gain}
+
+The properties of a common emitter amplifier are greatly affected by the DC bias point and specific biasing circuitry. In this case we are using a voltage source and a pull up resistor to bias the collector and the DC offset on the function generator to bias the base. In multi-transistor amplifiers, however, a transistor is generally biased using other transistors to acheive the greatest small signal gain.
+
+\begin{enumerate}
+\item Build the circuit shown in Figure \ref{rc}, a simple common emitter amplifier with no load attached. Let $R_C = \unit{1}{\kilo\ohm}$ and $V_{CC} = \unit{5}{\volt}$. \note{You may want to use the parameter analyzer test fixture since you'll use ICS to analyze the circuit.}
+
+	\begin{figure}[!htb]
+		\input lab4_bjt_1
+		\centerline{\box\graph}
+		\caption{CE amplifier}
+		\label{rc}
+	\end{figure}
+
+\item Using ICS, perform a sweep of $V_{IN}$ from \unit{0}{\volt} to \unit{1}{\volt} and graph $V_{OUT}$ vs. $V_{IN}$. Using the plot, find the DC bias of the amplifier that achieves the maximum gain. What is the gain? What are $V_{IN}$ and $V_{OUT}$ at the point of maximum gain?
+\item Using a load line for the pull up resistor on a BJT I-V curve, explain why a BJT has very low gain if it is not biased in the forward active region.
+\end{enumerate}
+
+\subsection{Amplifier Properties (a.k.a. Two-Port Parameters)}
+The operational characteristics of an amplifier can be quantified by three properties: input impedance, gain, and output impedance. These three properties are called the two-port parameters of the amplifier. The goal now is to measure and to learn about these properties for the CE amplifier so that we may later on use this general knowledge in our high level design of multistage amplifiers.
+
+\begin{enumerate}
+\item Sweep $V_{IN}$ from \unit{0}{\volt} to \unit{1}{\volt} and plot $I_{IN}$ vs. $V_{IN}$ using ICS. What is the input resistance when $V_{IN}$ is biased to achieve the maximum gain?
+\item Using the function generator, apply a \unit{20}{\milli\volt} peak-to-peak sine wave at the input with a DC offset corresponding to the DC bias point giving the maximum gain. Measure the peak-to-peak amplitude of the signal at the output using the oscilloscope. What is the gain measured with the oscilloscope? Is the gain measured with the oscilloscope roughly the same as the gain you measured with ICS?
+\item Increase the amplitude of the input signal until the output waveform appears to be clipped (flattened) on the top and bottom. Why does clipping happen at the top? Why does clipping happen at the bottom? You may find graphs useful in your explanation. Approximately how large can the output wave be without clipping? The maximum amplitude without clipping is called the output voltage swing.
+
+	\begin{figure}[!htb]
+		\input lab4_bjtload
+		\centerline{\box\graph}
+		\caption{CE amplifier with load attached}
+		\label{CEwithload}
+	\end{figure}
+
+\item Attach a \unit{10}{\micro\farad} AC coupling capacitor and a \unit{10}{\kilo\ohm} potentiometer at the output as shown in Figure \ref{CEwithload}. The potentiometer is used to simulate a load for the amplifier to drive. Why is the capacitor necessary? \hint{Consider the DC bias.}
+\item Apply the same \unit{20}{\milli\volt} peak-to-peak signal at the input and adjust the resistance of the potentiometer until the amplitude of the signal across the potentiometer is exactly half of the amplitude of the signal with no load attached. The resistance of the potentiometer at this point will be equal to the output resistance.
+
+\end{enumerate}
+
+\subsection{Emitter Degeneration}
+Emitter degeneration refers to the placement of a resistor on the emitter of a common emitter amplifier. Here we will analyze the effect of this resistance on the common emitter amplifier. 
+
+\begin{enumerate}
+
+\item Build the circuit in Figure \ref{degen}, let $V_{CC} = \unit{5}{\volt}$, $R_{C} = \unit{10}{\kilo\ohm}$, and $R_{E} = \unit{1}{\kilo\ohm}$.
+	\begin{figure}[!htb]
+		\input lab4_degen
+		\centerline{\box\graph}
+		\caption{CE amplifier with emitter degeneration}
+		\label{degen}
+	\end{figure}
+\item Bias the circuit for maximum gain. What is the DC operating point? What is the gain, $A_{v}$, at this point? Is it more or less than the gain found without the degenerating resistor? Give an explanation for what's going on in the circuit that causes this change in gain.
+\item Measure the input and output impedances.
+\item Showing all steps, calculate the theoretical values of the input and output impedances as well as the gain. Use $\beta = 270$, which is about what you should've measured in Experiment 3.
+\item Why might emitter degeneration be useful?
+
+\end{enumerate}
+
+\subsection{The World's Worst Speaker Amplifier}
+This part will demonstrate the capabilities of your CE amplifier on a physically observable load. 
+\begin{enumerate}
+\item Apply a \unit{1}{\kilo\hertz}, \unit{10}{\milli\volt} amplitude sine wave directly to the two terminals of the speaker. Qualitatively observe the volume.
+\item Build the circuit shown in Figure \ref{CEwithload}. Let $R_C = \unit{1}{\kilo\ohm}$ and $C = \unit{10}{\micro\farad}$.
+\item Bias $V_{IN}$ for maximum gain (you should have the bias voltage from a previous part) and apply a \unit{1}{\kilo\hertz}, \unit{10}{\milli\volt} amplitude sine wave at the input. Attach the speaker to the output and qualitatively observe the volume. Is it louder, quieter, or just as loud as when the speaker is direcly hooked up to the function generator? Explain this result.
+
+
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,83 @@
+\documentclass{article}
+\usepackage{ee105}
+
+%% Makes figure labels bold
+\usepackage[labelfont=bf]{caption}
+
+\begin{document}
+
+%% Prevent headings on the first page, since we're not using \maketitle
+\thispagestyle{plain}
+
+%% Standard header. Title of the lab goes here.
+\prelab{7}{Frequency Response}
+\name
+
+	\begin{figure}[!htb]
+		\input lab7_miller
+		\centerline{\box\graph}
+		\caption{Amplifier with a ``Miller'' capacitor}
+		\label{miller}
+	\end{figure}
+
+The Miller effect plays an important role in determining the poles of an amplifier. If there is a gain $A$ across the capacitor $C$ as shown in Figure \ref{miller}, the current across $C$ can be written as:
+
+\begin{center}
+	$i(t) = C\frac{d}{dt}(v_1(t)-v_2(t)) = C\frac{d}{dt}(v_1(t)-Av_1(t))$
+\end{center}
+
+\begin{flushleft}
+By distributing the derivative, this simplifies to:
+\end{flushleft}
+
+\begin{center}
+	$i(t) = C(1-A)\frac{d}{dt}v_1(t)$
+\end{center}
+
+\begin{flushleft}
+Therefore, the equivalent capacitance looking into $v_1(t)$ is the capacitance $C$ multiplied by $(1-A)$. If the gain $A$ is large enough, this Miller effect can make the capacitor dominate and contribute to the dominant pole of the amplifier. Using this same method, you can derive the equivalent capacitance looking into $v_2(t)$, which is $C(1-1/A)$.
+\end{flushleft}
+
+\begin{figure}[!htb]
+		\input lab7_prelab0
+		\centerline{\box\graph}
+		\caption{Common emitter amplifier}
+		\label{prelab}
+	\end{figure}
+
+\begin{enumerate}
+\item	
+	For the common emitter amplifier shown in Figure \ref{prelab}, use the Miller approximation to derive the expressions for the two poles of $v_{out}/v_{in}$ in terms of $C_{\mu}$, $C_{\pi}$, $g_m$, $R_S$, $r_{\pi}$, and $r_o$. These expressions will help you predict and understand the results of the lab. \\~\\~\\~\\~\\~\\~\\~\\~\\~\\~\\~\\
+
+  \begin{align*}
+    \boxed{\omega_{p1} = \bfrac{}{\bfrac{}{\bfrac{}{\bfrac{}{\bfrac{}{\bfrac{}{}}}}}}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~} \\
+    \boxed{\omega_{p2} = \bfrac{}{\bfrac{}{\bfrac{}{\bfrac{}{\bfrac{}{\bfrac{}{}}}}}}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~} \\
+  \end{align*}
+
+\item
+	If $R_S=\unit{51}{\ohm}$, $R_C=\unit{10}{\kilo\ohm}$, $C_{\mu}=\unit{11}{\pico\farad}$, $C_{\pi}=\unit{25}{\pico\farad}$, $g_m=\unit{3}{\milli\siemens}$, $r_{\pi}=\unit{10}{\kilo\ohm}$, and $r_o=\unit{100}{\kilo\ohm}$, what are the poles of this amplifier? \\~\\~\\~\\~\\
+
+  \begin{align*}
+    \boxed{\omega_{p1} = ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~} \\
+    \boxed{\omega_{p2} = ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~} \\
+  \end{align*}
+
+\item 
+	What will happen to the poles if a capacitor $C_M$ is added across the base collector junction? \\~\\~\\~\\~\\
+
+\item
+	SPICE
+	\begin{itemize}
+	\item Construct the common emitter amplifier circuit shown in Figure \ref{prelab} in SPICE. Use $V_{BIAS}=\unit{0.58}{\volt}$, $R_S=\unit{51}{\ohm}$, and $R_C=\unit{10}{\kilo\ohm}$. 
+
+	\item Use the 2N4401 SPICE model provided on the course website.
+
+	\item Perform an AC analysis of the circuit from \unit{100}{\hertz} to \unit{10}{\giga\hertz} in HSPICE.
+
+	\item Use Awaves to generate Bode plots (both magnitude and phase) for the circuit for $v_{out}/v_{in}$. Attach the Bode plots to this prelab worksheet. Do the results agree with your hand calculations (check the pole frequencies)?
+
+	\end{itemize}
+	
+\end{enumerate}
+
+\end{document}

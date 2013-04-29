@@ -1,0 +1,69 @@
+\documentclass{article}
+\usepackage{ee105}
+
+%% Makes figure labels bold
+\usepackage[labelfont=bf]{caption}
+
+\begin{document}
+
+%% Prevent headings on the first page, since we're not using \maketitle
+\thispagestyle{plain}
+
+%% Standard header. Title of the lab goes here.
+\report{6}{Biasing Circuitry}
+\name
+
+\section{Lab Questions}
+
+\begin{enumerate}
+	
+	\item[3.1.3] What is $R_C$ when $V_{OUT}=\unit{650}{\milli\volt}$? \\ ~ \\
+	$\boxed{R_{C}	= ~~~~~~~~~~~~~~~~~~~~~~~}$
+	
+	\item[3.1.4] Roughly sketch $I_{C}$ vs. $V_{OUT}$ for the transistor and for the resistor, showing the fixed point solution for $V_{OUT}$. How would we adjust the resistor to increase $V_{OUT}$?
+	\\~\\~\\~\\~\\~\\~\\~\\
+	
+	\item[3.1.5] Will the voltage source become better or worse (better as defined by being closer to an ideal source) as the resistor decreases? Why?
+	\\~\\~\\~\\~\\~\\~\\~\\
+	
+	\item[3.1.6] Find the output impedance of the voltage source.\\~\\
+	$\boxed{R_{out}  	= ~~~~~~~~~~~~~~~~~~~~~~~}$
+	
+	\item[3.1.7] Now, suppose you want to make your voltage source output \unit{1.3}{\volt}. Clearly, putting \unit{1.3}{\volt} on $V_{BE}$ of the diode connected BJT is not a good idea (please, don't even try). Draw a circuit topology to achieve this voltage without requiring a BJT to have an extremely high $V_{BE}$.
+	\\~\\~\\~\\~\\~\\~\\~\\
+
+	\item[3.2.2] Short circuit current: \\ ~ \\
+		$\boxed{I_{OUT}   = ~~~~~~~~~~~~~~~~~~~~~~~}$
+	
+	\item[3.2.3] Find $R_{out}$ in terms of the small-signal characteristics. \\~\\
+
+		$\boxed{\text{Theoretical}~R_{out}   = ~~~~~~~~~~~~~~~~~~~~~~~}$
+	
+	\item[3.2.4] What happens to the output impedance as $V_{OUT}$ nears \unit{5}{\volt}?
+		\\~\\~\\~\\~\\~\\~\\~\\
+	
+	\item[3.2.5] Output impedance at $V_{OUT}$ = \unit{2.5}{\volt} \\ ~ \\
+		$\boxed{\text{Measured}~R_{out}   = ~~~~~~~~~~~~~~~~~~~~~~~}$
+	
+	\item[3.2.6--8] Transistors in parallel with $V_{OUT}$ = \unit{2.5}{\volt}: \\ ~ \\
+		$\boxed{I_{OUT}   = ~~~~~~~~~~~~~~~~~~~~~~~}$ \\ ~ \\
+		$\boxed{R_{out}   = ~~~~~~~~~~~~~~~~~~~~~~~}$ \\ ~ \\
+		Explain the effect of the second transistor on the output impedance.
+		\\~\\~\\~\\~\\~\\~\\~\\
+
+	\item[3.3.2--6] Properties of the CE amp with current mirror: \\ ~ \\
+		$\boxed{V_{IN}   = ~~~~~~~~~~~~~~~~~~~~~~~}$ \\ ~ \\
+		$\boxed{A_{v}    = ~~~~~~~~~~~~~~~~~~~~~~~}$ \\ ~ \\
+		$\boxed{I_{C2}	 = ~~~~~~~~~~~~~~~~~~~~~~~}$ \\ ~ \\
+		$\boxed{I_{C3}	 = ~~~~~~~~~~~~~~~~~~~~~~~}$ \\ ~ \\		
+    	$\boxed{R_{in}   = ~~~~~~~~~~~~~~~~~~~~~~~}$ \\ ~ \\
+    	$\boxed{R_{out}  = ~~~~~~~~~~~~~~~~~~~~~~~}$
+
+	\item[3.3.7] How do the impedances and gain compare with a common emitter biased with a resistor instead?
+		\\~\\~\\~\\
+		
+	\item[3.3.8] Explain this effect using what you know about BJT temperature effects. How may this be an advantage of BJT biasing over resistive biasing?
+		\\~\\~\\~\\~\\~\\~\\~\\
+
+\end{enumerate}
+\end{document}

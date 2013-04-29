@@ -1,0 +1,115 @@
+\documentclass{article}
+\usepackage{ee105}
+
+%% Makes figure labels bold
+\usepackage[labelfont=bf]{caption}
+
+\begin{document}
+
+%% Prevent headings on the first page, since we're not using \maketitle
+\thispagestyle{plain}
+
+%% Standard header. Title of the lab goes here.
+\lab{2}{Electronic Test Equipment}
+
+\section{Objective}
+This lab's purpose is to familiarize you with the lab equipment you will be using throughout the semester. Several devices will be the same as those used in EE40, but others may be unfamiliar (such as the HP4155 parameter analyzer). Learning to use the equipment now will spare you some headaches later in the semester.
+
+\section{Materials}
+Each lab workstation has the necessary test equipment and breadboards. You will also need the components listed in Table \ref{components}.
+
+\begin{table}[!htb]
+  \begin{center}
+    \begin{tabular}{|c|c|} \hline
+      Component & Quantity \\\hline
+      \unit{20}{\kilo\ohm} resistor & 1 \\
+      \unit{10}{\kilo\ohm} resistor & 1 \\
+      \unit{100}{\ohm} resistor & 1 \\
+      \unit{0.01}{\micro\farad} capacitor & 1 \\
+      1N4148 diode & 1 \\\hline
+    \end{tabular}
+    \caption{Components used in this lab}
+    \label{components}
+  \end{center}
+\end{table}
+
+\section{Procedure}
+You can generally trust measurement equipment (like the DMM and oscilloscope) to be more accurate than the output readings on generators (like the DC power supply and function generator). Several of these lab exercises involve measuring the output error on the generators using the DMM or oscilloscope. You will also try some basic circuit measurements. 
+
+When performing measurements or using multiple sources, be sure ground terminals are connected appropriately. Usually, you will create one ground node in your circuit and connect all device grounds to that node.
+
+\subsection{DC Measurements (DMM and DC Power Supply)}
+
+\begin{enumerate}
+
+\item Set the DC power supply to read \unit{+5}{\volt} on its panel, using the \unit{+6}{\volt} output. Measure the output with the digital multimeter (DMM). What is the error (in percent) between the \unit{+5}{\volt} setting on the \unit{+6}{\volt} output and the actual output? Record the error at \unit{+1}{\volt}, \unit{+5}{\volt}, and \unit{+9}{\volt}, using the \unit{+6}{\volt} output to generate \unit{+1}{\volt} and \unit{+5}{\volt}, and the \unit{+18}{\volt} output to generate \unit{+9}{\volt}.
+
+\item Build the circuit in Figure \ref{r} on your breadboard. Compare the voltage measured at $V_O$ with a hand calculation using the ideal values given in the diagram. What is the error (in percent)? Other than measurement error and error in the voltage source, what might contribute to the deviation from the ideal calculation? \hint{Measure the resistor values using the DMM.} 
+
+	\begin{figure}[!htb]
+		\input lab2_r
+		\centerline{\box\graph}
+		\caption{Resistor circuit to build}
+		\label{r}
+	\end{figure}
+
+\item You are not supposed to connect the DMM in current mode to the terminals of a voltage source. Why not?
+
+\item Measure the current through the \unit{20}{\kilo\ohm} resistor and compare the value to your hand calculation. 
+
+\end{enumerate}
+
+\subsection{AC Measurements (Oscilloscope and Function Generator)}
+The function generator panel often displays a different voltage amplitude than what is measured at its output because the panel setting assumes a certain load impedance (see the function generator tutorial for details). 
+
+Also, remember that the \textbf{AMP} parameter on the function generator sets the \textit{peak-to-peak amplitude}. Note that in the labs, we will always use the word ``amplitude'' to refer to the maximum displacement from the offset (i.e. the traditional definition of amplitude) and ``peak-to-peak'' (or ``peak-to-peak amplitude'') to refer to the peak-to-peak amplitude of a signal (i.e. double the amplitude).
+
+\begin{enumerate}
+
+\item Set the function generator to output a \unit{1}{\kilo\hertz}, \unit{1}{\volt}$_{p-p}$ square wave according to the panel display. Measure the wave on the oscilloscope by directly connecting the function generator to an oscilloscope probe. Record the measured values for the wave's frequency and $V_{p-p}$ and calculate the error in the function generator panel in both frequency and voltage. Remember to take into account the source and load resistances (assume that the input resistance of the oscilloscope is much greater than the output resistance of the function generator).
+
+\item What is the highest frequency sinusoid that the generator can produce with the \unit{1}{\volt}$_{p-p}$ panel setting as above? What is the error in measured frequency vs. panel setting frequency?
+
+\item What is the smallest $V_{p-p}$ sinusoid that the generator can produce at \unit{1}{\kilo\hertz}? What is the error in measured $V_{p-p}$ vs. the panel setting? Have the oscilloscope average over 64 measurements to compensate for system noise and allow better measurement accuracy. Without averaging, does the oscilloscope over- or under-measure the $V_{p-p}$ value?
+
+\item Set the generator to output a pulse with height \unit{500}{\milli\volt} and a repetition frequency of \unit{1}{\kilo\hertz}. Compare period and frequency readings to those observed on the oscilloscope. What is the shortest pulse width that the function generator can produce at \unit{500}{\milli\volt} height and \unit{1}{\kilo\hertz} frequency?
+
+\item Construct the RC circuit in Figure \ref{rc}.
+
+	\begin{figure}[!htb]
+		\input lab2_rc
+		\centerline{\box\graph}
+		\caption{RC circuit to build}
+		\label{rc}
+	\end{figure}
+
+\item Set up $v_s$ as a sine wave with frequency \unit{1}{\kilo\hertz} and delivered $V_{p-p}$ of \unit{1}{\volt}. Measure the input signal with the oscilloscope to verify the amplitude setting. \hint{To achieve a delivered \unit{1}{\volt}$_{p-p}$ amplitude, the panel setting should be \unit{500}{\milli\volt}.}
+
+\item Measure the amplitudes of the input and output waves. Calculate the value of $|\frac{v_{o}}{v_s}|$ based on your oscilloscope measurements. This value is the magnitude of the transfer function evaluated at \unit{1}{\kilo\hertz}.
+
+
+\end{enumerate}
+
+\subsection{Parameter Analyzer Basics}
+\begin{enumerate}
+
+\item Using the HP4155, plot a \unit{100}{\ohm} resistor's I-V characteristic. What is the measured resistance according to your plot? Save the plot, since you will need to turn it in with your lab report. 
+
+\item Now plot the diode's I-V characteristic over an interesting interval. Again, save the plot, since you will need to turn it in with your lab report.
+
+\item Using your empirical plots and load-line analysis, determine the value of $V_O$ in the circuit shown in Figure \ref{diode}. Verify your expected operating point by building the circuit and measuring the appropriate voltage with the DMM.
+
+\begin{itemize}
+\item You can generate the load-line plot in Excel. To perform a mathematical operation, first enter the desired expression at the top of a new column preceeded by an equals sign. Then click on the lower-right corner of the new cell and drag downwards to fill in the new column. For example, if your data is in column $B$ starting at cell $B1$, you can add a constant $2$ to the column by first entering $=B1+2$ in cell $C1$. Then click the lower-right corner of $C1$ and drag downwards until column $C$ is filled appropriately.  
+\end{itemize}
+
+	\begin{figure}[!htb]
+		\input lab2_diode
+		\centerline{\box\graph}
+		\caption{Diode circuit to build}
+		\label{diode}
+	\end{figure}
+
+\end{enumerate}
+
+\end{document}

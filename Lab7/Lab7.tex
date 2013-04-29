@@ -1,0 +1,144 @@
+\documentclass{article}
+\usepackage{ee105}
+
+%% Makes figure labels bold
+\usepackage[labelfont=bf]{caption}
+
+\begin{document}
+
+%% Prevent headings on the first page, since we're not using \maketitle
+\thispagestyle{plain}
+
+%% Standard header. Title of the lab goes here.
+\lab{7}{Frequency Response}
+
+\section{Objective}
+You have already seen the performance of several BJT amplifiers.  These were designed to operate well at certain small-signal frequencies, and indeed there is a frequency limit imposed by the parasitic capacitances of BJT devices.  In this lab, you will observe how an amplifier responds to different input frequencies, making use of the National Instrument Bode Analyzer software.  This lab will help familiarize you with the native capacitances in a transistor, and how the frequency response is affected by these capacitances and external loads as well. 
+
+\section{Materials}
+
+\begin{table}[!htb]
+  \begin{center}
+    \begin{tabular}{|c|c|} \hline
+      Component & Quantity \\\hline
+      2N4401 NPN BJT & 1 \\
+      \unit{10}{\kilo\ohm} resistor & 1 \\
+      \unit{1}{\kilo\ohm} resistor & 1 \\ 
+      \unit{51}{\ohm} resistor & 1 \\
+      \unit{1}{\nano\farad} Capacitor & 1\\ \hline
+    \end{tabular}
+    \caption{Components used in this lab}
+    \label{components}
+  \end{center}
+\end{table}
+
+
+\section{Procedure}
+
+\subsection{Frequency Response of Common Emitter Amplifier}
+
+\begin{enumerate}
+
+	\begin{figure}[!htb]
+		\input lab7_commonemitter
+		\centerline{\box\graph}
+		\caption{Common emitter amplifier test setup}
+		\label{commonemitter}
+	\end{figure}
+	
+	\item Construct the common emitter amplifier as shown in Figure \ref{commonemitter}. Use a $R_C=\unit{10}{\kilo\ohm}$ and $R_S=\unit{51}{\ohm}$.
+
+	\item Use a function generator to generate a \unit{25}{\milli\volt} peak-to-peak, \unit{1}{\kilo\hertz} sinusoidal signal with a DC offset of \unit{580}{\milli\volt}. This signal is both $V_{BIAS}$ and $v_{in}$ combined, and will be referred to as $v_{IN}$. \note{You may notice some nonlinear effects on the output waveform. This is due to the high input signal amplitude that we are using. We choose this amplitude to avoid noise from the oscilloscope messing up our Bode plot measurements in a later step.}
+	
+	\item What is $I_{BIAS}$ and the DC voltage at $V_{OUT}$?
+
+	\item Using the oscilloscope, plot input $v_{IN}$ on \textbf{Channel 2} and output $v_{OUT}$ on \textbf{Channel 1}. Make sure to transfer the waveforms over to the Lab Report.
+
+	\item What are the magnitude and phase of $v_{out}/v_{in}$ measured from the oscilloscope?
+
+	\item Instead of using the oscilloscope to measure the magnitude and phase of $v_{out}/v_{in}$ at other frequencies manually, let's use NI Bode Analyzer software to automate the process. To avoid errors from the software, make sure you follow the instructions below to set up the software:
+
+	\begin{itemize}
+		\item Make sure that $v_{IN}$ is on Channel 2 and $v_{OUT}$ is on Channel 1.
+
+		\item Connect the Trigger Output from the function generator to the External Trigger port of the oscilloscope.
+		
+		\item Open \verb|NI Bode Analyzer.exe| from the computer desktop.
+
+		\item When both the function generator and the oscilloscope are turned on, click ``Refresh'' under ``Resource Name.''
+
+		\item The function generator is configured to a higher GPIB address than the oscilloscope. Select the GPIB device with a higher GPIB address for the function generator, and select the GPIB device with a lower GPIB address for the oscilloscope.
+
+		\item Set the stop frequency to \unit{2}{\mega\hertz} for this measurement. You can leave the starting frequency at its default value.
+
+		\item Set the amplitude of the input signal to \unit{25}{\milli\volt} and the DC offset to \unit{290}{\milli\volt}. \note{We set the DC offset to \unit{290}{\milli\volt} because the function generator outputs an offset that is twice as large as the value entered here.}
+
+		\item Hit ``Run''! The software will start sweeping the input across different frequencies to generate a Bode plot.
+
+	\end{itemize}
+
+	\item After the software is done producing the Bode plot, you can drag the cursor on the plot to read out the magnitude and phase at different frequencies. Drag the cursor to around \unit{1}{\kilo\hertz}. What are the magnitude and phase obtained with the software? How different is this measurement compared to the one obtained with the oscilloscope?
+
+	\item Now drag the cursor to a point where the gain decreases from its DC value by 3 dB. This is the dominant pole of the amplifier. What is the pole frequency? What is the phase at this frequency? Is the phase consistent with the magnitude? (Recall that at the $\unit{-3}{\deci\bel}$ point, the phase should be drop from its DC value by 45 degrees.)
+
+	\item You can export the plot by right clicking on the plot, and then select ``Export Simplified Image.'' You can also export the data points as a .csv (which can be opened in Microsoft Excel) file by clicking the ``Export'' button. Print the plot out and turn it in with your Lab Report. You do not have to find the second pole because it occurs at a frequency higher than what is measureable by our equipment.
+
+\end{enumerate}
+
+\subsection{Miller Effect}
+\begin{enumerate}
+
+	\begin{figure}[!htb]
+		\input lab7_millerlab
+		\centerline{\box\graph}
+		\caption{Miller capacitor test setup}
+		\label{millerlab}
+	\end{figure}
+
+	\item The Miller effect can be best examined by introducing a Miller capacitor across the amplifier. Let's take a look at the impact of the Miller effect by adding a \unit{1}{\nano\farad} capacitor for $C_M$ as shown in Figure \ref{millerlab}.
+
+	\item Repeat the above procedures on using the NI Bode Analyzer to find the frequency response of this amplifier, but set the stop frequency to \unit{500}{\kilo\hertz}. Attach the Bode plot to the Lab Report.
+
+	\item How does the dominant pole of this amplifier compare to the dominant pole of the previous amplifier? Is this expected?
+
+	\item In this amplifier, we are using a \unit{1}{\nano\farad} capacitor to simulate a large base-collector capacitor ($C_{\mu}$). If we are to design an amplifier with high bandwidth, is a transistor with a large $C_{\mu}$ desirable?
+
+\end{enumerate}
+
+\subsection{Output Capacitance}
+\begin{enumerate}
+	\item Let's examine the impact of output capacitance on a common emitter amplifier. Take out the Miller capacitor $C_M$ from Section 4.2 and place it at the output as shown in Figure \ref{outputcap}.
+
+	\begin{figure}[!htb]
+		\input lab7_outputcap
+		\centerline{\box\graph}
+		\caption{Output capacitance test setup}
+		\label{outputcap}
+	\end{figure}
+
+	\item Repeat the above procedures on using the NI Bode Analyzer to find the frequency response of this amplifier, but set the stop frequency to \unit{500}{\kilo\hertz}. Attach the Bode plot to the Lab Report.
+
+	\item How does the dominant pole of this amplifier compare to the dominant poles of the previous two amplifiers? Is this expected?
+
+\end{enumerate}
+
+\subsection{Common Collector Amplifier}
+
+\begin{enumerate}
+
+	\begin{figure}[!htb]
+		\input lab7_commoncollector
+		\centerline{\box\graph}
+		\caption{Common collector amplifier test setup}
+		\label{commoncollector}
+	\end{figure}
+
+	\item The common collector amplifier is a wide bandwidth amplifier. Let's examine the frequency response of this amplifier by building the common collector amplifier as shown in Figure \ref{commoncollector}. Configure the NI Bode Analyzer with an input signal of amplitude \unit{1}{\volt} and DC offset of \unit{1}{\volt} (which is \unit{2}{\volt} effective DC offset) for $v_{in}$ and $V_{BIAS}$.
+
+	\item Repeat the above procedures on using the NI Bode Analyzer to find the frequency response of this amplifier. Attach the Bode plot to the Lab Report. However, keep in mind that the breadboard has a parasitic capacitance that will start deforming the signal when the signal frequency goes beyond approximately \unit{1}{\mega\hertz}. You can observe this effect at the output of the amplifier using the oscilloscope. Therefore, the experiment in finding the dominant pole of this amplifier is only an approximation. \note{You may not be able to find the pole with the equipment in the lab. If this is the case, just mention that you cannot find the pole.}
+
+	\item How does the bandwidth of this amplifier compare to the bandwidths of the previous amplifiers? \note{If you could not measure the dominant pole, a qualitative answer is sufficient.}
+
+\end{enumerate}
+
+\end{document}

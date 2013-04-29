@@ -1,0 +1,204 @@
+\documentclass{article}
+\usepackage{ee105}
+
+%% Makes figure labels bold
+\usepackage[labelfont=bf]{caption}
+\newcommand{\Arg}{{\rm Arg}}
+
+\begin{document}
+\thispagestyle{plain}
+
+\tutorial{Bode Plot}
+
+\tableofcontents
+
+\section{Introduction}
+
+Although you should have learned about Bode plots in previous courses (such as EE40), this tutorial will give you a brief review of the material in case your memory is rusty.
+
+\section{Bode Plots Basics}
+
+Making the Bode plots for a transfer function involve drawing both the magnitude and phase plots. The magnitude is plotted in decibels (\deci\bel) and the phase is plotted in degrees. For both plots, the horizontal axis is either frequency ($f$) or angular frequency ($\omega$), measured in \hertz\ and \radian\per\second, respectively. The horizontal axis should be logarithmic (i.e. increasing by powers of 10).
+
+Most of the transfer functions we'll deal with in this class can be separated into a general that resembles the following:
+\begin{align}
+  H(j\omega) = A \cdot \frac{j\omega/\omega_{z1}\left(1+j\omega/\omega_{z2}\right)\left(1+j\omega/\omega_{z3}\right)\ldots}{j\omega/\omega_{p1}\left(1+j\omega/\omega_{p2}\right)\left(1+j\omega/\omega_{p3}\right)\ldots}
+\label{canonical}
+\end{align}
+$A$ is an arbitrary constant and $j$ is $\sqrt{-1}$. As you can see, the basic component of this transfer function appears to be $1 + j\omega/\omega_c$, where $\omega_c$ is some constant (with the slight variation $j\omega/\omega_c$). Let's analyze this basic component first before we analyze the entire transfer function.
+
+\subsection{Magnitude}
+
+Recall that the definition of magnitude (measured in \deci\bel) is as follows:
+\begin{align*}
+  20\log\left|H(j\omega)\right| = 20\log\sqrt{\Re{\left[H(j\omega)\right]}^2 + \Im{\left[H(j\omega)\right]}^2}
+\end{align*}
+Let's apply this definition to our basic transfer function component (this is called a \textbf{zero} when it appears in the numerator of a transfer function):
+\begin{align*}
+  20\log \left|1 + j\omega/\omega_c\right| = 20\log \sqrt{1 + \left(\omega/\omega_c\right)^2}
+\end{align*}
+For small $\omega$, we have $20\log \left|1 + j\omega/\omega_c\right| \approx \unit{0}{\deci\bel}$. For large $\omega$, $20\log \left|1 + j\omega/\omega_c\right| \rightarrow \infty$. When $\omega = \omega_c$, the magnitude of the transfer function is approximately \unit{3}{\deci\bel}. Since there's so little change from $\omega=0$ to $\omega=\omega_c$, we approximate the magnitude in this region as a constant \unit{0}{\deci\bel}.
+
+For $\omega > \omega_c$, the $\left(\omega/\omega_c\right)^2$ dominates the magnitude expression, allowing us to approximate the magnitude as $20\log{\omega/\omega_c}$. From this expression it's clear that if we increase $\omega$ by a factor of 10, we increase the magnitude by \unit{20}{\deci\bel}. Thus, our Bode plot approximation for the zero is a constant \unit{0}{\deci\bel} for $\omega < \omega_c$ and a line constantly increase by \unit{20}{\deci\bel\per decade} for $\omega > \omega_c$, illustrated in Figure \ref{zero}.
+
+Figure \ref{zero} also illustrates the Bode plot for a \textbf{DC zero} of the form $j\omega/\omega_c$. This differs only slightly from the normal zero in that is lacks the additional 1. Thus, instead of having the constant magnitude region for $\omega < \omega_c$, is simply always increases at \unit{20}{\deci\bel\per decade}. We draw its intersection with the frequency axis where $\omega = \omega_c$, since that's where the magnitude is \unit{0}{\deci\bel}.
+
+  \begin{figure}[!htb]
+    \begin{center}
+      \begin{asy}
+	import graph;
+	texpreamble("\def\Arg{\mathop {\rm Arg}\nolimits}");
+	
+	real zero1(real x) {return 0;}
+	real zero2(real x) {return 20*log10(x/10^5);}
+	real dczero(real x) {return 20*log10(x/10^5);}
+
+	size(15cm,10cm,IgnoreAspect);
+	
+	scale(Log,Linear);
+	draw(graph(zero1,1000.0,100000.0),black,"$20\log\left|1 + j\omega/\omega_c\right|$");
+	draw(graph(zero2,100000.0,10000000.0),black);
+	draw(graph(dczero,1000.0,10000000.0),red,"$20\log\left|j\omega/\omega_c\right|$");
+	ylimits(-40,40);
+	xlimits(1000.0,10000000.0);
+	
+	pen thin=linewidth(0.5*linewidth());
+	
+	xaxis("$\omega$ (rad/s)",BottomTop,LeftTicks(begin=false,end=false,extend=true,ptick=thin));
+	yaxis("Magnitude (dB)",LeftRight,RightTicks(begin=false,end=false,N=0,n=0,Step=20,step=10));
+	
+	add(legend(),point(E),20E,UnFill);
+\end{asy}
+    \end{center}
+    \caption{Bode plots (magnitude) for a normal zero and a DC zero for $\omega_c = \unit{10^5}{\radian\per\second}$ (the plots overlap for $\omega > \omega_c$)}
+    \label{zero}
+  \end{figure}
+
+The basic transfer function component $1 + j\omega/\omega_c$ can also appear in the denominator (in which case it is called a \textbf{pole}). Although this may seem like an entirely different problem, recall that we take the logarithm of our transfer function because our result is expressed in decibels. Taking the logarithm of the inverse of a function simply gives the negative logarithm of the function, meaning we simply have to negate the results of our zero analysis to get the appropriate expressions for poles. The same argument applies with \textbf{DC poles} of the form $j\omega/\omega_c$, so we can negate our DC zero analysis to get the DC pole results.
+
+A normal pole will have a constant \unit{0}{\deci\bel} value for $\omega < \omega_c$ and will drop by \unit{20}{\deci\bel\per decade} for $\omega > \omega_c$. A DC pole will drop by \unit{20}{\deci\bel\per decade} for any $\omega$ and will intersect the frequency axis (\unit{0}{\deci\bel}) at $\omega = \omega_c$. The results are shown in Figure \ref{pole}.
+
+  \begin{figure}[!htb]
+    \begin{center}
+      \begin{asy}
+	import graph;
+	texpreamble("\def\Arg{\mathop {\rm Arg}\nolimits}");
+	
+	real zero1(real x) {return 0;}
+	real zero2(real x) {return -20*log10(x/10^5);}
+	real dczero(real x) {return -20*log10(x/10^5);}
+
+	size(15cm,10cm,IgnoreAspect);
+	
+	scale(Log,Linear);
+	draw(graph(zero1,1000.0,100000.0),black,"$20\log\left|\frac{1}{1 + j\omega/\omega_c}\right|$");
+	draw(graph(zero2,100000.0,10000000.0),black);
+	draw(graph(dczero,1000.0,10000000.0),red,"$20\log\left|\frac{1}{j\omega/\omega_c}\right|$");
+	ylimits(-40,40);
+	xlimits(1000.0,10000000.0);
+	
+	pen thin=linewidth(0.5*linewidth());
+	
+	xaxis("$\omega$ (rad/s)",BottomTop,LeftTicks(begin=false,end=false,extend=true,ptick=thin));
+	yaxis("Magnitude (dB)",LeftRight,RightTicks(begin=false,end=false,N=0,n=0,Step=20,step=10));
+	
+	add(legend(),point(E),20E,UnFill);
+\end{asy}
+    \end{center}
+    \caption{Bode plots (magnitude) for a normal pole and a DC pole for $\omega_c = \unit{10^5}{\radian\per\second}$ (the plots overlap for $\omega > \omega_c$)}
+    \label{pole}
+  \end{figure}
+
+\subsection{Phase}
+
+Let's take a look at the phase of a zero, DC zero, pole, and DC pole. Recall the definition of phase:
+\begin{align*}
+  \Arg\left(H(j\omega)\right) = \tan^{-1}\frac{\Re[H(j\omega)]}{\Im[H(j\omega)]}
+\end{align*}
+Let's apply this to the normal zero first.
+\begin{align*}
+  \Arg(1+j\omega/\omega_c) = \tan^{-1}\frac{\omega}{\omega_c}
+\end{align*}
+For $\omega = 0$, $\Arg(1+j\omega/\omega_c) = 0$. For $\omega \rightarrow \infty$, $\Arg(1+j\omega/\omega_c) \rightarrow \unit{90}{\degree}$. For $\omega=\omega_c$, $\Arg(1+j\omega/\omega_c) \rightarrow \unit{45}{\degree}$. Thus, our approximation for the phase of a zero is \unit{0}{\degree} for $\omega < 0.1\omega_c$, \unit{45}{\degree} for $\omega = \omega_c$, and \unit{90}{\degree} for $\omega > 10\omega_c$ with a straight line connecting these points. We can also look at the phase of a DC zero, which is always \unit{90}{\degree}. These results are shown in Figure \ref{zerophase}.
+
+  \begin{figure}[!htb]
+    \begin{center}
+      \begin{asy}
+	import graph;
+	texpreamble("\def\Arg{\mathop {\rm Arg}\nolimits}");
+	
+	real zero1(real x) {return 0;}
+	real zero2(real x) {return 45*log10(x/10^4);}
+	real zero3(real x) {return 90;}
+	real dczero(real x) {return 90;}
+
+	size(15cm,10cm,IgnoreAspect);
+	
+	scale(Log,Linear);
+	draw(graph(zero1,1000.0,10000.0),black,"$\Arg\left(1 + j\omega/\omega_c\right)$");
+	draw(graph(zero2,10000.0,1000000.0),black);
+	draw(graph(zero3,1000000.0,10000000.0),black);
+	draw(graph(dczero,1000.0,10000000.0),red,"$\Arg\left(j\omega/\omega_c\right)$");
+	ylimits(0,100);
+	xlimits(1000.0,10000000.0);
+	
+	pen thin=linewidth(0.5*linewidth());
+	
+	xaxis("$\omega$ (rad/s)",BottomTop,LeftTicks(begin=false,end=false,extend=true,ptick=thin));
+	yaxis("Phase (degrees)",LeftRight,RightTicks(begin=false,end=false,N=0,n=0,Step=20,step=10));
+	
+	add(legend(),point(E),20E,UnFill);
+\end{asy}
+    \end{center}
+    \caption{Bode plots (phase) for a normal zero and a DC zero for $\omega_c = \unit{10^5}{\radian\per\second}$ (the plots overlap for $\omega > 10\omega_c$)}
+    \label{zerophase}
+  \end{figure}
+
+Similar to our analysis of the magnitude, we can also consider poles and DC poles in our phase plots. It can be shown that $\tan^{-1}-\theta = -\tan^{-1}\theta$, meaning our phase plots for poles and DC poles will simply be negated versions of the zero plots. These are shown in Figure \ref{polephase}.
+
+  \begin{figure}[!htb]
+    \begin{center}
+      \begin{asy}
+	import graph;
+	texpreamble("\def\Arg{\mathop {\rm Arg}\nolimits}");
+	
+	real zero1(real x) {return 0;}
+	real zero2(real x) {return -45*log10(x/10^4);}
+	real zero3(real x) {return -90;}
+	real dczero(real x) {return -90;}
+
+	size(15cm,10cm,IgnoreAspect);
+	
+	scale(Log,Linear);
+	draw(graph(zero1,1000.0,10000.0),black,"$\Arg\left(\frac{1}{1 + j\omega/\omega_c}\right)$");
+	draw(graph(zero2,10000.0,1000000.0),black);
+	draw(graph(zero3,1000000.0,10000000.0),black);
+	draw(graph(dczero,1000.0,10000000.0),red,"$\Arg\left(\frac{1}{j\omega/\omega_c}\right)$");
+	ylimits(0,-100);
+	xlimits(1000.0,10000000.0);
+	
+	pen thin=linewidth(0.5*linewidth());
+	
+	xaxis("$\omega$ (rad/s)",BottomTop,LeftTicks(begin=false,end=false,extend=true,ptick=thin));
+	yaxis("Phase (degrees)",LeftRight,RightTicks(begin=false,end=false,N=0,n=0,Step=20,step=10));
+	
+	add(legend(),point(E),20E,UnFill);
+\end{asy}
+    \end{center}
+    \caption{Bode plots (phase) for a normal pole and a DC pole for $\omega_c = \unit{10^5}{\radian\per\second}$ (the plots overlap for $\omega > 10\omega_c$)}
+    \label{polephase}
+  \end{figure}
+
+\section{Combining Poles and Zeroes}
+
+Generally, a transfer function may involve many poles and zeroes (and their DC counterparts). In order to make it easier to draw Bode plots, your first step should be to factor the transfer function into the canonical form shown in Equation \ref{canonical}. This makes it easy to identify all of the poles and zeroes.
+
+First, you'll have to handle the constant $A$ in front (if present). The magnitude of $A$ will affect your magnitude plot, and the sign of $A$ will affect your phase plot. Your magnitude plot must be shifted up by $20\log |A|$. For example, if $A = 10$, then your magnitude plot must be shifted up by \unit{20}{\deci\bel}. Similarly, if $A = 1/10$, then your magnitude plot must be shifted down by \unit{20}{\deci\bel}. If $A < 0$, then your phase plot must be shifted up (or down---it's the same in this case) by \unit{180}{\degree}.
+
+Second, you need to draw each pole and zero individually on the same set of axes (whether you're making a magnitude or phase plot).
+
+Third, you simply add the curves that you've drawn at each point to obtain the final Bode plot. Remember to shift your plots accordingly based on the constant $A$ as mentioned previously. This superposition principle is possible because of the decomposition of the transfer function into zeroes and poles.
+
+When adding the poles and zeroes in the final plot, remember that in areas where two curves are constant, the result will just be the sum of the constant values. When one is a contant and one is linear, then the result will start at the constant value and have the slope of the linear curve. Finally, when both are linear, the sum will have a slope equal to the sum of the slopes of the individal curves.
+
+\end{document}

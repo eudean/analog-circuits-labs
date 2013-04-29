@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{ee105}
+
+%% Makes figure labels bold
+\usepackage[labelfont=bf]{caption}
+
+\begin{document}
+\thispagestyle{plain}
+
+\tutorial{HP 34401A Digital Multimeter}
+
+\section{Introduction}
+The DMM is simple, so this tutorial only contains a few bulleted notes and two simple examples. There is an image of the front panel interface in Figure \ref{frontpanel}.
+
+\section{Interface Notes}
+\begin{itemize}
+\item To measure DC or AC current or voltage, use the two leftmost buttons in the FUNCTION section. The current options are in blue, and require use of the Shift key.
+\item Use the blue Shift key to select options labeled in blue. For example, to measure DC current, first press Shift and then press the upper-left button labeled ``DC I'' in blue.
+\item To measure voltage or resistance, plug in the probes as in Figure \ref{frontpanel}. To measure current, you must switch the red probe to the lower-right input port (labeled ``I'').
+\item AC voltage measures $V_{rms}$.
+\item When measuring a current, never place the probes across a voltage source. The ammeter has a very small internal impedance, and so a voltage source would need to drive a very high current through the ammeter to maintain its voltage output. High currents may damage the DMM.
+\item \textbf{The DMM ground is floating}, so you can always measure voltage differences with the two probes. Other devices are earth-grounded, and so can only measure a voltage difference from earth ground.
+\end{itemize}
+
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=5.0in]{HP34401A.eps}
+  \caption{HP34401A front panel. The input cables on the right are set to measure voltage. To measure a current, the red cable is moved to the bottom-right port.}
+  \label{frontpanel}
+\end{figure}
+
+\section{Examples}
+
+\subsection{Measuring DC Voltage}
+Here are all of the steps necessary to measure a DC voltage between nodes.
+\begin{enumerate}
+\item Press the power button on the left.
+\item Press the DC V button on the left side of the Function section.
+\item Be sure that the probes are plugged into the DMM in the voltage configuration; the black probe should be in the right LO port, and the red probe should be in the right HI port as in Figure \ref{frontpanel}.
+\item Place the probe tips on the nodes to measure.
+\end{enumerate}
+
+\subsection{Measuring DC Current}
+Here are all of the steps necessary to measure a DC current through a branch.
+\begin{enumerate}
+\item Press the power button on the left.
+\item Press the Shift button, and then the button labeled with the blue ``DC I.''
+\item Be sure that the probes are plugged into the DMM in the current configuration; the black probe should be in the right LO port, and the red probe should be in the right I port (in the bottom-right).
+\item Place the probe tips in series with the branch that you want to measure.
+\end{enumerate}
+
+\end{document} 

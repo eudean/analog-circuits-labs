@@ -1,0 +1,100 @@
+\documentclass{article}
+\usepackage{ee105}
+
+%% Makes figure labels bold
+\usepackage[labelfont=bf]{caption}
+
+\begin{document}
+
+%% Prevent headings on the first page, since we're not using \maketitle
+\thispagestyle{plain}
+
+%% Standard header. Title of the lab goes here.
+\report{8}{Multi-stage Amplifiers}
+\name
+
+\begin{enumerate}
+
+	\item[3.1.3] Measure $I_{BIAS}$ and the DC voltage at $v_{OUT}$.
+
+	\begin{align*}
+    		\boxed{I_{BIAS} = ~~~~~~~~~~~~~~~~~~~~ } \\
+    		\boxed{v_{OUT} = ~~~~~~~~~~~~~~~~~~~~ } \\
+  	\end{align*}
+
+	\item[3.1.4] Using the oscilloscope, plot both the input $v_{IN}$ and the output $v_{OUT}$. Sketch the waveforms you observe.
+
+\begin{figure}[!htb]
+\begin{center}
+\begin{asy}
+import math;
+size(250,0);
+
+add(shift(-5,-4)*grid(10,8));
+
+dot((0,0),black);
+\end{asy}
+\end{center}
+\end{figure}
+	\item[3.1.5] Why is $v_{OUT}$ not sinusoidal? \\~\\~\\~\\
+
+	\item[3.1.7] What is the peak-to-peak voltage of the output waveform (at $v_L$) with the load resistor? What is the gain of the amplifier with the resistive load? \\
+
+	\begin{align*}
+		\boxed{v_{L,p-p} = ~~~~~~~~~~~~~~~~~~~} \\
+    		\boxed{\left|\frac{v_L}{v_{in}}\right| = ~~~~~~~~~~~~~~~~~~~ } \\
+  	\end{align*}
+
+	\item[3.2.1] Can you hear anything when the speaker is directly hooked up to the function generator? 
+
+	\begin{align*}
+		\boxed{\text{Yes or No}} \\
+	\end{align*}
+
+	\item[3.2.3] Can you hear anything when the speaker is hooked up to the output of the amplifier? 
+
+	\begin{align*}
+		\boxed{\text{Yes or No}} \\
+	\end{align*}
+
+	\item[3.2.4] Measure $I_{BIAS1}$, $I_{BIAS2}$, and the DC voltages at $v_{OUT1}$ and $v_{OUT2}$.
+
+	\begin{align*}
+    		\boxed{I_{BIAS1} = ~~~~~~~~~~~~~~~~~~~ } \\
+		\boxed{I_{BIAS2} = ~~~~~~~~~~~~~~~~~~~ } \\
+    		\boxed{v_{OUT1,DC} = ~~~~~~~~~~~~~~~~~~~ } \\
+		\boxed{v_{OUT2,DC} = ~~~~~~~~~~~~~~~~~~~ } \\
+  	\end{align*}
+
+	\item[3.2.5] Measure $V_{BE}$ of $Q_2$. Is the DC voltage at $v_{OUT1}$ enough to bias $Q_2$ in the forward active region?
+
+	\begin{align*}
+		\boxed{V_{BE} = ~~~~~~~~~~~~~~~~~~~~~ } \\
+		\boxed{\text{Yes or No} } \\
+	\end{align*}
+
+	\item[3.2.6] Using the oscilloscope, plot both the input $v_{IN}$ and the output $v_{OUT2}$. Sketch these waveforms (a plot is on the following page).
+
+\begin{figure}[!htb]
+\begin{center}
+\begin{asy}
+import math;
+size(250,0);
+
+add(shift(-5,-4)*grid(10,8));
+
+dot((0,0),black);
+\end{asy}
+\end{center}
+\end{figure}
+	\item[3.2.7] Measure the gain $v_{out2}/v_{in}$.
+
+	\begin{align*}
+    		\boxed{\left|\frac{v_{out2}}{v_{in}}\right| = ~~~~~~~~~~~~~~~~~~~~ } \\
+  	\end{align*}
+
+	\item[3.2.8] Now increase the DC offset of the input waveform to \unit{620}{\milli\volt}. What happens to the waveform at $v_{OUT2}$?
+
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,135 @@
+\documentclass{article}
+\usepackage{ee105}
+\usepackage[cdot,amssymb]{SIunits}
+
+%% Makes figure labels bold
+\usepackage[labelfont=bf]{caption}
+
+\begin{document}
+
+%% Prevent headings on the first page, since we're not using \maketitle
+\thispagestyle{plain}
+
+%% Standard header. Title of the lab goes here.
+\lab{6}{Biasing Circuitry}
+
+\section{Objective}
+Setting up a biasing network for amplifiers often involves using transistors to build voltage and current sources to deliver the right amount of biasing goodness to the main amplifier components. In this lab, we will be exploring how to build these sources and adjust their components to exactly achieve the optimal biasing environment.  
+
+\section{Materials}
+
+\begin{table}[!htb]
+  \begin{center}
+    \begin{tabular}{|c|c|} \hline
+      Component & Quantity \\\hline
+      2N4401 NPN BJT & 1 \\
+      2N4403 PNP BJT & 2 \\
+      \unit{10}{\kilo\ohm} resistor & 1 \\
+      \unit{100}{\ohm} resistor & 1 \\
+      \unit{100}{\kilo\ohm} resistor & 1 \\
+      \unit{10}{\kilo\ohm} potentiometer & 1 \\\hline
+    \end{tabular}
+    \caption{Components used in this lab}
+    \label{components}
+  \end{center}
+\end{table}
+
+\section{Procedure}
+\subsection{Voltage Sources}
+In this part of the lab, we will use a BJT as a voltage source. In this case, we want to set up a voltage source to supply \unit{650}{\milli\volt}, a typical common emitter base bias.
+
+	\begin{figure}[!htb]
+		\begin{center}
+			\begin{asy}
+				size(100,100);
+				draw( (0,0)--(0,5)--(5,5)--(5,0)--cycle );
+				draw( (3,5)--(3,6)--(3.25,6)--(3.25,5.50)--(3.75,5.50)--(3.75,6)--(4,6)--(4,5) );
+				draw( (1,0)--(1,-2) );
+				draw( (2.5,0)--(2.5,-2) );
+				draw( (4,0)--(4,-2) );
+			\end{asy}
+		\end{center}		
+		\caption{Potentiometer}
+		\label{lab6_pot}
+	\end{figure}
+
+	\begin{figure}[!htb]
+		\input lab6_vsource1
+		\centerline{\box\graph}
+		\caption{Voltage source using a transistor}
+		\label{lab6_vsource1}
+	\end{figure}
+
+\begin{enumerate}
+	\item Before setting up the circuit for this part of the lab, be sure to setup your potentiometer so that the leftmost two terminals in Figure \ref{lab6_pot} have the MAXIMUM resistance capable across them (should be at least \unit{10}{\kilo\ohm}). Be absolutely sure that you use these terminals as the initial resistance for your circuit, otherwise your transistor will \textbf{BLOW UP!}
+	\item Set up the circuit shown in Figure \ref{lab6_vsource1} using $V_{CC} = \unit{5}{\volt}$.
+	\item Adjust the potentiometer until the output reaches \unit{650}{\milli\volt}. What is $R_C$ at this point?
+	\item Perform load-line analysis by plotting $I_{C}$ vs. $V_{OUT}$ for the transistor and for the resistor, showing the fixed point solution for $V_{OUT}$. How would we adjust the resistor to increase $V_{OUT}$?
+	\item Will the voltage source become better or worse (better defined as being closer to an ideal source) as the resistor decreases? Why?
+	\item Plot $I_{OUT}$ vs. $V_{OUT}$ using ICS to find the output impedance of the voltage source with the potentiometer resistance found in part 3.1.3. \textbf{Do not exceed \unit{700}{\milli\volt} on your sweep of $V_{OUT}$!}
+	\item Now, suppose you want to make your voltage source output \unit{1.3}{\volt}. Clearly, putting \unit{1.3}{\volt} on $V_{BE}$ of the diode connected BJT is not a good idea (please, don't even try). Draw a circuit topology to achieve this voltage without requiring a BJT to have an extremely high $V_{BE}$.
+\end{enumerate}
+
+\subsection{Current Sources}
+Voltages only get us so far! Current sources are also needed to bias transistors.
+	\begin{figure}[!htb]
+		\input lab6_csource1
+		\centerline{\box\graph}
+		\caption{Transistor current source}
+		\label{lab6_csource1}
+	\end{figure}
+
+	\begin{figure}[!htb]
+		\input lab6_csource2
+		\centerline{\box\graph}
+		\caption{Current source using transistors in parallel}
+		\label{lab6_csource2}
+	\end{figure}
+
+\begin{enumerate}
+	\item Set up the circuit shown in Figure \ref{lab6_csource1} using $V_{CC}$ = \unit{5}{\volt} and $V_{BIAS}$ = \unit{4.35}{\volt}. As you bias, be sure to check that $V_{BE}$ is less than \unit{0.65}{\volt}, otherwise your transistor will \textbf{BLOW UP!} (\warning{It is very easy to make a mistake and burn out a transistor. It is highly recommended that you set your $V_{BIAS}$ and $V_{CC}$---and check their values with the multimeter or oscilloscope---\textbf{before} you connect the transistor.})
+	\item Measure the short circuit output current.
+	\item In terms of the small-signal characteristics ($g_m$, $r_o$, $\beta$, etc.), what is the output resistance of this current source?
+	\item Sweep $V_{OUT}$ from \unit{0}{\volt} to \unit{5}{\volt} and plot $I_{OUT}$ using ICS. What happens to the output impedance as $V_{OUT}$ nears \unit{5}{\volt}? Why?
+	\item Find the output impedance at $V_{OUT} = \unit{2.5}{\volt}$.
+	\item Now let's try putting transistors in parallel to increase current! Set up the circuit shown in Figure \ref{lab6_csource2} using the same bias voltage as before ($V_{BIAS}$ = \unit{4.35}{\volt}).
+	\item What is the resulting short circuit output current?
+	\item Measure the output impedance using ICS. Explain the effect of the second transistor on the output impedance.
+\end{enumerate}
+
+\subsection{Current Mirror Bias of a Common Emitter Amplifier}
+A current mirror is nothing more than biasing a series of transistor current sources with a transistor voltage source, as shown in Figure \ref{lab6_cmirror1}. This setup is useful for injecting the same current in many places in your circuit, and also for automatically correcting itself with temperature. Referring to Figure \ref{lab6_cmirror2}, we will use a current mirror to bias a common emitter amplifier.
+
+	\begin{figure}[!htb]
+		\input lab6_cmirror1
+		\centerline{\box\graph}
+		\caption{General PNP current mirror}
+		\label{lab6_cmirror1}
+	\end{figure}
+
+\begin{enumerate}
+	\item Set up the circuit in Figure \ref{lab6_cmirror2} using $V_{CC} = \unit{12}{\volt}$, $R_{C} = \unit{10}{\kilo\ohm}$, and $R_{E} = \unit{100}{\ohm}$.
+	
+	\begin{figure}[!htb]
+		\input lab6_cmirror2
+		\centerline{\box\graph}
+		\caption{Biasing a CE amplifier with a current mirror}
+		\label{lab6_cmirror2}
+	\end{figure}
+	
+	\item Sweep $V_{IN}$ vs. $V_{OUT}$ and determine the point of maximum gain. What is $V_{IN}$ at this point?
+	\item Measure the currents $I_{C2}$ and $I_{C3}$. Do they match? 
+	\item What is the gain at this point?
+	\item Bias $V_{IN}$ for maximum gain and measure the input impedance of the amplifier.
+	\item Apply a \unit{10}{\milli\volt} amplitude, \unit{1}{\kilo\hertz} sine wave at the input and plot the output on the oscilloscope. Because of the huge gain, the output waveform could be clipped. Attach a \unit{100}{\kilo\ohm} load resistor at the output (which should make the output no longer clipped) and measure the peak-to-peak voltage across it. Using the gain you found from the sweep and the voltage across the load, find the output impedance.
+	\item How do the impedances and gain compare with a common emitter biased with a resistor instead?
+	\item Now let's check out the temperature effects.
+	\begin{enumerate}
+		\item Apply a small signal sine wave $v_{in}$ of amplitude \unit{10}{\milli\volt} at \unit{1}{\kilo\hertz}. View the output waveform on the oscilloscope.
+		\item (\textit{CAUTION: First check that the transistors are not hot before doing this.}) Heat up only one of the transistors in the current mirror by putting your finger on the transistor. Observe the effect on the output waveform.
+		\item Now put the other transistor in the current mirror between your other two fingers, thus heating both transistors up, and watch the effect on the output waveform.
+		\item Explain your observations using what you know about BJT temperature effects. How may this be an advantage of BJT biasing over resistive biasing (as shown in the prelab)?
+	\end{enumerate}
+\end{enumerate}
+
+\end{document}

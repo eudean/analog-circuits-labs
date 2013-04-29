@@ -1,0 +1,105 @@
+\documentclass{article}
+\usepackage{ee105}
+
+%% Makes figure labels bold
+\usepackage[labelfont=bf]{caption}
+
+\begin{document}
+
+%% Prevent headings on the first page, since we're not using \maketitle
+\thispagestyle{plain}
+
+%% Standard header. Title of the lab goes here.
+\lab{9}{MOS Characterization and Amplifiers}
+
+\section{Objective}
+The MOS transistor is another circuit element typically used in integrated circuits. Although they are functionally similar to BJTs and can be put into several topologies analogous to BJT circuits (such as the cascode, common drain, common gate, and common source configurations), MOS transistors are completely different in terms of their characteristics and the laws that govern their behavior. This lab will explore the differences between BJTs and MOSFETs and analyze their advantages and disadvantages.
+
+\section{Materials}
+
+\begin{table}[!htb]
+  \begin{center}
+    \begin{tabular}{|c|c|} \hline
+      Component & Quantity \\\hline
+      BS170 NMOSFET & 2 \\
+      \unit{8}{\ohm} speaker & 1 \\
+      \unit{51}{\ohm} resistor & 1 \\
+      \unit{100}{\ohm} resistor & 1 \\
+      \unit{5.1}{\kilo\ohm} resistor & 1 \\
+      \unit{51}{\kilo\ohm} resistor & 1 \\
+      \unit{10}{\micro\farad} capacitor & 1 \\\hline
+    \end{tabular}
+    \caption{Components used in this lab}
+    \label{components}
+  \end{center}
+\end{table}
+
+
+
+\section{Procedure}
+\subsection{The Three Regions of Operation}
+Similar to a BJT, a MOSFET also has several different regions of operation.
+
+	\begin{figure}[!htb]
+		\input lab9_mosfet
+		\centerline{\box\graph}
+		\caption{Setup for obtaining the I-V characteristics of an NMOS}
+		\label{operation}
+	\end{figure}
+
+\begin{enumerate}
+	\item Set up an NMOS transistor on the breadboard as shown in Figure \ref{operation}.
+	\item Using ICS, step $V_{G}$ from \unit{2}{\volt} to \unit{2.3}{\volt} in \unit{0.05}{\volt} increments and sweep $V_{D}$ from \unit{0}{\volt} to \unit{2}{\volt} to obtain the MOSFET I-V characterization curve. Print this out.
+	\item On your printout, clearly label the cutoff, triode, and saturation regions. Attach this sheet to your lab report. Approximately what criterion (i.e., what is $V_{GS}$ in relation to $V_{DS}$) determines the boundary between the saturation and triode regions?
+	\item Given a bias of $V_{GS}$ = \unit{2.1}{\volt} and $V_{DS}$ = \unit{1.5}{\volt}, extract the transconductance $g_m$ and the small signal resistance $r_o$ from your plot. What region of operation is this?
+	\item Given a bias of $V_{GS}$ = \unit{2.1}{\volt} and $V_{DS}$ = \unit{0.06}{\volt}, extract the transconductance $g_m$ and the small signal resistance $r_o$ from your plot. What region of operation is this?
+\end{enumerate}
+
+\subsection{MOSFET Model Parameters}
+The model for the MOSFET consists of several parameters. This section will attempt to extract the threshold voltage $V_{TH}$, the channel length modulation factor $\lambda$, and the constant $K_n = \frac{W}{L} \mu_n C_{ox}$.
+
+\begin{enumerate}
+	\item Using the I-V characteristic plot from before, extract $\lambda$ from the slope of the plot. Note that this will vary somewhat depending on which $V_{GS}$ you use.
+	
+		\begin{figure}[!htb]
+			\input lab9_mosdiode
+			\centerline{\box\graph}
+			\caption{Diode connected MOSFET}
+			\label{diode}
+		\end{figure}
+		
+	\item Now, diode connect the NMOS as shown in figure \ref{diode}. Sweep $V_{G}$ from \unit{0}{\volt} to \unit{2.5}{\volt} and measure the current $I_{D}$.
+	\item Using Excel, plot $(I_{D})^{\frac{1}{2}}$ vs. $V_{G}$. Print and attach this plot to your report.
+	\item $(1/2K_n)^{1/2}$ is the slope of the linear portion of the curve. Find $K_n$. \hint{If you are an Excel guru, you can probably find the slope and intercept easily in Excel. For the rest of you, it is probably easier to do it by hand.}
+	\item The threshold voltage $V_{TH}$ can be found by measuring where the linear portion of the $\left(I_{D}\right)^{\frac{1}{2}}$ vs. $V_{G}$ curve would hit the $V_{G}$ axis if it was extended. Find $V_{TH}$. 
+\end{enumerate}
+
+\subsection{Simple Two-Stage Microphone to Speaker MOS Amplifier}
+If you haven't noticed by now, finding input and output impedances is boring. So instead, we will build a two-stage MOS microphone to speaker amplifier and analyze its performance.
+
+	\begin{figure}[!htb]
+		\input lab9_2stage
+		\centerline{\box\graph}
+		\caption{Microphone to speaker amplifier}
+		\label{amp}
+	\end{figure}
+
+\begin{enumerate}
+	\item Set up the circuit shown in Figure \ref{amp}. Let $V_{DD}$ = \unit{6}{\volt}, $R_D$ = \unit{51}{\kilo\ohm}, and $R_S$ = \unit{51}{\ohm}.
+	\item Identify the transistor configurations of the two stages (e.g., common base, common source, etc.).
+	\item Using ICS, find the DC bias of $V_{IN}$ for maximum voltage gain. Find the gain and the output voltage swing at this DC bias point. What problems might we encounter with biasing exactly at the point of maximum gain?
+		
+		\begin{figure}[!htb]
+			\input lab9_micin
+			\centerline{\box\graph}
+			\caption{Microphone input}
+			\label{mic}
+		\end{figure}
+	
+	\item The microphone needs a bit of DC current flowing through it in order to function. Set up a resistive divider for the microphone as shown in Figure \ref{mic}. Let $R_1$ = \unit{5.1}{\kilo\ohm}. What problems might we run into if the resistor was too big or too small?
+	\item Adjust the supply voltage $V_S$ (using the analog knob on the DC power supply) until $V_{OUT}$ of the voltage divider is at the $V_{IN} = \unit{1.95}{\volt}$.
+	\item Attach the output of this resistive divider to the input of the amplifier and attach the speaker to the output of the amplifier. Remember to capacitively couple the output!
+	\item If you built it all correctly, you should be able to hear some sounds from the speaker when someone speaks into the microphone.
+\end{enumerate}
+
+\end{document}

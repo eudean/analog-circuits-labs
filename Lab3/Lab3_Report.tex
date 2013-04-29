@@ -1,0 +1,146 @@
+\documentclass{article}
+\usepackage{ee105}
+
+%% Makes figure labels bold
+\usepackage[labelfont=bf]{caption}
+
+\begin{document}
+
+%% Prevent headings on the first page, since we're not using \maketitle
+\thispagestyle{plain}
+
+%% Standard header. Title of the lab goes here.
+\report{3}{Bipolar Junction Transistor Characterization}
+\name
+
+\begin{enumerate}
+\item[3.1 \& 3.2] For each measurement of $V_{BE}$, $V_{BC}$, $I_B$, and $I_C$, fill in the corresponding entry in Table \ref{MeasurementTable} and compute the resulting $\beta$ and $\alpha$.
+  
+  \begin{table}[!htb]
+    \begin{center}
+      \begin{tabular}{|c|c|c|c|c|} \hline
+	Parameters & Forward Active & Saturation & Cutoff & Reverse Active \\\hline \hline
+	$V_{BE}$ & & & & \\ \hline
+	$V_{BC}$ & & & & \\ \hline
+	$I_B$ & & & & \\ \hline
+	$I_C$ & & & & \\ \hline
+	$\beta$ & & N/A & N/A & \\ \hline
+	$\alpha$ & & N/A & N/A & \\ \hline
+      \end{tabular}
+      \caption{Regions of operations and measurements}
+      \label{MeasurementTable}
+    \end{center}
+  \end{table}
+
+\item[3.1.2] Measure $V_{BE}$ and $V_{BC}$. What is the region of operation?
+  \\~\\~\\
+  \begin{align*}
+    \boxed{V_{BE} = ~~~~~~~~~~~~~~~~~~~~~~ } \\
+    \boxed{V_{BC} = ~~~~~~~~~~~~~~~~~~~~~~ } \\
+  \end{align*}
+  
+\item[3.1.3] Measure $I_B$ and compute $\beta$.
+  \\~\\~\\
+  \begin{align*}
+    \boxed{I_B   = ~~~~~~~~~~~~~~~~~~~~~~ } \\
+    \boxed{\beta = ~~~~~~~~~~~~~~~~~~~~~~ } \\
+  \end{align*}
+
+\item[3.1.4] Calculate $I_E$ using $\alpha$ and measure $I_E$. Do the results agree?
+  \\~\\~\\~\\~\\
+  \begin{align*}
+    \boxed{\alpha = ~~~~~~~~~~~~~~~~~~~~~~ } \\
+    \text{(Calculated) } \boxed{I_{E} = ~~~~~~~~~~~~~~~~~~~~~~ } \\
+    \text{(Measured) } \boxed{I_{E} = ~~~~~~~~~~~~~~~~~~~~~~ } \\
+  \end{align*} 
+  
+\item[3.1.5] Measure $I_B$ and $I_C$ with your fingers around the BJT. How do the values compare to the values without heating the BJT?
+  \\~\\~\\~\\~\\
+  \begin{align*}
+    \boxed{I_{B} = ~~~~~~~~~~~~~~~~~~~~~~ } \\
+    \boxed{I_{C} = ~~~~~~~~~~~~~~~~~~~~~~ } \\
+  \end{align*}
+
+\item[3.1.6] Explain, using the equation you know for collector current, how you'd expect $I_C$ to vary with temperature. Does this agree with your experimental results? If not, explain why this might be the case. \hint{$I_S$ depends on the intrinsic carrier concentration $n_i$ and the diffusion coefficients $D_n$ and $D_p$. Intuitively, how would $n_i$, $D_n$, and $D_p$ change with temperature? How would $I_S$ change with temperature as a result?}
+  \\~\\~\\~\\~\\~\\~\\~\\~\\~\\~\\~\\
+  
+\item[3.1.7] Does $\beta$ agree with the value listed in the datasheet? If not, explain why you might see discrepancies.
+  \\~\\~\\~\\~\\
+
+\item[3.1.8] Set $V_{BB}$ to \unit{4}{\volt} and $V_{CC}$ to \unit{2}{\volt}. Measure $I_B$, $I_C$, $V_{BE}$, and $V_{BC}$. What is the region of operation?
+  \\~\\~\\
+  \begin{align*}
+    \boxed{I_B    = ~~~~~~~~~~~~~~~~~~~~~~ } \\
+    \boxed{I_C    = ~~~~~~~~~~~~~~~~~~~~~~ } \\
+    \boxed{V_{BE} = ~~~~~~~~~~~~~~~~~~~~~~ } \\
+    \boxed{V_{BC} = ~~~~~~~~~~~~~~~~~~~~~~ } \\
+  \end{align*}
+
+\item[3.1.9] Set $V_{BB}$ to \unit{-3}{\volt} and $V_{CC}$ to \unit{5}{\volt}. Measure $I_B$, $I_C$, $V_{BE}$, and $V_{BC}$. What is the region of operation?
+  \\~\\~\\
+  \begin{align*}
+    \boxed{I_B    = ~~~~~~~~~~~~~~~~~~~~~~ } \\
+    \boxed{I_C    = ~~~~~~~~~~~~~~~~~~~~~~ } \\
+    \boxed{V_{BE} = ~~~~~~~~~~~~~~~~~~~~~~ } \\
+    \boxed{V_{BC} = ~~~~~~~~~~~~~~~~~~~~~~ } \\
+  \end{align*}
+
+\item[3.1.10] Swap the emitter and collector. Set $V_{BB}$ to \unit{4}{\volt} and keep $V_{CC}$ at \unit{5}{\volt}. Measure $I_B$, $I_C$, $V_{BE}$, and $V_{BC}$. What is the region of operation?
+  \\~\\~\\
+  \begin{align*}
+    \boxed{I_B    = ~~~~~~~~~~~~~~~~~~~~~~ } \\
+    \boxed{I_C    = ~~~~~~~~~~~~~~~~~~~~~~ } \\
+    \boxed{V_{BE} = ~~~~~~~~~~~~~~~~~~~~~~ } \\
+    \boxed{V_{BC} = ~~~~~~~~~~~~~~~~~~~~~~ } \\
+  \end{align*}
+
+Use all of the data you've collected up to this point to fill out Table \ref{MeasurementTable}.
+  
+\item[3.2.2] Attach the plot of the I-V curve to this worksheet. Label the two regions of operation and draw the boundary between them.
+
+\item[3.2.3] Use the I-V curve to determine $V_A$.
+  \begin{align*}
+    \boxed{V_A = ~~~~~~~~~~~~~~~~~~~~~~ }
+  \end{align*}
+
+\item[3.2.4] Repeat your calculation of $V_A$ for base voltages of \unit{0.625}{\volt}, \unit{0.65}{\volt}, \unit{0.675}{\volt}, and \unit{0.7}{\volt} (you can step the base voltage in ICS to get this data). Does $V_A$ depend on $V_{B}$? Why?
+  \\~\\~\\~\\~\\
+  \begin{table}[!htb]
+    \begin{center}
+      \begin{tabular}{|c|c|} \hline
+	$V_B$ & $V_A$ \\ \hline \hline
+	\unit{0.600}{\volt} & ~~~~~~~ \\ \hline
+	\unit{0.625}{\volt} & \\ \hline
+	\unit{0.650}{\volt} & \\ \hline
+	\unit{0.675}{\volt} & \\ \hline
+	\unit{0.700}{\volt} & \\ \hline
+      \end{tabular}
+      \caption{Early voltage calculations}
+      \label{Early}
+    \end{center}
+  \end{table}
+  
+\item[3.3.2] Attach the plot of the I-V curve to this worksheet. What semiconductor device does this I-V curve look like? 
+  \\~\\~\\
+  
+\item[3.4.2] Measure $I_{B1}$, $I_{C1}$, $I_{B2}$, and $I_{C2}$.  Calculate $\beta_1$ and $\beta_2$.\\~\\~\\~\\~\\
+  \begin{align*}
+    \boxed{I_{B1} = ~~~~~~~~~~~~~~~~~~~~~~ } \\
+    \boxed{I_{C1} = ~~~~~~~~~~~~~~~~~~~~~~ } \\
+    \boxed{I_{B2} = ~~~~~~~~~~~~~~~~~~~~~~ } \\
+    \boxed{I_{C2} = ~~~~~~~~~~~~~~~~~~~~~~ } \\
+    \boxed{\beta_1 = ~~~~~~~~~~~~~~~~~~~~~~~ } \\
+    \boxed{\beta_2 = ~~~~~~~~~~~~~~~~~~~~~~~ } \\
+  \end{align*}
+  
+  
+\item[3.4.3] What is the overall current gain, $\beta_{tot}$? Use the formula you derived in the prelab to calculate the total current gain from $\beta_1$ and $\beta_2$ and compare the calculation to your measurement.
+  \\~\\~\\~\\~\\~\\~\\
+  \begin{align*}
+    \text{(Measured) } \boxed{\beta_{tot} = ~~~~~~~~~~~~~~~~~~~~~ } \\
+    \text{(Calculated) } \boxed{\beta_{tot} = ~~~~~~~~~~~~~~~~~~~~~ } \\
+  \end{align*}
+  
+\end{enumerate}
+
+\end{document}

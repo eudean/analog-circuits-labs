@@ -1,0 +1,165 @@
+\expandafter\ifx\csname graph\endcsname\relax
+   \csname newbox\expandafter\endcsname\csname graph\endcsname
+\fi
+\ifx\graphtemp\undefined
+  \csname newdimen\endcsname\graphtemp
+\fi
+\expandafter\setbox\csname graph\endcsname
+ =\vtop{\vskip 0pt\hbox{%
+    \special{pn 11}%
+    \special{pa 125 1200}%
+    \special{pa 125 1325}%
+    \special{fp}%
+    \special{pa 208 1325}%
+    \special{pa 42 1325}%
+    \special{fp}%
+    \special{pa 181 1356}%
+    \special{pa 69 1356}%
+    \special{fp}%
+    \special{pa 161 1388}%
+    \special{pa 89 1388}%
+    \special{fp}%
+    \special{pa 125 1200}%
+    \special{pa 125 950}%
+    \special{fp}%
+    \special{ar 125 825 125 125 0 6.28319}%
+    \graphtemp=.5ex
+    \advance\graphtemp by 0.888in
+    \rlap{\kern 0.125in\lower\graphtemp\hbox to 0pt{\hss $-$\hss}}%
+    \graphtemp=.5ex
+    \advance\graphtemp by 0.763in
+    \rlap{\kern 0.125in\lower\graphtemp\hbox to 0pt{\hss $+$\hss}}%
+    \special{pa 125 700}%
+    \special{pa 125 450}%
+    \special{fp}%
+    \graphtemp=.5ex
+    \advance\graphtemp by 0.825in
+    \rlap{\kern 0.000in\lower\graphtemp\hbox to 0pt{\hss \hbox{$\:$}$ V_{BIAS}$\hbox{$\:$}}}%
+    \special{pa 125 450}%
+    \special{pa 375 450}%
+    \special{fp}%
+    \special{ar 500 450 125 125 0 6.28319}%
+    \special{ar 458 450 42 42 -3.141593 0.000000}%
+    \special{ar 542 450 42 42 0.000000 3.141593}%
+    \special{pa 625 450}%
+    \special{pa 875 450}%
+    \special{fp}%
+    \graphtemp=\baselineskip
+    \multiply\graphtemp by 1
+    \divide\graphtemp by 2
+    \advance\graphtemp by .5ex
+    \advance\graphtemp by 0.450in
+    \rlap{\kern 0.375in\lower\graphtemp\hbox to 0pt{\hss \hbox{$\:$}$ -$\hbox{$\:$}}}%
+    \graphtemp=\baselineskip
+    \multiply\graphtemp by 1
+    \divide\graphtemp by 2
+    \advance\graphtemp by .5ex
+    \advance\graphtemp by 0.575in
+    \rlap{\kern 0.500in\lower\graphtemp\hbox to 0pt{\hss \hbox{$\:$}$ v_{in}$\hbox{$\:$}\hss}}%
+    \graphtemp=\baselineskip
+    \multiply\graphtemp by 1
+    \divide\graphtemp by 2
+    \advance\graphtemp by .5ex
+    \advance\graphtemp by 0.450in
+    \rlap{\kern 0.625in\lower\graphtemp\hbox to 0pt{\hbox{$\:$}$ +$\hbox{$\:$}\hss}}%
+    \special{pa 875 450}%
+    \special{pa 1125 450}%
+    \special{pa 1146 408}%
+    \special{pa 1188 492}%
+    \special{pa 1229 408}%
+    \special{pa 1271 492}%
+    \special{pa 1313 408}%
+    \special{pa 1354 492}%
+    \special{pa 1375 450}%
+    \special{pa 1625 450}%
+    \special{fp}%
+    \graphtemp=\baselineskip
+    \multiply\graphtemp by 1
+    \divide\graphtemp by 2
+    \advance\graphtemp by .5ex
+    \advance\graphtemp by 0.492in
+    \rlap{\kern 1.250in\lower\graphtemp\hbox to 0pt{\hss \hbox{$\:$}$ R_S$\hbox{$\:$}\hss}}%
+    \special{pa 1950 825}%
+    \special{pa 1950 600}%
+    \special{pa 1939 600}%
+    \special{fp}%
+    \special{pa 1950 75}%
+    \special{pa 1950 300}%
+    \special{pa 1939 300}%
+    \special{fp}%
+    \special{pa 1750 550}%
+    \special{pa 1750 350}%
+    \special{fp}%
+    \special{pa 1625 450}%
+    \special{pa 1750 450}%
+    \special{fp}%
+    \special{pa 1950 600}%
+    \special{pa 1750 510}%
+    \special{fp}%
+    \special{sh 1.000}%
+    \special{pn 1}%
+    \special{pa 1835 518}%
+    \special{pa 1900 578}%
+    \special{pa 1813 569}%
+    \special{pa 1835 518}%
+    \special{fp}%
+    \special{pn 11}%
+    \special{pa 1824 543}%
+    \special{pa 1800 533}%
+    \special{fp}%
+    \special{pa 1950 300}%
+    \special{pa 1750 390}%
+    \special{fp}%
+    \graphtemp=.5ex
+    \advance\graphtemp by 0.000in
+    \rlap{\kern 1.913in\lower\graphtemp\hbox to 0pt{\hss $V_{CC} = \unit{5}{\volt}$\hss}}%
+    \special{pa 1950 75}%
+    \special{pa 1838 75}%
+    \special{fp}%
+    \special{pa 1838 75}%
+    \special{pa 2063 75}%
+    \special{fp}%
+    \special{pa 1950 825}%
+    \special{pa 2700 825}%
+    \special{fp}%
+    \special{sh 1.000}%
+    \special{ar 2700 825 20 20 0 6.28319}%
+    \graphtemp=\baselineskip
+    \multiply\graphtemp by 1
+    \divide\graphtemp by 2
+    \advance\graphtemp by .5ex
+    \advance\graphtemp by 0.845in
+    \rlap{\kern 2.700in\lower\graphtemp\hbox to 0pt{\hss \hbox{$\:$}$ v_{OUT}$\hbox{$\:$}\hss}}%
+    \special{pa 1950 825}%
+    \special{pa 1950 981}%
+    \special{pa 1992 1002}%
+    \special{pa 1908 1044}%
+    \special{pa 1992 1085}%
+    \special{pa 1908 1127}%
+    \special{pa 1992 1169}%
+    \special{pa 1908 1210}%
+    \special{pa 1950 1231}%
+    \special{pa 1950 1388}%
+    \special{fp}%
+    \graphtemp=.5ex
+    \advance\graphtemp by 1.106in
+    \rlap{\kern 1.908in\lower\graphtemp\hbox to 0pt{\hss \hbox{$\:$}$ R_E$\hbox{$\:$}}}%
+    \graphtemp=.5ex
+    \advance\graphtemp by 1.106in
+    \rlap{\kern 1.992in\lower\graphtemp\hbox to 0pt{\hbox{$\:$}$ 1k\Omega$\hbox{$\:$}\hss}}%
+    \special{pa 1950 1388}%
+    \special{pa 1950 1513}%
+    \special{fp}%
+    \special{pa 2033 1513}%
+    \special{pa 1867 1513}%
+    \special{fp}%
+    \special{pa 2006 1544}%
+    \special{pa 1894 1544}%
+    \special{fp}%
+    \special{pa 1986 1575}%
+    \special{pa 1914 1575}%
+    \special{fp}%
+    \hbox{\vrule depth1.575in width0pt height 0pt}%
+    \kern 2.720in
+  }%
+}%

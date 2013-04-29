@@ -1,0 +1,91 @@
+\expandafter\ifx\csname graph\endcsname\relax
+   \csname newbox\expandafter\endcsname\csname graph\endcsname
+\fi
+\ifx\graphtemp\undefined
+  \csname newdimen\endcsname\graphtemp
+\fi
+\expandafter\setbox\csname graph\endcsname
+ =\vtop{\vskip 0pt\hbox{%
+    \special{pn 11}%
+    \special{pa 113 1575}%
+    \special{pa 112 1700}%
+    \special{fp}%
+    \special{pa 196 1700}%
+    \special{pa 29 1700}%
+    \special{fp}%
+    \special{pa 168 1731}%
+    \special{pa 57 1731}%
+    \special{fp}%
+    \special{pa 148 1763}%
+    \special{pa 77 1763}%
+    \special{fp}%
+    \special{pa 113 1575}%
+    \special{pa 113 1325}%
+    \special{pa 71 1304}%
+    \special{pa 154 1263}%
+    \special{pa 71 1221}%
+    \special{pa 154 1179}%
+    \special{pa 71 1138}%
+    \special{pa 154 1096}%
+    \special{pa 113 1075}%
+    \special{pa 113 825}%
+    \special{fp}%
+    \graphtemp=.5ex
+    \advance\graphtemp by 1.200in
+    \rlap{\kern 0.154in\lower\graphtemp\hbox to 0pt{\hbox{$\:$}$ R_{L}$\hbox{$\:$}\hss}}%
+    \graphtemp=\baselineskip
+    \multiply\graphtemp by 1
+    \divide\graphtemp by 2
+    \advance\graphtemp by .5ex
+    \advance\graphtemp by 1.325in
+    \rlap{\kern 0.113in\lower\graphtemp\hbox to 0pt{\hss \hbox{$\:$}$ -$\hbox{$\:$}}}%
+    \graphtemp=.5ex
+    \advance\graphtemp by 1.200in
+    \rlap{\kern 0.071in\lower\graphtemp\hbox to 0pt{\hss \hbox{$\:$}$ V_{OUT}$\hbox{$\:$}}}%
+    \graphtemp=\baselineskip
+    \multiply\graphtemp by -1
+    \divide\graphtemp by 2
+    \advance\graphtemp by .5ex
+    \advance\graphtemp by 1.075in
+    \rlap{\kern 0.113in\lower\graphtemp\hbox to 0pt{\hss \hbox{$\:$}$ +$\hbox{$\:$}}}%
+    \special{pa 113 75}%
+    \special{pa 113 325}%
+    \special{pa 154 346}%
+    \special{pa 71 387}%
+    \special{pa 154 429}%
+    \special{pa 71 471}%
+    \special{pa 154 512}%
+    \special{pa 71 554}%
+    \special{pa 113 575}%
+    \special{pa 113 825}%
+    \special{fp}%
+    \graphtemp=.5ex
+    \advance\graphtemp by 0.450in
+    \rlap{\kern 0.071in\lower\graphtemp\hbox to 0pt{\hss \hbox{$\:$}$ R$\hbox{$\:$}}}%
+    \special{sh 1.000}%
+    \special{pn 1}%
+    \special{pa 235 600}%
+    \special{pa 210 700}%
+    \special{pa 185 600}%
+    \special{pa 235 600}%
+    \special{fp}%
+    \special{pn 11}%
+    \special{pa 210 200}%
+    \special{pa 210 600}%
+    \special{fp}%
+    \graphtemp=.5ex
+    \advance\graphtemp by 0.450in
+    \rlap{\kern 0.210in\lower\graphtemp\hbox to 0pt{\hbox{$\:$}$ I_{OUT}$\hbox{$\:$}\hss}}%
+    \graphtemp=.5ex
+    \advance\graphtemp by 0.000in
+    \rlap{\kern 0.113in\lower\graphtemp\hbox to 0pt{\hss $V_{CC}$\hss}}%
+    \special{pa 113 75}%
+    \special{pa 225 75}%
+    \special{fp}%
+    \special{pa 225 75}%
+    \special{pa 0 75}%
+    \special{fp}%
+    \hbox{\vrule depth1.763in width0pt height 0pt}%
+    \kern 0.225in
+  }%
+}%

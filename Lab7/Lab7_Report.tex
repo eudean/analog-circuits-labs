@@ -1,0 +1,102 @@
+\documentclass{article}
+\usepackage{ee105}
+
+%% Makes figure labels bold
+\usepackage[labelfont=bf]{caption}
+
+\begin{document}
+
+%% Prevent headings on the first page, since we're not using \maketitle
+\thispagestyle{plain}
+
+%% Standard header. Title of the lab goes here.
+\report{7}{Frequency Response}
+\name
+
+\begin{enumerate}
+
+	\item[3.1.3] Measure $I_{BIAS}$ and the DC voltage at $V_{OUT}$.
+
+	\begin{align*}
+    		\boxed{I_{BIAS} = ~~~~~~~~~~~~~~~~~~~~ } \\
+    		\boxed{V_{OUT} = ~~~~~~~~~~~~~~~~~~~~ }
+  	\end{align*}
+
+	\item[3.1.4] Sketch the waveforms at $v_{IN}$ and $v_{OUT}$.
+\begin{figure}[!htb]
+\begin{center}
+\begin{asy}
+import math;
+size(250,0);
+
+add(shift(-5,-4)*grid(10,8));
+
+dot((0,0),black);
+\end{asy}
+\end{center}
+\end{figure}
+	
+	\item[3.1.5] What are the magnitude and phase of $v_{out}/v_{in}$ measured from the oscilloscope?
+
+	\begin{align*}
+    		\boxed{\left|v_{out}/v_{in}\right| = ~~~~~~~~~~~~~~~~~~~~ } \\
+    		\boxed{\angle v_{out}/v_{in}  = ~~~~~~~~~~~~~~~~~~~~ }
+  	\end{align*}
+
+\pagebreak
+
+	\item[3.1.7] What are the magnitude and phase of $v_{out}/v_{in}$ measured from the software? How different is this measurement compared to the one obtained with the oscilloscope? \\~\\~\\~\\~\\
+
+	\begin{align*}
+    		\boxed{\left|v_{out}/v_{in}\right| = ~~~~~~~~~~~~~~~~~~~~ } \\
+    		\boxed{\angle v_{out}/v_{in} = ~~~~~~~~~~~~~~~~~~~~ }
+  	\end{align*}
+
+	\item[3.1.8] What is the frequency at which the gain drops by 3 dB? What is the phase at this frequency? Is the phase consistent with the magnitude? \\~\\~\\
+
+	\begin{align*}
+    		\boxed{f_{\unit{-3}{\deci\bel}} = ~~~~~~~~~~~~~~~~~~~~ } \\
+    		\boxed{\left.\angle v_{out}/v_{in}\right|_{f_{\unit{-3}{\deci\bel}}} = ~~~~~~~~~~~~~~~~~~~~ }
+  	\end{align*}
+
+	\item[3.1.9] Attach the Bode plot to the Lab Report.
+
+	\item[3.2.2] Frequency response of the amplifier with a Miller capacitor. 
+
+	\begin{align*}
+    		\boxed{f_{\unit{-3}{\deci\bel}} = ~~~~~~~~~~~~~~~~~~~~ } \\
+    		\boxed{\left.\angle v_{out}/v_{in}\right|_{f_{\unit{-3}{\deci\bel}}} = ~~~~~~~~~~~~~~~~~~~~ }
+  	\end{align*}
+
+	Attach the Bode plot to the Lab Report.
+
+	\item[3.2.3] How does the dominant pole of this amplifier compare to the dominant pole of the previous amplifier? Is this expected? \\~\\~\\~\\~\\
+
+	\item[3.2.4] If we are to design an amplifier with high bandwidth, is a transistor with large $C_{\mu}$ desirable? \\~\\~\\~\\~\\
+
+	\item[3.3.2] Frequency response of the amplifier with an output capacitor.
+
+	\begin{align*}
+    		\boxed{f_{\unit{-3}{\deci\bel}} = ~~~~~~~~~~~~~~~~~~~~ } \\
+    		\boxed{\left.\angle v_{out}/v_{in}\right|_{f_{\unit{-3}{\deci\bel}}} = ~~~~~~~~~~~~~~~~~~~~ }
+  	\end{align*}
+
+	Attach the Bode plot to the Lab Report.
+
+	\item[3.3.3] How does the dominant pole of this amplifier compare to the dominant pole of the previous two amplifiers? Is this expected? \\~\\~\\~\\~\\
+
+	\item[3.4.2] Frequency response of the common collector amplifier.
+
+	\begin{align*}
+    		\boxed{f_{\unit{-3}{\deci\bel}} = ~~~~~~~~~~~~~~~~~~~~ } \\
+    		\boxed{\left.\angle v_{out}/v_{in}\right|_{f_{\unit{-3}{\deci\bel}}} = ~~~~~~~~~~~~~~~~~~~~ }
+  	\end{align*}
+
+	Attach the Bode plot to the Lab Report.
+
+	\item[3.4.3] How does the bandwidth of this amplifier compare to the bandwidths of the previous amplifiers? \\~\\~\\~\\~\\
+	
+
+\end{enumerate}
+
+\end{document}

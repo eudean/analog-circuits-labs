@@ -1,0 +1,69 @@
+\documentclass{article}
+\usepackage{ee105}
+
+%% Makes figure labels bold
+\usepackage[labelfont=bf]{caption}
+
+\begin{document}
+
+%% Prevent headings on the first page, since we're not using \maketitle
+\thispagestyle{plain}
+
+%% Standard header. Title of the lab goes here.
+\prelab{3}{Bipolar Junction Transistor Characterization}
+\name
+
+\begin{enumerate}
+\item
+  For the NPN device shown below in Figure \ref{prelab1}, fill in $I_C$, $I_B$, and $I_E$ next to the current arrows.
+  
+  \begin{figure}[!htb]
+    \input lab3_prelab_bjt0
+    \centerline{\box\graph}
+    \caption{A simple NPN device for warming up}
+    \label{prelab1}
+  \end{figure}
+    
+\item What is $\beta$ in terms of $I_C$ and $I_B$? What is $\alpha$ in terms of $I_C$ and $I_E$? Express $\alpha$ in terms of $\beta$.
+  \begin{align*}
+    \boxed{\beta\left(I_C, I_B\right) = \frac{}{}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~} \\
+    \boxed{\alpha\left(I_C, I_E\right) = \frac{}{}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~} \\
+    \boxed{\alpha\left(\beta\right) = \frac{}{}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~} \\
+  \end{align*}
+\item
+  SPICE
+
+  \begin{figure}[!htb]
+    \input lab3_prelab_bjt
+    \centerline{\box\graph}
+    \caption{Circuit to simulate in SPICE}
+    \label{prelab2}
+  \end{figure}
+
+  \begin{itemize}
+  \item Write a SPICE netlist for the BJT test circuit shown in Figure \ref{prelab2}. \textit{Refer to the \href{\baseurl/tutorials/HSPICE_Tutorial.pdf}{HSPICE Tutorial} if you have trouble with SPICE.}    
+  \item Use the 2N4401 SPICE model provided on the course website.
+  \item Using the \verb|.dc| command, sweep $V_{CC}$ from \unit{0}{\volt} to \unit{5}{\volt} in \unit{0.01}{\volt} increments and step $V_{BB}$ from \unit{0.6}{\volt} to \unit{0.7}{\volt} in \unit{0.025}{\volt} increments.
+  \item Run the simulation and check the output file for any errors.  
+  \item If there are no errors, plot $I_{CC}$ versus $V_{CC}$ and print out a copy of the plot. \note{If you notice that $I_{CC}$ is negative, use Awaves to plot the absolute value of $I_{CC}$. $I_{CC}$ appears to be negative because SPICE defines $I_{CC}$ to be going out of the BJT.}
+  \end{itemize}
+  
+  
+\item The configuration shown below in Figure \ref{darlington1} is known as the Darlington pair. Assume $Q_1$ has a DC current gain of $\beta_1$ and $Q_2$ has a DC current gain of $\beta_2$. Derive the overall current gain, $\beta_{tot} = I_{C2}/I_{B1}$, as a function of $\beta_1$ and $\beta_2$. Do not neglect any currents.
+  
+  \begin{figure}[!htb]
+    \input lab3_prelab_darlington
+    \centerline{\box\graph}
+    \caption{Darlington configuration}
+    \label{darlington1}
+  \end{figure}
+
+  ~\\~\\~\\~\\~\\~\\~\\~\\
+
+  \begin{align*}
+    \boxed{\beta_{tot} = ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}
+  \end{align*}
+  
+\end{enumerate}
+
+\end{document}

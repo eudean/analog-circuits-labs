@@ -1,0 +1,113 @@
+\documentclass{article}
+\usepackage{ee105}
+
+%% Makes figure labels bold
+\usepackage[labelfont=bf]{caption}
+
+\begin{document}
+
+%% Prevent headings on the first page, since we're not using \maketitle
+\thispagestyle{plain}
+
+%% Standard header. Title of the lab goes here.
+\lab{3}{Bipolar Junction Transistor Characterization}
+
+\section{Objective}
+The BJT was invented in 1948 by William Shockley at Bell Labs, and became the first mass-produced transistor. Having a good grasp of the physics of the BJT is key to understanding its operation and applications. In this lab, we will explore the BJT's four operation regions and determine its characteristic values: DC current gain $\beta$ and Early voltage $V_A$. The transistor we will use is the 2N4401, an NPN device. It is strongly suggested that you read and understand the section on BJT physics before beginning this experiment.
+
+\section{Materials}
+
+\begin{table}[!htb]
+  \begin{center}
+    \begin{tabular}{|c|c|} \hline
+      Component & Quantity \\\hline
+      2N4401 NPN BJT & 2 \\
+      \unit{1}{\mega\ohm} resistor & 1 \\
+      \unit{5}{\kilo\ohm} resistor & 1 \\
+      \unit{100}{\ohm} resistor & 1 \\\hline
+    \end{tabular}
+    \caption{Components used in this lab}
+    \label{components}
+  \end{center}
+\end{table}
+
+\section{Procedure}
+
+\subsection{Determining the Region of Operation}
+
+\begin{enumerate}
+\item Set up the circuit shown in Figure \ref{bjt}, with $R_B = \unit{1}{\mega\ohm}$, $R_C = \unit{5}{\kilo\ohm}$, and $R_E = \unit{100}{\ohm}$. Set $V_{CC}$ to \unit{5}{\volt}.
+
+	\begin{figure}[!htb]
+		\input lab3_bjt
+		\centerline{\box\graph}
+		\caption{BJT measurement setup for this lab}
+		\label{bjt}
+	\end{figure}
+
+\item Increase $V_{BB}$ until $I_C = \unit{0.5}{\milli\ampere}$. Measure $V_{BE}$ and $V_{BC}$. What is the region of operation of the transistor? \\
+
+\textit{Warning: Never set $V_{BE}$ higher than \unit{5}{\volt} for any of the transistors we use. Doing so will permanently damage the transistor.}
+
+\item Now measure $I_B$. What is the value of $\beta$?
+
+\item From the value found above, calculate $\alpha$. Use $\alpha$ to calculate $I_E$, then measure $I_E$ and check if the values agree.
+
+\item Let's examine the temperature dependence of collector current. Put two fingers around $Q_1$ to heat it, then measure $I_B$ and $I_C$ (have your partner heat the BJT while you measure the currents if you're having trouble doing both at the same time). How does $I_C$ compare to the value you measured before you heated the transistor?
+
+\item Explain, using the equation you know for collector current, how you'd expect $I_C$ to vary with temperature. Does this agree with your experimental results? If not, explain why this might be the case. \hint{$I_S$ depends on the intrinsic carrier concentration $n_i$ and the diffusion coefficients $D_n$ and $D_p$. Intuitively, how would $n_i$, $D_n$, and $D_p$ change with temperature? How would $I_S$ change with temperature as a result?}
+
+\item Look at the datasheet for the 2N4401. Does $\beta$ (called $h_{FE}$ in the datasheet) agree with the values given in the datasheet (\hint{A plot of $h_{FE}$ versus $I_C$ is given under ``Typical Characteristics''})? If the values do not agree, explain why you might see discrepancies.
+
+\item Set $V_{BB}$ to \unit{4}{\volt} and $V_{CC}$ to \unit{2}{\volt}. Measure $I_B$, $I_C$, $V_{BE}$, and $V_{BC}$. What is the region of operation of the BJT?
+
+\item Set $V_{BB}$ to \unit{-3}{\volt} and $V_{CC}$ to \unit{5}{\volt}. Measure $I_B$, $I_C$, $V_{BE}$, and $V_{BC}$. What is the region of operation of the BJT?
+
+\item Swap the emitter and the collector of the BJT in the circuit (you can do this by physically turning the device to face the opposite direction). Set $V_{BB}$ to \unit{4}{\volt} and keep $V_{CC}$ at \unit{5}{\volt}. Measure $I_B$, $I_C$, $V_{BE}$, and $V_{BC}$. What is the region of operation of the BJT?
+
+\end{enumerate}
+
+\subsection{Determining the Early Voltage Using the HP4155}
+
+Increasing the collector-base bias widens the depletion region at the interface. As a result, recombination decreases because the base is more depleted in mobile holes, which are the main recombination source for injected electrons from the emitter. The widened depletion region also provides a greater electric field to sweep the injected electrons to the collector. Both of these effects result in an additional dependence of $I_C$ on $V_{CE}$. The Early voltage is used to model this dependence.
+
+\begin{enumerate}
+\item Connect a BJT to the parameter analyzer's test fixture (without any resistors). Use ICS to bias the emitter at \unit{0}{\volt} and the base at \unit{0.6}{\volt}. Sweep the collector from \unit{0}{\volt} to \unit{5}{\volt}. Measure the current through the collector terminal.
+
+\item Run the measurement and plot $I_C$ versus $V_{C}$, the collector voltage. What two regions of operation are shown and where is the boundary?
+
+\item Use this plot to determine the Early voltage, $V_A$. \hint{The \href{\baseurl/tutorials/HP4155_Tutorial.pdf}{HP4155 Tutorial} has instructions that should help you calculate the Early voltage using Excel.}
+
+\item Repeat your calculation of $V_A$ for base voltages of \unit{0.625}{\volt}, \unit{0.65}{\volt}, \unit{0.675}{\volt}, and \unit{0.7}{\volt} (you can step the base voltage in ICS to get this data). Does $V_A$ depend on the base voltage $V_B$? Why?
+
+\end{enumerate}
+
+\subsection{The BJT as a Diode}
+
+\begin{enumerate}
+\item Connect a diode-connected BJT (i.e. the base and collector are shorted) to the parameter analyzer's test fixture. Use ICS to ground the emitter and sweep the base/collector from \unit{0}{\volt} to \unit{0.7}{\volt}. Measure the current through the base/collector (acting as the P side of the diode).
+
+\item Run the measurement and plot the base/collector current $I_{C}$ vs. $V_{BE}$. What semiconductor device does this I-V curve look like?
+
+\end{enumerate}
+
+\subsection{The Darlington Pair (Super High $\beta$)}
+
+\begin{enumerate}
+
+	\begin{figure}[!htb]
+		\input lab3_darlington
+		\centerline{\box\graph}
+		\caption{Darlington configuration for measurement}
+		\label{darlington}
+	\end{figure}
+
+\item Construct the Darlington pair with your second BJT as shown in Figure \ref{darlington}.
+
+\item Measure $I_{B1}$, $I_{C1}$, $I_{B2}$, and $I_{C2}$. Calculate $\beta_1 = I_{C1}/I_{B1}$ and $\beta_2 = I_{C2}/I_{B2}$.
+
+\item What is the overall current gain, $\beta_{tot} = I_{C2}/I_{B1}$? Use the formula you derived in the prelab to calculate the total current gain from $\beta_1$ and $\beta_2$ and compare the calculation to your measurement.
+
+\end{enumerate}
+
+\end{document}

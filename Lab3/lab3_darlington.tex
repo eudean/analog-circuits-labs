@@ -1,0 +1,145 @@
+\expandafter\ifx\csname graph\endcsname\relax
+   \csname newbox\expandafter\endcsname\csname graph\endcsname
+\fi
+\ifx\graphtemp\undefined
+  \csname newdimen\endcsname\graphtemp
+\fi
+\expandafter\setbox\csname graph\endcsname
+ =\vtop{\vskip 0pt\hbox{%
+    \special{pn 11}%
+    \special{pa 125 1200}%
+    \special{pa 125 1325}%
+    \special{fp}%
+    \special{pa 208 1325}%
+    \special{pa 42 1325}%
+    \special{fp}%
+    \special{pa 181 1356}%
+    \special{pa 69 1356}%
+    \special{fp}%
+    \special{pa 161 1388}%
+    \special{pa 89 1388}%
+    \special{fp}%
+    \special{pa 125 1200}%
+    \special{pa 125 950}%
+    \special{fp}%
+    \special{ar 125 825 125 125 0 6.28319}%
+    \graphtemp=.5ex
+    \advance\graphtemp by 0.888in
+    \rlap{\kern 0.125in\lower\graphtemp\hbox to 0pt{\hss $-$\hss}}%
+    \graphtemp=.5ex
+    \advance\graphtemp by 0.763in
+    \rlap{\kern 0.125in\lower\graphtemp\hbox to 0pt{\hss $+$\hss}}%
+    \special{pa 125 700}%
+    \special{pa 125 450}%
+    \special{fp}%
+    \graphtemp=.5ex
+    \advance\graphtemp by 0.825in
+    \rlap{\kern 0.000in\lower\graphtemp\hbox to 0pt{\hss \hbox{$\:$}$ V_{BB}$\hbox{$\:$}}}%
+    \graphtemp=.5ex
+    \advance\graphtemp by 0.825in
+    \rlap{\kern 0.250in\lower\graphtemp\hbox to 0pt{\hbox{$\:$}$ \unit{1.2}{\volt}$\hbox{$\:$}\hss}}%
+    \special{pa 125 450}%
+    \special{pa 500 450}%
+    \special{fp}%
+    \special{pa 825 825}%
+    \special{pa 825 600}%
+    \special{pa 814 600}%
+    \special{fp}%
+    \special{pa 825 75}%
+    \special{pa 825 300}%
+    \special{pa 814 300}%
+    \special{fp}%
+    \special{pa 625 550}%
+    \special{pa 625 350}%
+    \special{fp}%
+    \special{pa 500 450}%
+    \special{pa 625 450}%
+    \special{fp}%
+    \special{pa 825 600}%
+    \special{pa 625 510}%
+    \special{fp}%
+    \special{sh 1.000}%
+    \special{pn 1}%
+    \special{pa 710 518}%
+    \special{pa 775 578}%
+    \special{pa 688 569}%
+    \special{pa 710 518}%
+    \special{fp}%
+    \special{pn 11}%
+    \special{pa 699 543}%
+    \special{pa 675 533}%
+    \special{fp}%
+    \special{pa 825 300}%
+    \special{pa 625 390}%
+    \special{fp}%
+    \graphtemp=.5ex
+    \advance\graphtemp by 0.450in
+    \rlap{\kern 0.825in\lower\graphtemp\hbox to 0pt{\hbox{$\:$}$ Q_1$\hbox{$\:$}\hss}}%
+    \graphtemp=.5ex
+    \advance\graphtemp by 0.000in
+    \rlap{\kern 1.088in\lower\graphtemp\hbox to 0pt{\hss $V_{CC} = \unit{3}{\volt}$\hss}}%
+    \special{pa 825 75}%
+    \special{pa 825 262}%
+    \special{fp}%
+    \special{pa 825 825}%
+    \special{pa 1013 825}%
+    \special{fp}%
+    \special{pa 1338 1200}%
+    \special{pa 1338 975}%
+    \special{pa 1326 975}%
+    \special{fp}%
+    \special{pa 1338 450}%
+    \special{pa 1338 675}%
+    \special{pa 1326 675}%
+    \special{fp}%
+    \special{pa 1138 925}%
+    \special{pa 1138 725}%
+    \special{fp}%
+    \special{pa 1013 825}%
+    \special{pa 1138 825}%
+    \special{fp}%
+    \special{pa 1338 975}%
+    \special{pa 1138 885}%
+    \special{fp}%
+    \special{sh 1.000}%
+    \special{pn 1}%
+    \special{pa 1223 893}%
+    \special{pa 1288 953}%
+    \special{pa 1200 944}%
+    \special{pa 1223 893}%
+    \special{fp}%
+    \special{pn 11}%
+    \special{pa 1212 918}%
+    \special{pa 1188 908}%
+    \special{fp}%
+    \special{pa 1338 675}%
+    \special{pa 1138 765}%
+    \special{fp}%
+    \graphtemp=.5ex
+    \advance\graphtemp by 0.825in
+    \rlap{\kern 1.338in\lower\graphtemp\hbox to 0pt{\hbox{$\:$}$ Q_2$\hbox{$\:$}\hss}}%
+    \special{pa 1338 75}%
+    \special{pa 825 75}%
+    \special{fp}%
+    \special{pa 1338 75}%
+    \special{pa 1338 450}%
+    \special{fp}%
+    \special{pa 1338 1013}%
+    \special{pa 1338 1200}%
+    \special{fp}%
+    \special{pa 1338 1200}%
+    \special{pa 1338 1325}%
+    \special{fp}%
+    \special{pa 1421 1325}%
+    \special{pa 1254 1325}%
+    \special{fp}%
+    \special{pa 1393 1356}%
+    \special{pa 1282 1356}%
+    \special{fp}%
+    \special{pa 1373 1388}%
+    \special{pa 1302 1388}%
+    \special{fp}%
+    \hbox{\vrule depth1.388in width0pt height 0pt}%
+    \kern 1.421in
+  }%
+}%

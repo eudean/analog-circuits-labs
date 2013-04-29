@@ -1,0 +1,280 @@
+\documentclass{article}
+\usepackage{ee105}
+
+%% Makes figure labels bold
+\usepackage[labelfont=bf]{caption}
+
+\begin{document}
+
+%% Prevent headings on the first page, since we're not using \maketitle
+\thispagestyle{plain}
+
+%% Standard header. Title of the lab goes here.
+\begin{center}
+  \textbf{
+    UNIVERSITY OF CALIFORNIA AT BERKELEY \\
+    College of Engineering \\
+    Department of Electrical Engineering and Computer Sciences \\~\\
+    \large{EE105 Lab Experiments} \\\LARGE{~}\\
+    \LARGE{Miniproject: AM Radio}
+  }
+\end{center}
+
+\section{Objective}
+Until now, the labs have focused primarily on characterizing circuits; you've been asked to analyze, build, and characterize a number of different amplifiers and biasing circuits, but we've only given you small amounts of design (e.g. picking resistors or bias voltages). In this miniproject, we want to give you the freedom to design an amplifier from the ground up: topology, biasing, and amplifier stages.
+
+In previous labs we've hinted at one very common application of analog circuits: audio. In this miniproject, you will design, build, and analyze your own amplifier for an AM receiver, capable of amplifying a small-amplitude signal from an AM transmission (in the \unit{520}{\kilo\hertz} to \unit{1610}{\kilo\hertz} range) and driving a low-impedance speaker.
+
+The most important aspect of this lab is not simply getting your AM receiver to work; rather, it is the design and analysis of the receiver that will show your understanding of the material. We will ask you to justify the choices you make in your design both qualitatively and quantitatively in a write-up due at the end of the semester. A quality write-up (not necessarily a long write-up) with correct, relevant, and insightful analysis will be required to obtain full credit for the miniproject.
+
+\section{Materials}
+The materials for the miniproject will vary based on your implementation. Our only restriction will be on the type of transistor that you use. You can use as many 2N4401 NPN BJTs, 2N4403 PNP BJTs, 2N3904 NPN BJTs, 2N3906 PNP BJTs, ALD1106 NMOSFETs, and ALD1107 PMOSFETs that you need for your design (within reason). You are also free to use as many of the resistors and capacitors we have in lab as well as either a single or dual power supply totalling \unit{9}{V} (i.e. you can choose to use a single \unit{+9}{\volt} supply or a dual \unit{\pm 4.5}{\volt} supply). You may not use the DC power supply to bias your circuits aside from providing the power rails.
+
+We will also provide components necessary for demodulating an AM signal, consisting of an inductor with a ferrite rod, a tunable capacitor, and a Ge diode. Naturally, you cannot use any op-amps or similar integrated devices in your amplifier (unless you build one yourself out of discrete components).
+
+We will place an AM transmitter in 353 Cory to produce a signal that you can receive in the lab. The broadcasted signal will allow for designs that are unable to pick up signals coming from normal radio stations in 353 Cory (due to insufficient amplification or inadequate antennas) to be tested with a known working source.
+
+\section{Background}
+If you aren't familiar with amplitude modulation (AM), you can read this section to gain a basic understanding of how AM works. However, you will not be required to understand the modulation/demodulation aspect of the project, since your objective is to amplify the small signal coming from the provided demodulator.
+
+\subsection{Modulating a pure sine wave}
+When we transmit a signal through AM radio, we first have to modulate our signal to a radio carrier frequency. For our analysis, let's say we have an audio signal with frequency $\omega_s$ somewhere in the \unit{20}{\hertz} to \unit{20}{\kilo\hertz} range (this is the range of frequencies audible by a human being with good hearing). AM radio in the United States is broadcast in the \unit{520}{\kilo\hertz} to \unit{1610}{\kilo\hertz}, so let's choose a carrier frequency $\omega_c$ in this range that will be used to modulate our audio signal. We'll represent our audio signal $s(t)$ and carrier $c(t)$ by the following waveforms:
+\begin{align*}
+  s(t) &= M \cos\left(\omega_s t\right) \\
+  c(t) &= \cos\left(\omega_c t\right)
+\end{align*}
+$M$ represents the amplitude of the pure cosine that we're modulating.
+
+Modulating these signals simply involves multiplying them to produce the modulated signal $m(t)$, like so:
+\begin{align}
+  m(t) &= (A + s(t))c(t) = (A + M\cos\left(\omega_s t\right)) \cos\left(\omega_c t\right)
+\label{m}
+\end{align}
+
+We've added a constant $A$ to our audio signal before modulating in this case. There are actually a number of different types of amplitude modulation, but our version requires $A \geq M$ and is called double-sideband full carrier (A3E) modulation. It will become apparent in a moment why it carries this name.
+
+It's difficult to see how modulation has helped us until we note the following trigonometric identity:
+\begin{align}
+  \cos(a)\cos(b) = \frac{1}{2}\left[\cos(a-b) + \cos(a+b)\right]
+\label{trig}
+\end{align}
+If we apply this trigonometric identity to our modulated signal, we get:
+\begin{align*}
+  m(t) &= A\cos(\omega_c t) + \frac{M}{2}\left[\cos(\omega_s t - \omega_c t) + \cos(\omega_s t + \omega_c t)\right] \\
+    &= A\cos(\omega_c t) + \frac{M}{2}\left[\cos\left((\omega_s - \omega_c) t\right) + \cos\left((\omega_s + \omega_c) t\right)\right] \\
+    &= A\cos(\omega_c t) + \frac{M}{2}\left[\cos\left((\omega_c - \omega_s) t\right) + \cos\left((\omega_c + \omega_s) t\right)\right]
+\end{align*}
+where the last step uses the fact that cosine is an even function. From this result, you can see that our modulated signal actually contains two sinusoids with half the amplitude of the audio signal---one with frequency $\omega_c + \omega_s$ and one with frequency $\omega_c - \omega_s$---and one sinusoid that is a scaled version of our carrier signal. Effectively, we've shifted our signal up to the carrier frequency, but split it into two parts that surround the carrier frequency. These two parts are called sidebands (as in ``double-sideband'').
+
+To see why this method is called amplitude modulation, consider Equation \ref{m}; you'll see that it's simply a high frequency cosine whose amplitude is dictated by a lower frequency cosine. Graphically, it appears that the amplitude of the high frequency cosine oscillates at the frequency of the low frequency signal, meaning that the amplitude of the carrier is modulated to carry the audio signal, as shown in Figure \ref{waves}.
+
+\begin{figure}[!htb]
+    \begin{center}
+\begin{asy}
+import graph;
+texpreamble("\def\Arg{\mathop {\rm Arg}\nolimits}");
+
+size(15cm,5cm,IgnoreAspect);
+
+real s(real x) {return 0.5*cos(2*pi*1000*x);}
+real c(real x) {return cos(2*pi*5000*x);}
+real m(real x) {return (1+0.5*cos(2*pi*1000*x))*cos(2*pi*5000*x);}
+
+draw(graph(s,-0.002,0.002,10000),red,"$s(t)$");
+draw(graph(c,-0.002,0.002,10000),gray,"$c(t)$");
+draw(graph(m,-0.002,0.002,10000),blue,"$m(t)$");
+
+xaxis("$t$",BottomTop,LeftTicks);
+yaxis("Voltage (arb. units)",LeftRight,RightTicks);
+add(legend(),point(E),20E,UnFill);
+\end{asy}
+    \end{center}
+    \caption{Audio signal $s(t)$, carrier signal $c(t)$, and modulated signal $m(t)$ depicted graphically for $\omega_s = 2\pi\times\unit{1}{\kilo\hertz}$, $\omega_c = 2\pi\times\unit{5}{\kilo\hertz}$, $M = 0.5$, and $A = 1$. We're using a low frequency carrier here for demonstration only.}
+    \label{waves}
+\end{figure}
+
+\subsection{Demodulating a pure sine wave}
+Now let's look at how we can retrieve $s(t)$ if we know $m(t)$. Although there are a number of ways to accomplish the detection, the easiest involves multiplying $m(t)$ by itself:
+\begin{align*}
+  m(t)m(t) &= (A + M\cos\left(\omega_s t\right))^2 \cos^2\left(\omega_c t\right) \\
+    &= A^2 \cos^2\left(\omega_c t\right) + 2AM\cos(\omega_s t) \cos^2\left(\omega_c t\right) + M^2\cos^2(\omega_s t)\cos^2\left(\omega_c t\right) \\
+    &= \frac{A^2}{2} (1 + \cos(2\omega_c t)) + AM\cos(\omega_s t) (1+\cos(2\omega_c t)) + \frac{M^2}{4} (1+\cos(2\omega_s t))(1 + \cos(2\omega_c t))
+\end{align*}
+where we've used the trigonometric identity $\cos^2 \theta = \frac{1}{2}(1+\cos 2\theta)$.
+
+Although this expression appears complicated, recall that we only care about signals within the audio frequency range. We can eliminate any signals up near the carrier frequency because we can filter them out using a low-pass filter. Furthermore, any constant terms are also irrelevant, since they provide no audio information and can be filtered out with capacitive coupling. Thus, we can write our demodulated signal as:
+\begin{align*}
+  m(t)m(t) &= AM\cos(\omega_s t) + \frac{M^2}{4} \cos(2\omega_s t)
+\end{align*}
+Note our original signal is present (though scaled by the constant A), along with an attenuated harmonic at twice the frequency.
+
+Luckily, a simple diode can perform the demodulation. Recall that a diode has an I-V characteristic defined by $I_D = I_S \left(e^{V_D/V_{th}}-1\right)$. Let's look at what happens when $V_D = m(t)$:
+\begin{align*}
+  I_D = I_S \left(e^{m(t)/V_{th}}-1\right)
+\end{align*}
+Note that for small $x$, $e^x \approx 1 + x + \frac{1}{2} x^2$. We expect the voltage across the diode to be relatively small, so we can use this approximation to write:
+\begin{align*}
+  I_D \approx I_S \left(\frac{m(t)}{V_{th}} + \frac{1}{2}\left(\frac{m(t)}{V_{th}}\right)^2\right) \\
+\end{align*}
+Thus, we've produced a signal containing $\left(m(t)\right)^2$, our demodulated signal. Although we have an extra $m(t)$ term added in, we can simply filter it out with a low-pass filter, since all of its signals are near the carrier frequency. Figure \ref{demod} shows how the demodulated signal $d(t)$ looks prior to low-pass filtering and removal of the DC component. You can compare this to $s(t)$ and see that they are identical aside from the high frequency components and DC offset present in the demodulated signal.
+
+\begin{figure}[!htb]
+    \begin{center}
+\begin{asy}
+import graph;
+texpreamble("\def\Arg{\mathop {\rm Arg}\nolimits}");
+
+size(15cm,5cm,IgnoreAspect);
+
+real s(real x) {return 0.5*cos(2*pi*1000*x);}
+real m(real x) {return (1+0.5*cos(2*pi*1000*x))*cos(2*pi*5000*x);}
+real d(real x) {return (1+0.5*cos(2*pi*1000*x))*cos(2*pi*5000*x)*(1+0.5*cos(2*pi*1000*x))*cos(2*pi*5000*x);}
+
+draw(graph(s,-0.002,0.002,10000),red,"$s(t)$");
+draw(graph(m,-0.002,0.002,10000),gray,"$m(t)$");
+draw(graph(d,-0.002,0.002,10000),blue,"$d(t)$");
+
+xaxis("$t$",BottomTop,LeftTicks);
+yaxis("Voltage (arb. units)",LeftRight,RightTicks);
+add(legend(),point(E),20E,UnFill);
+\end{asy}
+    \end{center}
+    \caption{Audio signal $s(t)$, modulated signal $c(t)$, and demodulated signal $d(t)$ depicted graphically for $\omega_s = 2\pi\times\unit{1}{\kilo\hertz}$, $\omega_c = 2\pi\times\unit{5}{\kilo\hertz}$, $M = 0.5$, and $A = 1$.}
+    \label{demod}
+\end{figure}
+
+\subsection{Demodulator circuit}
+
+A simple demodulator is shown in Figure \ref{demodschematic}. The antenna (often just a long wire) picks up any radio waves that happen to be passing through the air. The LC oscillator composed of $L_1$ and $C_1$ pick out the radio frequency (RF) signals around its resonant frequency, given by $\omega = \sqrt{\frac{1}{L_1 C_1}}$. The diode demodulates the RF signal, and the low-pass filter composed of $R_2$ and $C_2$ filters out the remnants of the high-frequency signals produced during modulation and demodulation. \textit{Note: Think of the antenna and diode as a current source and the low-pass filter as a transresistance amplifier (current input and voltage output) if it isn't clear why this is a low-pass filter.}
+
+\begin{figure}[!htb]
+  \input demod
+  \centerline{\box\graph}
+  \caption{(a) Simple demodulator schematic  (b) A better demodulator schematic}
+  \label{demodschematic}
+\end{figure}
+
+There are two demodulator schematics shown in Figure \ref{demodschematic}. The only difference between the two is that the one shown in Figure \ref{demodschematic}(b) provides better signal reception. You are free to build either one. (\note{This semester, the inductor we're using only has two taps, so you'll need to build the demodulator in Figure \ref{demodschematic}(a)}). For the two demodulators, use a \unit{1}{\nano\farad} capacitor for $C_2$ and a \unit{100}{\kilo\ohm} resistor for $R_2$. If you are building the one shown in Figure \ref{demodschematic}(b), use a \unit{100}{\pico\farad} capacitor for $C_3$. As for the inductor, the inductor given to you in the kit has several inductor coils inside the same unit. You will only have to use the terminals as shown in Figure \ref{demodschematic}. 
+
+\section{Bias Voltage}
+
+In previous labs, you were instructed to use the function generator offset function to bias the base/gate of a transistor. However, in the case of amplifying the small signal produced by the demodulator, there is no offset function to set the bias! How do we add a DC offset to the signal coming out of the demodulator to bias the transistor in the proper operation region? In this section, we will provide you with a starting point on biasing your transistor.
+
+\begin{figure}[!htb]
+  \input vsource
+  \centerline{\box\graph}
+  \caption{(a)Voltage source built with diode connected transistor  (b) Schematic for adding the DC voltage produced by the voltage source to an AC signal}
+  \label{voltagesource}
+\end{figure}
+
+In Lab 6, you learned how to build a voltage source with a diode connected transistor, such as the one shown in Figure \ref{voltagesource}(a). If you want to add this DC voltage to the AC signal received from the demodulator, you will have to do a little trick to add them together. Figure \ref{voltagesource}(b) shows how this can be done. In the large signal's perspective, the capacitor is an open circuit to the DC voltage, so the DC voltage has to go into the amplifier. In the small signal's perspective, the DC voltage source is ground to the AC signal. Therefore, you need to put a LARGE resistor (around \unit{100}{\kilo\ohm}) in front of the DC voltage source to prevent AC signal from flowing out to AC ground. 
+
+So what resistance should $R_{BIAS}$ be? This depends on the voltage output of the voltage source. For example, if you want the voltage source shown in Figure \ref{voltagesource}(a) to produce a voltage $V_{OUT}$, you can use KVL and the current equation for the transistor to find the required resistance:
+\begin{align*}
+  	V_{OUT} &= V_{DD} - I_{BIAS}R_{BIAS} \\
+	V_{OUT} &= V_{DD} - \frac{1}{2}\frac{W}{L}k'\left(V_{OUT}-V_{TN}\right)^2R_{BIAS} \\
+	R_{BIAS} &= \frac{V_{DD} - V_{OUT}}{\frac{1}{2}\frac{W}{L}k'\left(V_{DC}-V_{TN}\right)^2} 
+\end{align*}
+You can also build a voltage source with BJT. When calculating the required resistance, you just need to replace the MOSFET current equation with the BJT equivalent. 
+
+\section{Bias Current}
+
+Besides voltage biasing, sometimes you may want to current sources to bias your circuit. For example, the common source amplifier shown in Figure \ref{ccsource} uses a current mirror instead of a resistor for biasing. The advantage of this design is to increase the output resistance of the amplifier to increase the gain of the amplifier.
+
+\begin{figure}[!htb]
+  \input csource
+  \centerline{\box\graph}
+  \caption{Common source amplifier with current mirror as pull-up network}
+  \label{ccsource}
+\end{figure}
+
+Let's think about how much current we should bias the transistors. Recall the gain of a common source amplifier is:
+\begin{align*}
+	A_v = -g_mR_{out}
+\end{align*}
+In this particular example, the output resistance $R_{out}$ is equal to $r_{o1} \parallel r_{o2}$. For simplicity, let's assume that $r_{o1} = r_{o2}$. This assumption is valid when the channel length modulation parameters $\lambda_1$ and $\lambda_2$ are equal, which is the case most of the time when using matching pair of transistors. Then, you can simplify the gain equation to:
+\begin{align*}
+	A_v &= -g_m\left(r_{o1} \parallel r_{o2}\right) \\
+	    &= -g_m\frac{r_{o1}}{2}
+\end{align*}
+If we substitute $\frac{2I_{D1}}{V_{GS1}-V_{TN}}$ for $g_m$ and $\frac{1}{\lambda_1I_{D1}}$ for $r_{o1}$, then we get:
+\begin{align*}
+	A_v &= -\frac{2I_{D1}}{V_{GS1}-V_{TN}}\cdot\frac{1}{\lambda_1I_{D1}}\cdot\frac{1}{2} \\
+	    &= -\frac{1}{\left(V_{GS1}-V_{TN}\right)\cdot\lambda_1}
+\end{align*}
+The last equation tells us that if we want a particular gain for our amplifier, we should choose a particular $V_{GS}$! With this equation, we can calculate the value for $V_{GS}$, and then substitute this value for $V_{GS}$ into the drain current equation $\frac{1}{2}\frac{W}{L}k'\left(V_{GS1}-V_{TN}\right)^2$ to get the amount of current that we want. With a similar analysis as the one presented in the previous section, we can also find the right amount of resistance $R_{BIAS}$ to give us that amount of current flow. But before you build your circuit, make sure that the amount of current that you calculated is within the safe operating range of your transistors. You can find this out from the datasheet of your transistor.
+
+If you are building your amplifier with BJT's, you may realize that the theory predicts the gain of a common emitter amplifier with current mirror pull-up network is independent from bias current! In this case, just choose a bias current of around \unit{1}{\milli\ampere}.
+
+The same techique for finding bias current can also be applied to other amplifier topologies, such as differential pair and common drain amplifer.
+
+\section{Guidelines}
+
+Be sure to read the following guidelines before beginning your design. Any designs not meeting these guidelines will not receive full credit. You must show your working design to a TA as part of your score on the project.
+
+\begin{itemize}
+  \item The output must drive a \unit{8}{\ohm} speaker.
+  \item You must have some type of volume control.
+  \item The peak-to-peak voltage across the speaker must be at least \unit{1}{\volt} for a \unit{20}{\milli\volt} peak-to-peak sine wave input for frequencies from \unit{500}{\hertz} to \unit{20}{\kilo\hertz} when your volume control is set to the maximum volume. This means your entire amplifier must have a gain of at least 50 for frequencies from \unit{500}{\hertz} to \unit{20}{\kilo\hertz}.
+  \item The amplified signal must be free of clipping for a \unit{20}{\milli\volt} peak-to-peak sine wave input when your volumn control is set to the maximum volume.
+  \item You may not use resistive dividers for biasing. You may use as many current mirrors as you want.
+  \item You may not use any op-amps \textbf{except} to invert the input signal for use with a differential amplifier (if you decide to make your amplifier differential).
+\end{itemize}
+
+\section{Report}
+
+The report is due on the last day of instruction: Monday, May 12, 2008. Bring a copy of your report to 353 Cory to turn in on this day. The following guidelines must be followed in your report for full credit.
+
+\begin{itemize}
+  \item Include a diagram of your circuit topology including values for all resistors, capacitors, and voltage sources (which should only include your voltage rails).
+  \item Justify your topology. Explain why you chose your stages as you did, why you biased them like you did, etc.
+  \item Show hand calculations for the bias voltages and currents in your amplifier.
+  \item Show hand calculations for the gain and output impedance.
+  \item Include measured magnitude and phase Bode plots for your amplifier without the load attached.
+  \item Include the measured output impedance of your amplifier.
+  \item Include the measured values of the bias voltages and currents in your amplifier (the same ones for which you showed hand calculations).
+  \item Calculate the power consumption of your amplifier using the bias currents you measured.
+\end{itemize}
+
+\section{Grading}
+
+The grade for the miniproject will be based on whether your demonstrated design met the required guidelines and on the quality of your report. The report will be worth \unit{70}{\%} of the grade while meeting the guidelines will be worth \unit{30}{\%} of the grade. The miniproject will be weighted as three lab grades.
+
+\section{Hints}
+
+General Hints:
+\begin{itemize}
+  \item Use an op-amp to test the antenna circuit if necessary.
+  \item Knowing the desired gain for a given load, you should be able to aim for rough open-loop gain and output impedance figures for your amplifier. You can use these figures to decide on a topology.
+  \item One of your first debugging steps should be to test the region of operation of your transistors with the DMM.
+  \item Test your amplifier stages independently if you've having trouble locating a problem.
+  \item If you capacitively couple an AC signal onto a voltage source (made from a diode-connected transistor), use a large gate resistor to prevent the AC signal from seeing a small-signal ground.
+  \item You can use potentiometers to load your amplifier stages for more flexible biasing than is possible with fixed resistors.
+  \item If the gain of your amplifier is so high that the smallest output signal from the function generator still clips, try using a resistor voltage divider (FOR TESTING PURPOSES ONLY) to attenuate the output waveform from the function generator. NOTE: If you are AC-coupling your input, this will affect your frequency response characteristics, use small resistors ($<$ \unit{1}{\kilo\ohm}) for minimal effect.
+  \item If the output DC level of a stage is too high/low to bias the input for the next stage, consider switching the transistor in the next stage to one of the opposite doping. (i.e. if the voltage is too high for the NPN input transistor  of the second stage, try switching it to a PNP.) Make sure to move the resistors too.
+  \item Use a potentiometer for all your biasing resistors, so they can finely tuned.
+  \item For the volume control, be careful about where you put it. In many of the designs I have seen, tuning it results in a shift in the DC level, potentially putting transistors out of the active region.
+\end{itemize}
+MOSFET Hints:
+\begin{itemize}
+  \item You must connect $V_+$ to the supply rail and $V_-$ to ground in order for these MOSFETs to work properly.
+\end{itemize}
+BJT Hints:
+\begin{itemize}
+  \item When using the BJTs, make sure that you are using a matching pair of NPN and PNP BJTs. NPN and PNP BJTs with the same prefix are better matched than BJTs with different prefices.
+  \item The 2N4401 and 2N4403 are much better matched than the MOSFETs. However, be careful when attempting to build a cascode using this. Because of the strong temperature dependence, a breeze is enough to knock all your transistors out of the active region. The output DC level of your cascode will also vary significantly, so it may be difficult to avoid clipping. Adding a degeneration resistor here will help.
+  \item Be wary that the input impedance of a BJT is not infinite, and decreases with more current you send  in through the BJT. What is the output impedance of your demodulator? Emitter degeneration will help increase this, but will decrease gain.
+\end{itemize}
+Differential Amplifier Hints:
+\begin{itemize}
+  \item The MOSFET version will again suffer from a lack of maching pairs and careful tuning of transistors may be necessary. The BJT version should work a lot better here. If weird things happen, double check that the currents down both branches are roughly equal.
+\end{itemize}
+Common Drain/Collector Hints:
+\begin{itemize}
+  \item Remember that you are attempting to drive an speaker with an impedance of \unit{8}{\ohm}. So, think about how much current you will need in your output stage in order to deliver a sizeable voltage across the speaker.
+  \item For a BJT based design, again be careful about input impedance. If you are experiencing a decrease in gain from your gain stage when you attach your speaker (i.e. lose gain from the output of your gain stage), it may be that the input impedance to the Common Collector is not be high enough. You may wish to consider a Common Drain instead.
+  \item If you are seeing a lot of  ``noise'' when you hook up the speaker, it is often due to the fact that your transistor may not be able to deliver enough power needed to drive the load. Consider putting 2 or more MOSFETs or BJTs in parallel in your Common Drain/Collector stage to help deliver more power.
+  \item Since this stage will have high current, you may notice some resistors/transistors heating up. If this happens, you may wish to put more components in parallel to dissipate heat. For example, instead of using a \unit{50}{\ohm} resistor, you put two \unit{100}{\ohm} resistors in parallel.
+\end{itemize}
+
+\end{document}

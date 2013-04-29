@@ -1,0 +1,28 @@
+\documentclass{article}
+\usepackage{ee105}
+
+%% Makes figure labels bold
+\usepackage[labelfont=bf]{caption}
+
+\begin{document}
+
+%% Prevent headings on the first page, since we're not using \maketitle
+\thispagestyle{plain}
+
+%% Standard header. Title of the lab goes here.
+\report{1}{Introduction to SPICE}
+\name
+
+Attach your netlists and plots in the order you created them for the lab. For 3.1, only include one netlist for one transient analysis step time. \textbf{Remember to print with a white background.}
+
+\begin{enumerate}
+  \item[3.1.4] What is the value measured from the graph? How does the value from the graph compare to the value you'd expect from the RC time constant?
+  \\~\\~\\~\\
+  \item[3.1.5] What is the value measured with the \texttt{.measure} statement? How does the result of the \texttt{.measure} statement compare to the result from the graph?
+  \\~\\~\\~\\
+  \item[3.1.6] What effect does changing the step time have on the result of the \texttt{.measure} statement?
+  \\~\\~\\~\\
+  \item[3.3.2] What is the voltage gain?
+\end{enumerate}
+
+\end{document}

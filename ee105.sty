@@ -1,0 +1,75 @@
+\usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\pagestyle{headings}
+\usepackage{hyperref}
+\usepackage{asymptote}
+\usepackage[cdot,amssymb]{SIunits}
+\usepackage{color}
+ 
+\newcommand{\header}{
+  \begin{center}
+    \textbf{
+      UNIVERSITY OF CALIFORNIA AT BERKELEY \\
+      College of Engineering \\
+      Department of Electrical Engineering and Computer Sciences \\~\\
+      \large{EE105 Lab Experiments} \\\Large{~}\\
+    }
+  \end{center}
+}
+
+\newcommand{\baseurl}{http://inst.eecs.berkeley.edu/~ee105/sp08}
+
+\newcommand{\prelab}[2]{
+  \header
+  \begin{center}
+    \textbf{\LARGE{Prelab #1: #2}}
+  \end{center}
+}
+
+\newcommand{\lab}[2]{
+  \header
+  \begin{center}
+    \textbf{\LARGE{Experiment #1: #2}}
+  \end{center}
+}
+
+\newcommand{\report}[2]{
+  \header
+  \begin{center}
+    \textbf{\LARGE{Report #1: #2}}
+  \end{center}
+}
+
+\newcommand{\tutorial}[1]{
+  \header
+  \begin{center}
+    \textbf{\LARGE{#1 Tutorial}}
+  \end{center}
+}
+
+\newcommand{\solutions}{
+  \begin{center}
+    \textcolor{red}{\Large{Solutions}}
+  \end{center}
+}
+
+\newcommand{\name}{
+  \noindent Name:\\[2mm]
+  Lab Section:\\
+}
+
+\newcommand{\note}[1]{\textit{Note: #1}}
+
+\newcommand{\hint}[1]{\textit{Hint: #1}}
+
+\newcommand{\warning}[1]{\textit{Warning: #1}}
+
+\newcommand{\vt}{\ensuremath{V_T}}
+
+\newcommand{\vth}{\ensuremath{V_{TH}}}
+
+\newenvironment{soln}{~\\\begin{color}{red}}{\end{color}~\\}
+
+\newcommand{\bfrac}[2]{\genfrac{}{}{0pt}{}{#1}{#2}}

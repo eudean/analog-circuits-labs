@@ -1,0 +1,81 @@
+\documentclass{article}
+\usepackage{ee105}
+
+%% Makes figure labels bold
+\usepackage[labelfont=bf]{caption}
+
+\begin{document}
+
+%% Prevent headings on the first page, since we're not using \maketitle
+\thispagestyle{plain}
+
+%% Standard header. Title of the lab goes here.
+\prelab{10}{Differential Amplifiers}
+\name
+
+For this lab, assume all NPN transistors are identical 2N3904 BJTs and all PNP transistors are identical 2N3906 BJTs.
+
+\begin{table}[!htb]
+  \begin{center}
+    \begin{tabular}{|c|c|c|c|} \hline
+      Component & $I_S$ (A) & $V_A$ (V) \\\hline
+      2N3904 NPN BJT & $6.734 \times 10^{-15}$ & $74.03$ \\
+      2N3906 PNP BJT & $1.41 \times 10^{-15}$ & $18.7$ \\\hline
+    \end{tabular}
+    \caption{Transistor properties}
+    \label{params}
+  \end{center}
+\end{table}
+
+A differential pair with a resistive load is shown in Figure \ref{diff}. Use this circuit to answer the following questions. You can ignore base currents. Use the device parameters given in Table \ref{params}. Assume $V_{CC}=\unit{9}{\volt}$. Assume that the inputs are biased at \unit{0}{\volt} DC.
+
+\begin{figure}[!htb]
+  \input diff
+  \centerline{\box\graph}
+  \caption{Differential pair with resistive load}
+  \label{diff}
+\end{figure}
+
+\begin{enumerate}
+
+  \item What value of $R_1$ would give $I_{C1}=\unit{2}{\milli\ampere}$? \\~\\~\\~\\~\\~\\
+    \begin{align*}
+      \boxed{R_1 = ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}
+    \end{align*}
+
+  \item In lab, we have \unit{500}{\ohm}, \unit{1}{\kilo\ohm}, \unit{5.1}{\kilo\ohm}, and \unit{10}{\kilo\ohm} resistors. Assuming we only wanted to use one resistor for $R_1$, which value would give us $I_{C1}$ closest to \unit{2}{\milli\ampere}? What current would we get with the resistor you chose? Use this value for $R_1$ for the remainder of the prelab. \\~\\~\\~\\~\\~\\
+    \begin{align*}
+      \boxed{R_1    = ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~} \\
+      \boxed{I_{C1} = ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}
+    \end{align*}
+
+  \item We'd like to bias the output half-way between \unit{0}{\volt} and \unit{9}{\volt} to achieve the maximum swing by picking $R_2$ and $R_3$ appropriately. Calculate a value for $R_2$ and $R_3$ that achieves an output bias of \unit{4.5}{\volt} (assuming $R_1$ is what you chose for the previous question). Out of the resistors listed previously, which should we use? What output bias does it achieve? Use this value (of the available resistors) for $R_2$ and $R_3$ for the remainder of the prelab. \\~\\~\\~\\~\\~\\
+    \begin{align*}
+      \text{(Exact) }     \boxed{R_2 = R_3  = ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~} \\
+      \text{(Available) } \boxed{R_2 = R_3  = ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~} \\
+      \boxed{V_{out,DC} = ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}
+    \end{align*}
+
+  \item What is the output resistance of the circuit (be sure to include $r_o$ of the BJTs)? Assume $R_2$ and $R_3$ are as you chose them in the previous question (of the available resistors). \\~\\~\\~\\~\\~\\
+    \begin{align*}
+      \boxed{R_{out} = ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}
+    \end{align*}
+
+  \item What is the differential-mode gain of the circuit? \\~\\~\\~\\~\\~\\
+    \begin{align*}
+      \boxed{A_{DM} = ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}
+    \end{align*}
+
+  \item What is the common-mode gain of the circuit? \\~\\~\\~\\~\\~\\
+    \begin{align*}
+      \boxed{A_{CM} = ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}
+    \end{align*}
+
+  \item What is the common-mode rejection ratio of the circuit? Use $CMRR = \left|\frac{A_{DM}}{A_{CM}}\right|$ rather than the book's equation. \\~\\~\\~\\~\\~\\
+    \begin{align*}
+      \boxed{CMRR = ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}
+    \end{align*}
+
+\end{enumerate}
+
+\end{document}

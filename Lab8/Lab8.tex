@@ -1,0 +1,100 @@
+\documentclass{article}
+\usepackage{ee105}
+
+%% Makes figure labels bold
+\usepackage[labelfont=bf]{caption}
+
+\begin{document}
+
+%% Prevent headings on the first page, since we're not using \maketitle
+\thispagestyle{plain}
+
+%% Standard header. Title of the lab goes here.
+\lab{8}{Multi-stage Amplifiers}
+
+\section{Objective}
+Often, a single stage transistor amplifier may not provide enough gain or the proper input/output impedances for a desired application. To remedy this, we can cascade amplifier stages to form a multi-stage amplifier with the desirable gain or impedance properties. In this lab, we will examine the cascode amplifier and another multi-stage amplifier formed by cascading a common-emitter and common-collector amplifier.
+
+\section{Materials}
+
+\begin{table}[!htb]
+  \begin{center}
+    \begin{tabular}{|c|c|} \hline
+      Component & Quantity \\\hline
+      2N4401 NPN BJT & 4 \\
+      2N4403 PNP BJT & 2 \\
+      \unit{51}{\kilo\ohm} resistor & 2 \\
+      \unit{20}{\kilo\ohm} resistor & 1 \\
+      \unit{100}{\ohm} resistor & 2 \\
+      \unit{51}{\ohm} resistor & 1 \\
+      \unit{10}{\kilo\ohm} potentiometer & 1 \\
+      \unit{10}{\micro\farad} capacitor & 1 \\
+      \unit{100}{\micro\farad} capacitor & 1 \\ \hline
+    \end{tabular}
+    \caption{Components used in this lab}
+    \label{components}
+  \end{center}
+\end{table}
+
+
+\section{Procedure}
+
+\subsection{Cascode Amplifier}
+
+\begin{enumerate}
+
+	\begin{figure}[!htb]
+		\input lab8_cascode
+		\centerline{\box\graph}
+		\caption{(a) Cascode amplifier test setup  (b) Cascode amplifier test setup with load resistance}
+		\label{cascode}
+	\end{figure}
+	
+	\item Construct the cascode amplifier ($Q_1$ and $Q_2$) with current mirror bias ($Q_3$ and $Q_4$) as shown in Figure \ref{cascode}(a). Use two \unit{51}{\kilo\ohm} resistor in parallel to make a \unit{25.5}{\kilo\ohm} resistor for $R_{REF}$ and a \unit{51}{\ohm} resistor for $R_S$. Set $V_{BIAS2}$ to \unit{1.5}{\volt}.
+
+	\item Use the function generator to generate a \unit{1}{\kilo\hertz}, \unit{20}{\milli\volt} peak-to-peak sinusoidal signal with a DC offset of around \unit{580}{\milli\volt} to \unit{650}{\milli\volt} (you may have to adjust the offset after connecting the signal to the amplifier to ensure you get a clean output signal). Use this signal as $v_{IN}$. 
+	
+	\item Measure $I_{BIAS}$ and the DC voltage at $v_{OUT}$.
+
+	\item Using the oscilloscope, plot both the input $v_{IN}$ and the output $v_{OUT}$. Sketch the waveforms you observe.
+
+	\item Why is $v_{OUT}$ not sinusoidal? 
+	
+	\item Now add a \unit{10}{\micro\farad} capacitor to the node $v_{OUT}$ and a \unit{20}{\kilo\ohm} resistor from the capacitor to ground as shown in Figure \ref{cascode}(b). This resistor will act as a load to the amplifier. 
+
+	\item What is the peak-to-peak voltage of the output waveform (at $v_L$) with the load resistor? What is the gain of the amplifier with the resistive load? 
+
+	\end{enumerate}
+
+\subsection{Common Emitter-Common Collector Multi-stage Amplifer}
+	
+	From the previous lab exercises, you tried using a speaker as a load to a common emitter amplifier. However, the common emitter amplifier delivers very little voltage gain to the speaker because of the huge impedance mismatch between the amplifier and speaker. In this section of the lab, you will cascade a low output impedance common collector amplifier to the output of a common emitter amplifier as a voltage buffer to drive a low impedance speaker.
+
+\begin{enumerate}
+
+	\item Before you begin, use the function generator to apply a sinusoidal signal with peak-to-peak voltage of \unit{40}{\milli\volt} and a frequency of \unit{1}{\kilo\hertz} directly to the speaker. Can you hear anything?
+
+	\item Construct the cascaded amplifiers as shown in Figure \ref{audio}. Set the potentiometer to around \unit{8}{\kilo\ohm} for $R_C$. For the rest of the circuit, let $R_S = \unit{51}{\ohm}$, $R_{REF} = \unit{200}{\ohm}$ (use two \unit{100}{\ohm} resistors in series), and $C = \unit{100}{\micro\farad}$. 
+
+	\begin{figure}[!htb]
+		\input lab8_audio
+		\centerline{\box\graph}
+		\caption{Multi-stage amplifier test setup}
+		\label{audio}
+	\end{figure}
+
+	\item Use the function generator to generate a \unit{40}{\milli\volt} peak-to-peak, \unit{1}{\kilo\hertz} frequency sine wave with a DC offset of around \unit{540}{\milli\volt} to \unit{600}{\milli\volt}. Use this signal as $v_{IN}$. Now, try to maximize the gain of the amplifier by increasing the resistance of the potentiometer for $R_C$. Can you hear anything now? Feel free to try out other frequencies to observe how the speaker responds to various frequencies.
+
+	\item Measure $I_{BIAS1}$, $I_{BIAS2}$, and the DC voltages at $v_{OUT1}$ and $v_{OUT2}$.
+
+	\item Measure $V_{BE}$ of $Q_2$. Is the DC voltage at $v_{OUT1}$ enough to bias $Q_2$ in the forward active region?
+
+	\item Using the oscilloscope, plot both the input $v_{IN}$ and the output $v_{OUT2}$. Sketch these waveforms.
+
+	\item Measure the gain $v_{out2}/v_{in}$.
+
+	\item Now increase the DC offset of the input waveform to \unit{620}{\milli\volt}. What happens to the waveform at $v_{OUT2}$?
+
+\end{enumerate}
+
+\end{document}

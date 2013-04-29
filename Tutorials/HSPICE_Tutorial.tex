@@ -1,0 +1,479 @@
+\documentclass{article}
+\usepackage{ee105}
+
+%% Makes figure labels bold
+\usepackage[labelfont=bf]{caption}
+
+\begin{document}
+\thispagestyle{plain}
+
+\tutorial{HSPICE}
+
+\tableofcontents
+
+\section{Introduction}
+
+This tutorial was written specifically for the EE105 course at UC Berkeley. It outlines how to run HSPICE in Windows and UNIX, then delves into the details of creating netlists, simulating them, and using Awaves to plot the results. The appendix to this document serves as a syntax reference that may be useful throughout the semester.
+
+HSPICE is just a program that takes in a netlist (a simple text file), containing a circuit description and analysis options, and outputs the analysis it has done on that circuit. An HSPICE netlist typically has a \verb|.sp| extension, for example \verb|circuit.sp|. Although HSPICE produces many output files, the only one that you will need to look at is the file with a \verb|.lis| extension, for example \verb|circuit.lis|. This file contains all of the important results from the HSPICE analysis---operating points, measurement results, error messages---everything is in this file. Typically after simulating a circuit, it's best to check this file first to ensure there were no errors in your netlist.
+
+The other files that HSPICE generates are used by Avanwaves, or Awaves for short. Awaves is a program that allows you to graphically plot the results of the analysis that HSPICE did. You have to explicitly tell HSPICE to generate the extra files that Awaves needs, and we'll show you how to do that in this tutorial. Generally, when you run Awaves, you'll open the \verb|.sp| of the circuit you analyzed. Awaves will automatically find the analysis files that it needs and allow you to plot the results of the analysis that you specified in the netlist.
+
+You can create netlists in any text editor that you like. Notepad and Wordpad are common options under Windows, and Emacs, Vim, and Pico are common options under UNIX. In this tutorial, I'm going to assume that you're familiar enough with one of these text editors to use it proficiently under your operating system of choice. Most likely you all understand Notepad and/or Wordpad. If you are working under UNIX and are not familiar with either Emacs, Vim, Pico, or some other text editor, I would highly recommend using Pico for now as it is the simplest to use.
+
+\section{Windows vs. UNIX}
+
+There are two versions of HSPICE you will encounter at UC Berkeley: the Windows version and the UNIX version. Although any netlists you create will work on both versions, using HSPICE in these different operating systems is quite different. Both the UNIX and Windows versions are available in the lab and from home. This section of the tutorial will show you how to run HSPICE in all of these environments (Windows or UNIX, at home or in lab).
+
+\subsection{Windows}
+
+If you're working in the lab, you can skip the ``Connecting From Home'' portion of this section. Just login to a computer and jump directly into the section on ``Running HSPICE''.
+
+\subsubsection{Connecting From Home}
+
+In order to use HSPICE from home in Windows, you will need to have Windows XP Professional or a newer version of Windows installed. This is because running HSPICE requires the use of a feature called Remote Desktop Connection, which is only available on Windows XP Professional and later versions of Windows. Follow these instructions to run Remote Desktop Connection:
+
+\begin{enumerate}
+\item Click \textit{Start} $\rightarrow$ \textit{All Programs} $\rightarrow$ \textit{Accessories} $\rightarrow$ \textit{Communications} $\rightarrow$ \textit{Remote Desktop Connection}. Remote Desktop Connection will start.
+\item Click \textit{Options $>>$} $\rightarrow$ \textit{Local Resources}. Check the box at the bottom that says ``Disk Drives''. Click \textit{Options $<<$}.
+\item In the ``Computer'' box in Remote Desktop Connection, type: \verb|iserver1.eecs.berkeley.edu|. Click \textit{Connect}.
+\item Login to your EE105 instructional account (your named account will also work here). The remote Windows desktop will start and you will appear to be working on a lab machine remotely.
+\end{enumerate}
+
+\subsubsection{Running HSPICE}
+
+We're going to go through a sample HSPICE simulation and analysis in Awaves in order to teach you how to run these programs.
+
+\begin{enumerate}
+\item Start Notepad. You can do this either by clicking \textit{Start} $\rightarrow$ \textit{Run}, typing ``Notepad'', and hitting Enter. Or, you can click \textit{Start} $\rightarrow$ \textit{Programs} $\rightarrow$ \textit{Accessories} $\rightarrow$ \textit{Notepad}.
+\item Copy the text in Figure \ref{rccircuit} into Notepad exactly as it is written (this is what we call a ``netlist'').
+  
+  \begin{figure}[!htb]
+    \begin{verbatim}
+      EE105 SPICE Tutorial Example 1 - Simple RC Circuit
+      vs vs gnd PWL(0s 0V 5ms 0V 5.001ms 5V 10ms 5V)
+      r1 vs vo  1k
+      c1 vo gnd 1uF
+      .tran 0.01ms 10ms
+      .option post=2
+      .end \end{verbatim}
+    \caption{A simple RC circuit netlist}
+    \label{rccircuit}
+  \end{figure}
+  
+\item Save this file into a folder called ``Tutorial''. Name it \verb|rccircuit.sp|. \textit{Note: To ensure the filename has a .sp extension, be sure to select ``All Files'' in the ``Save as type'' listbox. You can put the filename in quotations if you want to be extra careful.}
+\item Click \textit{Start} $\rightarrow$ \textit{Programs} $\rightarrow$ \textit{HSPICE V-2004.03-SP1} $\rightarrow$ \textit{Hspui V-2004.03-SP1}. This is called the ``HSPICE UI'' (HSPUI for short), a graphical user interface to HSPICE. Although you can run HSPICE and Awaves individually, HPSPUI puts HSPICE, Awaves, your netlist, and the HSPICE output (the \verb|.lis| file mentioned earlier) in a convenient panel for easy access.
+\item Click \textit{Open} and select \verb|rccircuit.sp| using the file browser. You'll see that HSPUI automatically picks out the title and picks an output file called \verb|rccircuit.lis|, also in the Tutorial directory.
+\item Click \textit{Simulate} to simulate the circuit. HSPUI will open HSPICE for you and run your netlist through HSPICE, producing \verb|rccircuit.lis| and other output files used by Awaves.
+\item Click \textit{Edit LL} to view the output from HSPICE. This file contains information about the analysis done by HSPICE. Typically, you would look here for measurement results, operating points, and error messages. You should see no error messages at this time. If you do, check to make sure you copied the netlist exactly as shown in Figure \ref{rccircuit}. Once you've verified there are no error messages, close the output file.
+\item Click \textit{Avanwaves} to start Awaves. You'll see that HSPUI opens your circuit in Awaves and you can immediately begin plotting data. We'll cover Awaves through some examples later, but you can see the results of your analysis here by selecting \textit{Transient: ee105 spice tutorial example 1 - simple rc circuit} in the Results Browser and double-clicking \verb|vs| and \verb|vo| to plot them in the graph. You may have been able to guess from the netlist, but you'll see that \verb|vs| is a step function input and \verb|vo| is the output taken across a capacitor when the step function is applied as the input, a curve described by $v_o(t) = v_s\left(1-e^{-t/RC}\right)$.
+\item Always remember that if you want to save your data permanently, you \textbf{must copy it to the U: drive}. Your data will be deleted as soon as you logout otherwise. To access the U: drive, you click \textit{Start} $\rightarrow$ \textit{Run}, type ``U:'' in the text box, and hit Enter. Alternatively, you can double-click \textit{My Computer}, then double-click \textit{U:} to achieve the same result.
+\item If you're working from home, you may also want to copy your files to your home computer. This is useful for printing your netlists, output, and graphs produced in Awaves. If you double-click \textit{My Computer}, you should see all of you local hard drives listed (assuming you following the directions in ``Connecting From Home''). You can copy and paste files from the remote desktop to those drives to save them to your local machine.
+\end{enumerate}
+
+Now that you know how to run HSPICE and Awaves, you can move on to the tutorial on SPICE itself. If you're interested in using the UNIX version of HSPICE, you can continue reading here.
+
+\subsection{UNIX}
+
+In order to use HSPICE under UNIX at UC Berkeley, you'll need to login to a UNIX server. This is done using a protocol called SSH. If you are running Linux, MacOS, or UNIX at home, you should have everything you need to jump to the section entitled ``Running SSH''. If you are running Windows, you will probably need to install additional software. If you know you already have an X Server and SSH software, then you can also continue to ``Running SSH''. If not, continue reading.
+
+\subsubsection{Software}
+
+In order to work remoted on a UNIX machine, you will need an SSH client and an X Server. There are many, many options out there, but here we will recommend a couple different pieces of software to use.
+
+\paragraph{SSH Clients} The most convenient SSH client to use is SSH Secure Shell, a commercial program free for UC Berkeley students. SSH Secure Shell includes both a shell via SSH as well as a GUI for uploading and downloading files from the UNIX servers (via SCP). If you prefer using an alternative, you can use PuTTY for shell functionality and WinSCP for upload and download functionality. This tutorial will assume you are using SSH Secure Shell. Here are links to this software:
+\begin{itemize}
+  \item \href{http://software-central.berkeley.edu/all/ssh+secure+shell}{SSH Secure Shell} \textbf{Recommended}
+  \item \href{http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html}{PuTTY} (click the \verb|putty.exe| link)
+  \item \href{http://winscp.net/eng/download.php}{WinSCP} (download version 4.0.2 beta)
+\end{itemize}
+
+\paragraph{X Servers} We recommend using the Xming X server. In addition to downloading the X server itself, you will need to install a font package. You can also install Exceed, which is a commercial X Server program free for UC Berkeley students. If you use Exceed, you will not need the font package. Here are links to this software:
+\begin{itemize}
+  \item \href{http://sourceforge.net/project/showfiles.php?group_id=156984}{Xming X Server and Font Package} (download Xming and Xming-fonts) \textbf{Recommended}
+  \item \href{http://software-central.berkeley.edu/all/exceed}{Exceed}
+\end{itemize}
+
+Installing the software is relatively straightforward. If you have problems, be sure to read the documentation associated with the software you download.
+
+\subsubsection{Running SSH}
+
+\begin{enumerate}
+  \item Start the X Server that you downloaded.
+    \begin{itemize}
+      \item For Xming, click \textit{Start} $\rightarrow$ \textit{All Programs} $\rightarrow$ \textit{Xming} $\rightarrow$ \textit{Xming}.
+      \item For Exceed, click \textit{Start} $\rightarrow$ \textit{All Programs} $\rightarrow$ \textit{Hummingbird Connectivity 2006} $\rightarrow$ \textit{Exceed}.
+    \end{itemize}
+  \item Start the SSH client that you downloaded.
+    \begin{itemize}
+      \item For SSH Secure Shell, click \textit{Start} $\rightarrow$ \textit{All Programs} $\rightarrow$ \textit{SSH Secure Shell} $\rightarrow$ \textit{Secure Shell Client}.
+      \item For PuTTY, double-click the file you downloaded, \verb|putty.exe|.
+    \end{itemize}
+  \item Login to a UNIX server. In either program, if it is your first time logging in, you will see a security warning message when you try to connect to the UNIX server. Click ``Yes'' in either program to bypass this message.
+    \begin{itemize}
+      \item For SSH Secure Shell, create a profile by clicking \textit{Profiles} $\rightarrow$ \textit{Add Profile...}. Type a name in the text box, then click \textit{Add to Profiles}. Now click \textit{Profiles} $\rightarrow$ \textit{Edit Profiles...} and select the profile you created on the left side of the screen. For the ``Host name'', use \verb|cory.eecs.berkeley.edu|. For the username, enter the username for your class account (i.e. \verb|ee105-xx|, where \verb|xx| are two letters). Your named account should also work here if you have one. Click the \textit{Tunneling} tab and check the box that says ``Tunnel X11 Connections''. Click \textit{OK}, then click \textit{Profiles} and select the profile you just edited. Enter your password in the text box and click \textit{OK}. You should now be at a UNIX shell.
+      \item For PuTTY, enter \verb|cory.eecs.berkeley.edu| for the ``Host Name'', type a name into the ``Saved Sessions'' text box, and click \textit{Save}. Then, double-click the session you created in the list of sessions. It will prompt you for your username, so enter the username for your class account (i.e. \verb|ee105-xx|, where \verb|xx| are two letters). Your named account should also work here if you have one. Hit Enter, then type your password and hit Enter again. You should now be at a UNIX shell.
+    \end{itemize}
+    By default, the shell provided may be \verb|csh|. I highly recommend typing \verb|bash| to start the Bash shell, since it is more convenient to work with.
+\end{enumerate}
+
+\subsubsection{Running HSPICE}
+
+\begin{enumerate}
+  \item Make a new directory called \verb|Tutorial|. You can do this by typing \verb|mkdir Tutorial| at the Bash shell. Change to this directory by typing \verb|cd Tutorial|.
+  \item Using your preferred text editor (e.g. Emacs, Vim, or Pico), copy the netlist in Figure \ref{rccircuit} to a file called \verb|rccircuit.sp|.
+  \item Run HSPICE by typing 
+    \begin{verbatim}  $ hspice rccircuit.sp > rccircuit.lis \end{verbatim}
+      This command will send the output from HSPICE to a file called \verb|rccircuit.lis|. If you exclude the second half of the command, the output will be shown in the shell itself. This can be inconvenient for referencing and debugging, so it is common to send the output to a file.
+  \item Open \verb|rccircuit.lis| in your preferred text editor or pagination utility (e.g. \verb|more| or \verb|less|). This file contains information about the analysis done by HSPICE. Typically, you would look here for measurement results, operating points, and error messages. You should see no error messages at this time. If you do, check to make sure you copied the netlist exactly as shown in Figure 1. Once you've verified there are no error messages, close the output file.
+  \item Run Awaves by typing 
+    \begin{verbatim}  $ awaves rccircuit.sp & \end{verbatim}
+    This will open your circuit in Awaves. We'll cover Awaves in detail later, but you can see the results of your analysis here by selecting \textit{Transient: ee105 spice tutorial example 1 - simple rc circuit} in the Results Browser and double-clicking \verb|vs| and \verb|vo| to plot them in the graph. You may have been able to guess from the netlist, but you'll see that \verb|vs| is a step function input and \verb|vo| is the output taken across a capacitor when the step function is applied as the input, a curve described by $v_o(t) = v_s\left(1-e^{-t/RC}\right)$.
+  \item If you're working from home, you may want to copy your files to your home computer. This is useful for printing your netlists, output, and graphs produced in Awaves.
+    \begin{itemize}
+      \item For SSH Secure Shell, click \textit{Window} $\rightarrow$ \textit{New File Transfer in Current Directory}. This will open a new interface that allows you to drag and drop files from the UNIX server to your computer and vice versa. Simply drag the file you want to download from the right side of the screen and drop it somewhere convenient on the left side of the screen.
+      \item For PuTTY, you will have to use WinSCP to copy your files to a local directory. Run WinSCP by clicking \textit{Start} $\rightarrow$ \textit{All Programs} $\rightarrow$ \textit{WinSCP} $\rightarrow$ \textit{WinSCP}. Create a new session and type in the host name, username, and password as you did when logging in with PuTTY. Save the session by clicking \textit{Save...}. Click \textit{OK} when it prompts you about saving your password, then type a name in the text box and click \textit{OK} again. Double-click the session you just created and you will see a split interface that will allow you to drag and drop files to and from the UNIX server. Simply drag the file you wish to download from the right side of the screen to the left side in order to download it to your computer.
+    \end{itemize}
+\end{enumerate}
+
+\section{Simulating Circuits in HSPICE and Awaves}
+
+\subsection{HSPICE Netlist Syntax}
+
+At this point you should be comfortable running HSPICE and Awaves under your current environment (Windows or UNIX). Now we can begin talking about the mechanics of writing a netlist. The first line of a netlist must always be a comment---it will be ignored by HSPICE no matter what you put on it. Typically, we put a brief description of the netlist on the first line.
+
+Next, we define the models that we're going to use. At this point you haven't learned about MOSFET, BJT, or diode models, but you do know enough to know that these devices have many parameters that can change their behavior, unlike resistors, capacitors, inductors, and sources, which are specified by a single value. If your circuit does not contain any transistors or diodes, then it isn't necessary to define any models.
+
+After defining device models, we write the description of the circuit topology itself. Each type of circuit element has its own command (e.g. resistors and capacitors are defined by unique commands). The way we describe the circuit topology is by giving each node (a node being the point connecting any two or more elements) in the circuit a unique name and then connecting circuit elements between these nodes. Note that you don't have to specify these elements in any particular order (though it is often useful to specify them in an order that is logical to you in case you need to change the netlist in the future).
+
+After describing the circuit topology, we enter analysis commands describing how we want HSPICE to analyze the circuit. We can also define options that HSPICE uses when simulating the circuit. Athe end of this document we've provided a syntax reference containing all of the circuit element and analysis commands you'll need for this course. You may want to print that part of the tutorial (or open it in a separate window) for reference before you continue to the next section.
+
+The last line of any HSPICE netlist must be the command \verb|.end|. This tells HSPICE where to stop reading the netlist.
+
+Note that the organization of a netlist in the order described here is somewhat arbitrary (aside from the first and last lines). You can define a model before you use it in a document, and you can specify your analysis before you describe the circuit topology. What we've described is just one convenient way to organize your netlist so it is easy to read and understand. It's important to note that SPICE is not a programming language like you may be familiar with, so you shouldn't think of it like a programming language. An example of this is that HSPICE is completely case insensitive. That means \verb|vs|, \verb|VS|, \verb|Vs|, and \verb|vS| are all the same to HSPICE.
+
+\subsection{Examples}
+
+The specifics of writing netlists are going to be taught through examples. We'll start with simple examples and gradually progress to more complicated circuits to allow you to gradually build your proficiency with SPICE.
+
+\subsubsection{Transient analysis of a simple RC circuit}
+
+Let's start with the simple RC circuit you analyzed earlier in the tutorial. The same netlist with line numbers is shown in Figure \ref{rccircuit2}.
+
+\begin{figure}[!htb]
+  \begin{verbatim}
+    1  EE105 SPICE Tutorial Example 1 - Simple RC Circuit
+    2  vs vs gnd PWL(0s 0V 5ms 0V 5.001ms 5V 10ms 5V)
+    3  r1 vs vo  1k
+    4  c1 vo gnd 1uF
+    5  .tran 0.01ms 10ms
+    6  .option post=2 nomod
+    7  .end \end{verbatim}
+  \caption{A simple RC circuit netlist with line numbers}
+  \label{rccircuit2}
+\end{figure}
+
+First, note lines 1 and 7. Line 1 is a comment, as always. You can specify a comment at any time using the asterisk (\verb|*|). Any text following the asterisk will be a comment. Line 7 is the \verb|.end| command, another requirement for any netlist.
+
+Lines 2--4 contain the description of the circuit topology. In this case, we have three nodes: \verb|vs|, \verb|vo|, and \verb|gnd|. Note that elements and nodes can have the same name, so Line 2 is perfectly legal even though it is connecting the voltage source called \verb|vs| to the circuit node called \verb|vs|. In some circuits, you may need to refer to a voltage source or circuit node later in an analysis statement, but context will always make it clear which you are referring to so a source and node having the same name will never cause ambiguities.
+
+In these lines you can also see the usage of suffixes to denote powers of 10. From $10^{-15}$ to $10^{12}$, these are: \verb|f| (femto), \verb|p| (pico) , \verb|n| (nano), \verb|u| (micro), \verb|m| (milli), \verb|k| (kilo), \verb|meg| (mega), \verb|g| (giga), \verb|t| (tera). HSPICE often reports values following by an \verb|x|---this is short-hand for $10^6$, and you can use it interchangeably with \verb|meg|.
+
+The node \verb|gnd| is a standard name used to reference ground. You can also use the number \verb|0| to refer to the ground node (some people like to number their nodes instead of naming them, in which case \verb|0| may be a more natural fit). Ground is a special node in the circuit, so only use \verb|gnd| or \verb|0| to refer to the ground node. The other nodes have arbitrary names, but in this case I've named them intuitively: \verb|vs| is the voltage of the source, and \verb|vo| is the voltage across the capacitor, which I consider the output in this case. Figure \ref{rccircuitdiagram} shows the circuit diagram corresponding to this netlist (with nodes labeled as they are in the netlist).
+
+\begin{figure}[!htb]
+  \input hspice_rccircuitdiagram
+  \centerline{\box\graph}
+  \caption{Circuit diagram corresponding to the netlist in Figure \ref{rccircuit2}}
+  \label{rccircuitdiagram}
+\end{figure}
+
+If you take another look at Line 3, you'll see that when defining the source \verb|vs| I put the node \verb|vs| first and the node \verb|gnd| second. This is an important distinction when dealing with elements that have positive and negative terminals. For a resistor, such as the one in Line 3, I can list the nodes in any order without changing the circuit's behavior. Also note that the value of the source is a complicated \verb|PWL| expression. Refer to the syntax reference at the end of this guide and you'll see that this is actually a non-ideal step function (with a linear rise over $\unit{1}{\micro\second}$).
+
+Line 5 is our first analysis statement. It tells HSPICE to do a transient (i.e. measure values as a function of time) from time $t=\unit{0}{\milli\second}$ to time $t=\unit{10}{\milli\second}$ in increments of $\unit{0.01}{\milli\second}$. When you simulated this circuit earlier, you should've seen that the plot of \verb|vo| is that of a capacitor charging due to a step function input. This analysis statement is what allowed you to plot that time-based analysis of node \verb|vo|.
+
+Line 6 is a list of options that you can pass to HSPICE. In this case, I've used two options: \verb|post=2| and \verb|nomod|. The first, \verb|post=2|, tells HSPICE to generate extra files for Awaves to use in plotting data. If you do not specify \verb|post=2| (actually, you can also specify \verb|post=1| or \verb|post=3|---the differences aren't important for our purposes), you will not be able to plot your data in Awaves. The second option, \verb|nomod|, just tells HSPICE not to print model information in the output file. Although this is unimportant for this example (since we haven't included any models), it can be useful when you are dealing with real device models that can be half a page long.
+
+Try simulating this circuit and plotting \verb|vo| in Awaves like you did earlier in the tutorial. Now try to measure how long it takes for \verb|vo| to go from 0V to $0.63(5) = \unit{3.15}{\volt}$ once \verb|vs| steps from $\unit{0}{\volt}$ to $\unit{5}{\volt}$. If you remember your RC circuits from EE40, you'll realize this should be the time constant of the circuit $t=RC=\unit{1}{\milli\second}$. Measuring this on the graph in Awaves, I get almost exactly $\unit{1}{\milli\second}$.
+
+\subsubsection{Operating point analysis for a diode}
+
+Another very useful type of analysis is operating point analysis. You probably recall having to calculate operating points in EE40 by finding the intersection between a diode's IV curve and the load line created by a resistor. Figure \ref{opdiagram} shows a simple circuit diagram for which we'd like to calculate the operating point. Figure \ref{opnetlist} shows the corresponding netlist (once again with line numbers). I've labeled the nodes and elements in the diagram consistently with how they're named in the netlist.
+
+\begin{figure}[!htb]
+  \input hspice_opdiagram
+  \centerline{\box\graph}
+  \caption{A diode circuit for operating point analysis}
+  \label{opdiagram}
+\end{figure}
+
+\begin{figure}[!htb]
+  \begin{verbatim}
+    1  EE105 SPICE Tutorial Example 2 - Simple Diode Circuit
+    2  .model tut_diode d (is=1e-14 vj=0.6 rs=10)
+    3  vs vs gnd 5V
+    4  rs vs vd  5k
+    5  d1 vd gnd tut_diode
+    6  .op
+    7  .end \end{verbatim}
+  \caption{The netlist corresponding to the diode circuit in Figure \ref{opdiagram}}
+  \label{opnetlist}
+\end{figure}
+
+Let's take a look at the new features of this netlist. First, we've defined a model on Line 2 called \verb|tut_diode|. Models are necessary whenever you are using diodes or transistors in your netlists. The model defines certain parameters related to the device you specify. In this class we'll typically give you the parameters you need to define for your SPICE models, and our models will typically be very simple. Real device models can have dozens of parameters specified in excruciating detail. Note that a model name cannot start with a number in HSPICE (for example, \verb|2N4401| would be an invalid name, but \verb|QN4401| would be a valid model name).
+
+Line 5 shows how you can define a diode. You should recall from EE40 that a diode is asymmetric, so we have to specify the positive terminal first and the negative terminal second. You also have to specify which model to use, and in this case I'm using the model we just defined in Line 2.
+
+The last new command shown here is on Line 6, the \verb|.op| command. This command stands for ``operating point'' and tells HSPICE to calculate the voltage at every node and the current through every branch in the circuit. Note that we've excluded the \verb|.option post=2| command in this netlist because we will not need to use Awaves for this analysis.
+
+Simulate this circuit and open the SPICE output file. Scroll through this file until you see a line that says ``operating point information''. Below that, you should see a list of all of the nodes in the circuit (in this case, we just have two nodes) and the voltages at those nodes, plus a list of all the elements in the circuit and the voltages and currents associated with those elements. We can read off the operating point we're interested in: the voltage at \verb|vd| is $\unit{655.8104}{\milli\volt}$.
+
+Let's compare this to the hand-calculated operating point for the same circuit using $I_S = \unit{10^{-14}}{\ampere}$ for the diode. We have:
+
+\begin{align*}
+  I_S e^{V_D/\vt} &= \frac{V_S}{R_S} - \frac{1}{R_S}V_D
+\end{align*}
+
+Solving this equation gives $V_D = \unit{654.889}{\milli\volt}$, a percent error of \unit{0.14}{\%} compared to the value given by HSPICE.
+
+\subsubsection{DC analysis of a diode}
+
+Another type of analysis we can do is DC analysis. DC analysis allows us to measure values in our circuit as we sweep a voltage. For example, let's look again at our diode circuit. Instead of looking at \verb|vd| for \verb|vs| at just \unit{5}{\volt}, maybe we want to sweep \verb|vs| from $\unit{0}{\volt}$ to $\unit{5}{\volt}$ and see how \verb|vd| changes as a result. Let's look at Figure \ref{dcnetlist} to see how we might do this (I've used the same node names as shown in Figure \ref{opdiagram}).
+
+\begin{figure}[!htb]
+  \begin{verbatim}
+    1  EE105 SPICE Tutorial Example 3 - Simple Diode Circuit
+    2  .model tut_diode d (is=1e-14 vj=0.6 rs=10)
+    3  vs vs gnd 5V
+    4  rs vs vd  5k
+    5  d1 vd gnd tut_diode
+    6  .dc vs 0V 5V 0.01V
+    7  .option post=2
+    8  .end \end{verbatim}
+  \caption{Netlist for DC analysis of the diode circuit in Figure \ref{opdiagram}}
+  \label{dcnetlist}
+\end{figure}
+
+Let's see how this netlist has changed to allow us to do a DC analysis. First, note the Line 6, instead of being an operating point analysis \verb|.op|, is now a DC analysis \verb|.dc|. In this case, we are sweeping \verb|vs| from \unit{0}{\volt} to \unit{5}{\volt} in steps of \unit{0.01}{\volt}. Looking at Line 3, you may think this conflicts with the value I've already put there; however, when you do a DC analysis of a source, it ignores whatever value you gave the source earlier.
+
+The second change I made was in adding Line 7, since we are going to be using Awaves to look at a plot of \verb|vd| versus \verb|vs|. Simulate the circuit and open it in Awaves. Before we continue, I'm going to briefly describe the Awaves interface that we've been using so far.
+
+When you first open Awaves with your circuit, it will automatically open the Results Browser, a window that allows you to browse the results of the analysis that HSPICE has done. This will be the first place to look when you want to plot something you've measured. There are many extraneous quantities you'll probably never want to plot (for example, you can plot the voltage at the ground node), but usually the quantity you'll want to plot will be located somewhere in the Results Browser.
+
+At the top of the Results Browser is a list of analyses that HSPICE has done on the circuit. In this case, we just did one analysis, a DC analysis, so you'll only see one choice in the list. Go ahead and click \textit{DC: ee105 spice tutorial example 3 - simple diode circuit}. The bottom half of the screen should populate with various options once you select the DC analysis. Under the ``Types'' column, you'll see a number of different types of data you can plot: voltages and currents in this case (other types of analyses will give you other choices). If you click on \textit{Voltages}, you'll see a number of choices appear under ``Curves''. These choices are all of the voltages you can plot. You may wonder what the $x$-axis of the plot will be, and that is given by the type of analysis you did. In this case, it will be the voltage you varied, \verb|vd|. In the case of a transient analysis, it would be time. For AC analysis, it would be frequency. You can change your $x$-axis (this is sometimes necessary) by selecting the curve you want as your $x$-axis and clicking \textit{Apply} in the ``Current X-Axis'' portion of the Results Browser.
+
+Go ahead and double-click the \verb|vd| curve under \textit{Voltages}, then click \textit{Close} to close the Results Browser. The main window of Awaves, should show a plot of \verb|vs| versus \verb|vd|. This is the first example for which hand-calculating a solution would've been extremely difficult or tedious. Remember that the equation describing the circuit's behavior is
+
+\begin{align*}
+  I_S e^{V_D/\vt} &= \frac{V_S}{R_S} - \frac{1}{R_S}V_D
+\end{align*}
+
+Notice that it is impossible to algebraically solve this equation for $V_D$ as a function of $V_S$. Without SPICE, you'd have to plug in each value of $V_S$ individually (remember, there are $5/0.01 = 500$ of them) and solve the equation by iteration (or by using a graphing calculator) for each value.
+
+\subsubsection{AC analysis of a high-pass filter}
+
+Let's take a look at a basic RC high-pass filter, which you learned about in EE40. Figure \ref{acdiagram} shows the circuit diagram we'll be simulating, and Figure \ref{acnetlist} shows the associated netlist.
+
+\begin{figure}[!htb]
+  \input hspice_acdiagram
+  \centerline{\box\graph}
+  \caption{A simple RC high-pass filter}
+  \label{acdiagram}
+\end{figure}
+
+\begin{figure}[!htb]
+  \begin{verbatim}
+    1  EE105 SPICE Tutorial Example 4 - Simple RC High-Pass Filter
+    2  vs vs gnd ac 1V
+    3  c1 vs vo  1nF
+    4  r1 vo gnd 1k
+    5  .ac dec 500 100 1G
+    6  .option post=2
+    7  .end \end{verbatim}
+  \caption{The netlist corresponding to the high-pass filter in Figure \ref{acdiagram}}
+  \label{acnetlist}
+\end{figure}
+
+First let's look at how the netlist has changed once again. Look at Line 2. Although this looks extremely similar to all of our other voltage definitions, it has one extra parameter specified before the value: \verb|ac|. This tells HSPICE that the AC analysis should be done by varying the frequency of this source. If you try to do an AC analysis of a circuit without any AC sources specified, HSPICE will give you an error.
+
+Now look at the new analysis statement on Line 5. The \verb|.ac| command tells HSPICE to do an AC analysis by sweeping the frequency of the AC source as you specify. The first parameter passed to this command, in our case \verb|dec|, tells HSPICE whether to do a linear (\verb|lin|) sweep, a sweep by octaves (\verb|oct|), or a sweep by decades (\verb|dec|). In this class, we'll be using \verb|dec| for all of our AC analyses. The second parameter tells HSPICE how many sample points to take per decade. The third parameter is the starting frequency of the sweep, and the fourth parameter is the ending frequency of the sweep. In this case, we're taking 500 points per decade from $f=\unit{100}{\hertz}$ to $f=\unit{1}{\giga\hertz}$.
+
+Simulate this circuit and open it in Awaves. You'll notice that in the Results Browser you can plot real and imaginary components, magnitudes, and phases of voltages and currents. You'll also notice that your $x$-axis has been conveniently set to frequency in Hertz. Let's make a Bode plot (magnitude and phase) of this high-pass filter to confirm that it behaves as we expect.
+
+Let's start with the phase Bode plot. This is easier to do than the magnitude Bode plot because HSPICE effectively calculates the phase for you already. Simply select \textit{Volts Phase} from ``Types'' in the Results Browser, then double-click \verb|vo|. Notice that the plot doesn't look like a Bode plot yet because the $x$-axis is measured on a linear scale. To change it to a logarithmic scale, right-click the $x$-axis and select \textit{Set Logarithmic Scale}. Now the phase Bode plot should be quite apparent.
+
+Now let's plot the magnitude Bode plot. Recall that for the magnitude Bode plot, the vertical axis is measured in decibels, or \deci\bel. HSPICE has calculated voltage magnitudes, but it hasn't calculated them in \deci\bel. However, we can use Awaves to calculate the magnitude in \deci\bel. Click \textit{Tools} $\rightarrow$ \textit{Expressions} to open the Expression Builder. You can calculate any function you want from the curves that HSPICE has provided using the Expression Builder. In the left column under ``Functions'', you should see \verb|decibel( )|. Double-click \verb|decibel( )| and Awaves will place it in the ``Expression'' box at the top of the window. Now, without closing the Expression Builder, open the Results Browser and select \textit{Volts Mag} from ``Types''. We want the magnitude of the output, so middle-click \verb|vo| and, while holding the middle mouse button, drag your mouse between the parentheses of the \verb|decibel( )| function in the Expression Builder, then release the middle mouse button. 
+
+If you did this properly, you should see \verb|decibel(node(D0,"A0","vm(vo)","S-1"))| in the ``Expression'' box in the Expression Builder. You can close the Results Browser at this point. Before you can plot this function, you need to give it a name. In the ``Result'' box, type a name (for example, ``MagBode''), then click \textit{Apply}. Your function will now appear under ``Expressions'' in the Expression Builder. Double-click your new expression and Awaves will plot it for you.
+
+If you plotted the phase Bode plot first, you'll see that the magnitude Bode plot is drawn on the same graph as the phase plot. However, the units for the magnitude plot are on the right side of the graph, so you can see both plots at the same time without getting confused. The magnitude Bode plot should be exactly what you'd expect from a high-pass filter. You can do the hand-calculations yourself this time (or refer to your EE40 notes) and confirm that these plots are correct.
+
+As a side note, normally when you make a Bode plot you'd need to take the magnitude of the output over the input in \deci\bel. In general this is true, but in our case we set the magnitude of our AC source to \unit{1}{\volt}, so dividing by a magnitude of \unit{1}{\volt} would not have changed the results. If you were to use a different magnitude, you'd have to use the same method described above to divide the magnitude of the output by the magnitude of the input before computing the expression's value in \deci\bel.
+
+\subsubsection{Transfer function analysis}
+
+Let's try to find the voltage gain (output over input) for the circuit in Figure \ref{tfdiagram}. Since this a simple resistive network, you can hand-calculate the answer and compare it to the result you get in HSPICE. I've used more convential notation in the diagram this time and haven't labeled the nodes. At this point, you should be able to recognize what is going on without those labels. Figure \ref{tfnetlist} shows the netlist for this circuit diagram.
+
+\begin{figure}[!htb]
+  \input hspice_tfdiagram
+  \centerline{\box\graph}
+  \caption{A complicated resistor network}
+  \label{tfdiagram}
+\end{figure}
+
+\begin{figure}[!htb]
+  \begin{verbatim}
+     1  EE105 SPICE Tutorial Example 5 - Complicated Resistor Network
+     2  vs vs gnd 1V
+     3  r1 vs 1   1k
+     4  r2 1  2   500
+     5  r3 2  vo  800 
+     6  r4 2  gnd 200
+     7  r5 1  4   1.5k
+     8  r6 4  vo  700
+     9  r7 vo 5   100
+    10  r8 5  gnd 900
+    11  .tf v(vo) vs
+    12  .end \end{verbatim}
+  \caption{SPICE netlist for a resistor network}
+  \label{tfnetlist}
+\end{figure}
+
+The only new feature here is the analysis statement on Line 11, which is a \verb|.tf| statement, short for transfer function. This calculates the DC gain, input resistance, and output resistance between the voltage node specified first (the output) and the voltage source specified second (the input). We don't need the \verb|.option post=2| statement since we will not be using Awaves for this analysis.
+
+Simulate the circuit in HSPICE and open the output file. Look for a line that says ``small-signal transfer characteristics''. Underneath that, you should see values for \verb|v(vo)/vs|, or the gain from \verb|vs| to \verb|vo|, the input resistance at \verb|vs|, and the output resistance at \verb|vo|. In this case, the gain is $\unit{109.8628}{\milli} \approx 0.110$. If you were to calculate the voltage at node $v_o$ by hand, you would get the same result.
+
+\subsubsection{Pole-zero analysis}
+
+HSPICE can also find poles and zeroes for you. Let's take another look at the circuit in Figure \ref{acdiagram}. This time, we'll use the netlist in Figure \ref{pznetlist}.
+
+\begin{figure}[!htb]
+  \begin{verbatim}
+    1  EE105 SPICE Tutorial Example 6 - Pole-zero analysis of a high-pass filter
+    2  vs vs gnd ac 1V
+    3  c1 vs vo  1nF
+    4  r1 vo gnd 1k
+    5  .pz v(vo) vs
+    6  .end \end{verbatim}
+  \caption{A netlist for finding the poles and zeroes in the circuit in Figure \ref{acdiagram}}
+  \label{pznetlist}
+\end{figure}
+
+As you can see, the \verb|.pz| statement is used much like the \verb|.tf| statement in that you first specify an output node, then an input source. After you simulate the circuit in HSPICE, open the output file and look for a line that says ``pole/zero analysis''. You'll notice that just below that line is a list of all of the poles and zeroes from the input source to the output node. In this case, we have just one zero, since this is a high-pass filter. You can confirm the result by hand-calculating the transfer function.
+
+\subsubsection{The \texttt{.measure} command}
+
+The \verb|.measure| command is used to measure almost any parameter in your circuit under some specified conditions. For example, it can be used to measure rise time, fall time, delay, maxima and minima, etc. Here we will cover just one use of the \verb|.measure| command.
+
+\paragraph{TRIG/TARG} One use of the \verb|.measure| command involves specifying a trigger and a target (TRIG and TARG, respectively). A trigger tells the command when to start measuring, and the target tells the command when to stop measuring. The command will then report the value you want to measure at the trigger condition, target condition, and the difference between its values under those conditions. This is best illustrated through an example. Consider the RC circuit in Figure \ref{rccircuitdiagram}. Let's say we want to measure the rise time of this RC circuit. First, we need to define the rise time metric---let's say it's the time it takes for $v_o$ to go from \unit{10}{\%} to \unit{90}{\%} of its final value (i.e. from \unit{0.5}{\volt} to \unit{4.5}{\volt}).
+
+Now, let's take a look at the netlist that will perform this measurement, shown in Figure \ref{risetime}. Pay close attention to line 6, which contains the \verb|.measure| command. The structure of the command is as follows (note that the plus signs allow you to continue a command on the next line and are not necessary):
+
+\begin{verbatim}
+  .measure <ac|dc|tran> <name>
+  + trig <node> val=<value> <rise|fall|cross>=<value>
+  + targ <node> val=<value> <rise|fall|cross>=<value>
+\end{verbatim}
+
+The first argument specifies what analysis statement to associate the measurement with. For example, if measuring time the first argument should be \verb|tran|. If measuring frequency, it should be \verb|ac|, and if voltage, \verb|dc|. The second argument is simply a name for your measurement. In the example for computing rise time, I use the name \verb|trise| for my measurement. Now you must specify the trigger and target, which have identical structure. For each, you must specify what node you want to trigger/target on, the value it needs to equal at the time of the trigger/target, and how many rises/falls/crosses have occurred prior to the node reaching that value. You should understand the concept of rising and falling, i.e. a signal going from low to high or high to low. A cross is simply the sum of rises and falls.
+
+Let's look at our example again. I am triggering when \verb|v(vo)|, the voltage at the output node, is equal to \unit{0.5}{\volt}, or \unit{10}{\%} of its final value. I want it to measure this value on the first rise, so I specify \verb|rise=1|. I am targeting when \verb|v(vo)| is equal to \unit{4.5}{\volt}, or \unit{90}{\%} of its final value. Again, I want the value on the first rise, so I again specify that \verb|rise=1|. That's all there is to it. If your simulate this netlist in HSPICE and look at the output, under a line labeled ``transient analysis'' you should see values for \verb|trise|, \verb|trig|, and \verb|targ|, where \verb|trise| is just \verb|targ - trig|.
+
+One issue to watch out for is that you cannot set your trigger to at zero. If you want to trigger at zero, you can approximate the measurement by using a very small, but non-zero, trigger value. For example, I could trigger on the value \texttt{1n}.
+
+\begin{figure}[!htb]
+  \begin{verbatim}
+    1  EE105 SPICE Tutorial Example 7 - Computing rise time
+    2  vs vs gnd PWL(0s 0V 5ms 0V 5.001ms 5V 10ms 5V)
+    3  r1 vs vo  1k
+    4  c1 vo gnd 1uF
+    5  .tran 0.01ms 10ms
+    6  .measure tran trise trig v(vo) val=0.5 rise=1 targ v(vo) val=4.5 rise=1
+    7  .end \end{verbatim}
+  \caption{A netlist to compute the rise time of an RC circuit}
+  \label{risetime}
+\end{figure}
+
+For more information on the \verb|.measure| command, refer to \href{http://www.ece.uci.edu/docs/hspice/hspice_2001_2-48.html}{Specifying User-Defined Analysis (.MEASURE)}.
+
+\subsection{Including another file}
+
+During the course of the semester, you'll often have to use models that we provide on the course website. Instead of copying and pasting the models, you can just include the model file in your circuit. To do this, place the model file in the same directory as your netlist (for example, \verb|circuit.sp| and \verb|2N4401.mod|). Then, in your netlist, include the following line:
+
+\begin{verbatim}
+  .inc `<filename>'
+\end{verbatim}
+In this case, we would use \verb|2N4401.mod| for the filename. 
+
+\section{Using Awaves}
+
+Here we describe how to perform some common actions in Awaves. These are not related to simulation results at all, just the Awaves interface. For details on simulation and examples of how to use certain features, see the examples in the previous section.
+
+\subsection{Interface description}
+
+The Awaves interface has three windows that you'll work with. These are the Results Browser, the Expression Builder, and the main window consisting of a wave list and graphical panel. The Results Browser can be opened by clicking \textit{Tools} $\rightarrow$ \textit{Results Browser...} (or by clicking the first icon at the top of the screen with a picture of a tree hierarchy). The Expression Builder can be opened by clicking \textit{Tools} $\rightarrow$ \textit{Expression Builder...} (or by clicking the second icon at the top of the screen that is labeled $f(x,y)$).
+
+The Results Browser allows you to view data that has been directly measured from your circuit. For example, the voltage at a node, the current through a branch, etc. are available from the Results Browser.
+
+The Expression Builder lets you build mathematical expressions from the data in the Results Browser. For example, you can compute the absolute value, magnitude, derivative, etc. of any of the data available from the Results Browser.
+
+The main window shows the data that you're plotting. It consists of a wave list and graphical panel showing the plots of the functions in the wave list. You can add and hide these panels by clicking \textit{Panels} $\rightarrow$ \textit{Add} and \textit{Panels} $\rightarrow$ \textit{Hide}, respectively. Using multiple panels allows you to plot data on separate graphs at the same time. When adding a plot (through the Results Browser or the Expression Builder), it will be added to whatever panel is selected when you add the plot.
+
+\subsection{Deleting plots}
+
+To delete a plot in Awaves, simply select it from the ``Wave List'' on the left side of the screen and hit the Delete key on your keyboard.
+
+\subsection{Printing plots}
+
+To print a plot in Awaves, click \textit{Tools} $\rightarrow$ \textit{Print...}. If you're printing in lab, you should select the ``Printer'' radio button. If you're working from home, you should print to a file, transfer it to your home computer, and print it from your home computer. If you print to a file, save the plot in the PS format. You can then transfer it to your home computer using the methods described in section 2.1.2 or 2.2.2. To print the file, you will need software that can open a PS file (short for Postscript). A common tool for viewing PS files is \href{http://pages.cs.wisc.edu/~ghost/gsview/}{GSView}, which requires \href{http://pages.cs.wisc.edu/~ghost/doc/AFPL/index.htm}{Ghostscript}.
+
+\subsection{Making a measurement}
+
+There is a button at the top of the screen that shows a box with a single crosshair. This is used for measuring values on your plots. If you click this button then click any point on your plot, it will show the coordinates of that point and the derivative of the curve at that point. You can delete a measurement by selecting the measurement and clicking \textit{Measure} $\rightarrow$ \textit{Delete Measure}. If you want to delete all of the measurements you've made, simply click \textit{Measure} $\rightarrow$ \textit{Delete All Measures}.
+
+If you want to increase the precision of the measurements you've made, click \textit{Measure} $\rightarrow$ \textit{Measure Preferences} and choose a higher precision value.
+
+\subsection{Zooming}
+
+There is a series of buttons at the top that allow you to zoom in and out of the plot you're viewing. The one with a $+$, $y$, and $x$ allows you to zoom in the $x$ and $y$ direction at the same time. Simply drag the cursor to form a box, and that box will fill the screen.
+
+The button that shows $+$ and $x$ allows you to zoom only in the $x$ direction. Drag the cursor horizontally, and the length that you drag will fill the screen. The $+$ and $y$ button works similarly, except you drag the cursor vertically and it will zoom in the $y$ direction.
+
+Zooming out works similarly. However, instead of the distance you drag filling the screen, the opposite occurs---that is, the screen is reduced to the distance that you dragged.
+
+Finally, if you clicked a zoom button but didn't actually want to zoom, you can click the last zoom button, showing a magnifying glass with a cross through it, to cancel the operation.
+
+\subsection{Updating a panel}
+
+Awaves contains and extremely useful feature for quick simulation results: updating a panel. When you update a panel, it will re-read the simulation results and re-plot all of waves you had selected with the new data. This means you can keep Awaves open as long as you're performing the simulations and update the panel you're working on after each simulation to view your latest results. Students that haven't discovered this feature often close and re-open netlists repeatedly to achieve the same effect. To update a panel, select the panel you want to update and click \textit{Panels} $\rightarrow$ \textit{Update} (or hit \textit{ctrl}+\textit{u} on your keyboard).
+
+\section{Syntax Reference}
+
+Any bracketed labels must be replaced entirely (i.e. if you want a value of \unit{5}{\volt}, you should replace \verb|<value>| with \verb|5V|).
+
+\begin{itemize}
+	\item Independent voltage source \\ \verb|v<name> <+ terminal> <- terminal> <value>|
+	\item Independent current source \\ \verb|i<name> <+ terminal> <- terminal> <value>|
+	\item Voltage-controlled voltage source \\ \verb|E<name> <+ terminal> <- terminal> <+ control> <- control> <gain>|
+	\item Current-controlled voltage source (\verb|vcontrol| refers to the voltage source which the controlling current flows through) \\ \verb|H<name> <+ terminal> <- terminal> <vcontrol> <gain>|
+	\item Voltage-controlled current source  \\ \verb|G<name> <+ terminal> <- terminal> <+ control> <- control> <gain>|
+	\item Current-controlled current source (\verb|vcontrol| refers to the voltage source which the controlling current flows through) \\ \verb|F<name> <+ terminal> <- terminal> <vcontrol> <gain>|
+	\item Sinusoidal source (used as a \verb|<value>|) \\ \verb|sin(<offset> <amplitude> <frequency> <delay> <damping> <phase>)|
+	\item Square wave source (used as a \verb|<value>|) \\ \verb|pulse(<vmin> <vmax> <delay> <rise time> <fall time> <pulse width> <period>)|
+	\item Piece-wise linear source (used as a \verb|<value>|) \\ \verb|pwl(<t0> <v0> <t1> <v1> <t2> <v2> ...)|
+	\item Resistor \\ \verb|r<name> <terminal 1> <terminal 2> <value>|
+	\item Capacitor \\ \verb|c<name> <terminal 1> <terminal 2> <value>|
+	\item Inductor \\ \verb|l<name> <terminal 1> <terminal 2> <value>|
+	\item Model (type can be \verb|nmos|, \verb|pmos|, \verb|NPN|, \verb|PNP|, or \verb|D| for diode) \\ \verb|.model <name> <type> (<parameter list>)|
+	\item MOSFET (you can specify additional parameters, such as \verb|W=<value> L=<value>|, in the parameter list) \\ \verb|m<name> <drain> <gate> <source> <body> <model> <parameter list>|
+	\item BJT \\ \verb|q<name> <collector> <base> <emitter> <model> <parameter list>|
+	\item Diode \\ \verb|d<name> <+ terminal> <- terminal> <model> <parameter list>|
+	\item AC analysis (pick either \verb|lin|, \verb|dec|, or \verb|oct|) \\ \verb/.ac <lin|dec|oct|> <number of samples> <freq start> <freq stop>/
+	\item DC analysis \\ \verb|.dc <source> <start> <stop> <step>|
+	\item Nested DC analysis (\verb|source1| is swept, \verb|source2| is stepped) \\ \verb|.dc <source1> <start1> <stop1> <step1> <source2> <start2> <stop2> <step2>|
+	\item Transient analysis \\ \verb|.tran <t step> <t stop>|
+	\item TF analysis \\ \verb|.tf v(<node>) <source>|
+	\item PZ analysis \\ \verb|.pz v(<node>) <source>|
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,129 @@
+\documentclass{article}
+\usepackage{ee105}
+
+%% Makes figure labels bold
+\usepackage[labelfont=bf]{caption}
+
+\begin{document}
+
+%% Prevent headings on the first page, since we're not using \maketitle
+\thispagestyle{plain}
+
+%% Standard header. Title of the lab goes here.
+\lab{1}{Introduction to SPICE}
+
+\section{Objective}
+SPICE stands for \textbf{S}imulation \textbf{P}rogram with \textbf{I}ntegrated \textbf{C}ircuit \textbf{E}mphasis. It is the predominant tool used to simulate circuits and was developed at UC Berkeley in the 1970s. You will be using SPICE extensively in your circuit design courses, and this lab will teach you how to use a popular commercial package called HSPICE, one of many implementations based on the original Berkeley SPICE. You will learn how to specify and analyze a circuit with HSPICE and how to plot the results of your analysis with a tool called Avanwaves, or Awaves for short.
+
+\section{Materials}
+For this lab, all you need is a computer with HSPICE installed. You can use either the Windows or UNIX version, but you will have to read the appropriate documentation for whichever version you choose. The computers located in the EE105 lab in 353 Cory are Windows machines with the Windows version of HSPICE installed, so if you're working in lab you should use the Windows version. If you need to use HSPICE at home, you can either use Windows Remote Desktop to login to a Windows server and use the Windows version of HSPICE, or you can use SSH to login to a UNIX server and use the UNIX version of HSPICE.
+
+\section{Procedure}
+
+\subsection{Transient Analysis}
+
+\begin{enumerate}
+\item Write a netlist for the circuit in Figure \ref{rc}, a simple RC low-pass filter. Let $v_s$ be a \unit{1}{\kilo\hertz} square wave oscillating between \unit{0}{\volt} and \unit{5}{\volt}. You can model this square wave using the \texttt{PULSE} source type.
+
+	\begin{figure}[!htb]
+		\input rc
+		\centerline{\box\graph}
+		\caption{Low-pass filter}
+		\label{rc}
+	\end{figure}
+
+\item Run a transient analysis on this circuit from $t=\unit{0}{\milli\second}$ to $t=\unit{10}{\milli\second}$.
+\item Use Awaves to generate plots for $v_s$ and $v_o$ as functions of time. Print copies of these plots.
+\item In Awaves, use the cursor to estimate how long it takes for the capacitor to charge from \unit{0}{\volt} to \unit{3.16}{\volt} (note that 3.16 is $5\left(1-1/e\right) \approx 0.63 \cdot 5$). Is this value close to what you'd expect?
+\item Now, use a \texttt{.measure} statement to measure how long it takes for the capacitor to charge from \unit{0}{\volt} to \unit{3.16}{\volt}. How does this compare to your result obtained from the graph in Awaves? \note{If you're using TRIG/TARG, you must use a non-zero value for the TRIG. If you want to measure from zero, simply use a very small, but non-zero, TRIG value.}
+\item Adjust the step time used in your transient analysis (try making it larger and smaller). Does this variation change the result of your \texttt{.measure} statement?
+
+\end{enumerate}
+
+\subsection{DC Analysis}
+
+\begin{enumerate}
+\item Figure \ref{nmos}(a) shows a transistor called an n-MOSFET, short for \textbf{n}-channel \textbf{m}etal-\textbf{o}xide-\textbf{s}emiconductor \textbf{f}ield \textbf{e}ffect \textbf{t}ransistor. We often call these NMOS or NFETs for short. Although you haven't learned how these work yet, you can still simulate them in SPICE. The terminals of the device are labeled for you: \textbf{D}rain, \textbf{G}ate, \textbf{S}ource, and \textbf{B}ody. In this case, the body is connected to the source, a configuration we'll see often in this course. In this configuration, transistors are often drawn as in Figure \ref{nmos}(b).
+
+	\begin{figure}[!htb]
+		\input nmos
+		\centerline{\box\graph}
+		\caption{(a) NMOS transistor with body terminal explicity shown ~(b) NMOS transistor with body implicity tied to source}
+		\label{nmos}
+	\end{figure}
+	
+\item Write a netlist for the circuit in Figure \ref{nmos} using the following parameters:
+
+	\begin{itemize}
+	\item Step $V_{GS}$ from \unit{0}{\volt} to \unit{5}{\volt} in increments of \unit{1}{\volt}.
+	\item Sweep $V_{DD}$ from \unit{0}{\volt} to \unit{5}{\volt} in increments of \unit{0.1}{\volt}.
+	\item The model for the NMOS should have the following parameters: \texttt{kp=60e-6 vt0=1 lambda=0.05}
+	\item The dimensions of the transistor are $W/L = \unit{4.5}{\micro\meter}/\unit{1.5}{\micro\meter}$
+	\end{itemize}
+	
+\item Use Awaves to plot $I_D$ versus $V_{DD}$ with all the values of $V_{GS}$ you stepped in your DC analysis. \note{You may have to invert $I_D$ in Awaves---it should be positive and increasing with $V_{DD}$ in your plot.} Everything should be shown on one graph. These are the I-V curves for a typical NMOS transistor.
+
+\end{enumerate}
+
+\subsection{TF Analysis}
+
+\begin{enumerate}
+
+\item Figure \ref{ss} shows the small-signal model for a NPN BJT, short for \textbf{b}ipolar \textbf{j}unction \textbf{t}ransistor. We often model transistors with simpler, linear components in order to analyze them. Once again, we've labeled the terminals for you: \textbf{C}ollector, \textbf{B}ase, and \textbf{E}mitter.
+
+	\begin{figure}[!htb]
+		\input ss
+		\centerline{\box\graph}
+		\caption{A small-signal model of a BJT}
+		\label{ss}
+	\end{figure}
+
+\item Write a netlist for the circuit in Figure \ref{ss} using the following parameters:
+
+	\begin{itemize}
+	\item $R_B = \unit{1}{\kilo\ohm}$, $r_{\pi} = \unit{2.6}{\kilo\ohm}$, $R_C = \unit{10}{\kilo\ohm}$, $R_E = \unit{5}{\kilo\ohm}$, $r_o = \unit{24}{\kilo\ohm}$, $g_m = \unit{38}{\milli\siemens}$
+	\item Use a \texttt{.tf} statement to find the voltage gain, $A_v = v_o/v_s$.
+	\end{itemize}
+
+\end{enumerate}
+
+\section{Appendix}
+
+\subsection{Syntax Reference}
+
+This is the same syntax reference supplied in the HSPICE tutorial. Any bracketed labels must be replaced entirely (i.e. if you want a value of \unit{5}{\volt}, you should replace \verb|<value>| with \verb|5V|).
+
+\begin{itemize}
+	\item Independent voltage source \\ \verb|v<name> <+ terminal> <- terminal> <value>|
+	\item Independent current source \\ \verb|i<name> <+ terminal> <- terminal> <value>|
+	\item Voltage-controlled voltage source \\ \verb|E<name> <+ terminal> <- terminal> <+ control> <- control> <gain>|
+	\item Current-controlled voltage source (\verb|vcontrol| refers to the voltage source which the controlling current flows through) \\ \verb|H<name> <+ terminal> <- terminal> <vcontrol> <gain>|
+	\item Voltage-controlled current source  \\ \verb|G<name> <+ terminal> <- terminal> <+ control> <- control> <gain>|
+	\item Current-controlled current source (\verb|vcontrol| refers to the voltage source which the controlling current flows through) \\ \verb|F<name> <+ terminal> <- terminal> <vcontrol> <gain>|
+	\item Sinusoidal source (used as a \verb|<value>|) \\ \verb|sin(<offset> <amplitude> <frequency> <delay> <damping> <phase>)|
+	\item Square wave source (used as a \verb|<value>|) \\ \verb|pulse(<vmin> <vmax> <delay> <rise time> <fall time> <pulse width> <period>)|
+	\item Piece-wise linear source (used as a \verb|<value>|) \\ \verb|pwl(<t0> <v0> <t1> <v1> <t2> <v2> ...)|
+	\item Resistor \\ \verb|r<name> <terminal 1> <terminal 2> <value>|
+	\item Capacitor \\ \verb|c<name> <terminal 1> <terminal 2> <value>|
+	\item Inductor \\ \verb|l<name> <terminal 1> <terminal 2> <value>|
+	\item Model (type can be \verb|nmos|, \verb|pmos|, \verb|NPN|, \verb|PNP|, or \verb|D| for diode) \\ \verb|.model <name> <type> (<parameter list>)|
+	\item MOSFET (you can specify additional parameters, such as \verb|W=<value> L=<value>|, in the parameter list) \\ \verb|m<name> <drain> <gate> <source> <body> <model> <parameter list>|
+	\item BJT \\ \verb|q<name> <collector> <base> <emitter> <model> <parameter list>|
+	\item Diode \\ \verb|d<name> <+ terminal> <- terminal> <model> <parameter list>|
+	\item AC analysis (pick either \verb|lin|, \verb|dec|, or \verb|oct|) \\ \verb/.ac <lin|dec|oct|> <number of samples> <freq start> <freq stop>/
+	\item DC analysis \\ \verb|.dc <source> <start> <stop> <step>|
+	\item Nested DC analysis (\verb|source1| is swept, \verb|source2| is stepped) \\ \verb|.dc <source1> <start1> <stop1> <step1> <source2> <start2> <stop2> <step2>|
+	\item Transient analysis \\ \verb|.tran <t step> <t stop>|
+	\item TF analysis \\ \verb|.tf v(<node>) <source>|
+	\item PZ analysis \\ \verb|.pz v(<node>) <source>|
+\end{itemize}
+
+\subsection{Using a GUI}
+
+There are many graphical editors for SPICE netlists available. In the HSPICE tutorial and in this lab, we've mostly concentrated on the actual syntax behind netlists. Now that you're familiar with netlists, the transition to a graphical editor should be quite straightforward. Although we aren't going to provide tutorials for these programs, we will point you to other documentation that should help you get started.
+
+One SPICE GUI that is available on the lab computers is called Multisim. It is available under \textit{Start} $\rightarrow$ \textit{Programs} $\rightarrow$ \textit{Electronics Workbench} $\rightarrow$ \textit{Multisim 9} $\rightarrow$ \textit{Multisim 9}. Multisim is not available through Remote Desktop, so you must be in lab to use Multisim. A tutorial, written by B. Muthuswamy and B. Boser, is available \href{http://nonlinear.eecs.berkeley.edu/bharath/temp/EE100-MultiSim-Tutorial-2.00.doc}{here}.
+
+A free SPICE GUI called \href{http://opencircuitdesign.com/xcircuit/}{XCircuit} is also available. It will allow you to draw a circuit, then export the drawing to a netlist. It will not handle analysis statements, so you will still have to edit the netlist by hand after exporting the netlist.
+
+\end{document}

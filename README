@@ -1,0 +1,97 @@
+EE105 LABS
+
+CONTENTS
+
+  I. INTRODUCTION
+ II. REQUIRED SOFTWARE
+III. COMPILATION
+ IV. DOCUMENTATION
+  V. AUTHORS
+
+--------------------------------------
+
+  I. INTRODUCTION
+
+This readme describes how to compile the EE105 labs. They are written in LaTeX
+and require certain packages and utilities that will be described below.
+Editing these labs requires knowledge of LaTeX. Editing diagrams requires
+knowledge of the circuit_macros package, and editing graphs requires knowledge
+of the Asymptote software.
+
+This document should be written with the standard 80 column width. All URLs
+should be enclosed within square brackets to eliminate ambiguities.
+
+--------------------------------------
+
+ II. REQUIRED SOFTWARE
+
+1. LaTeX
+
+   Windows (Cygwin)
+   a. MiKTeX [http://miktex.org/]
+   b. teTeX [http://www.tug.org/tetex/]
+   c. TeX Live [http://www.tug.org/texlive/]
+
+   MacOS, Linux
+   a. MacTeX [http://www.tug.org/mactex/]
+   b. TeX Live [http://www.tug.org/texlive/]
+
+   Although there are many LaTeX packages, we've tested the ones listed above
+   and have confirmed their functionality with these labs. It is essential that
+   the LaTeX package you have includes latex, dvips, and gs (Ghostscript).
+   Ghostscript is also available separately from
+   [http://pages.cs.wisc.edu/~ghost/doc/GPL/index.htm].
+
+2. Asymptote [http://asymptote.sourceforge.net/]
+
+   For MacOS, Asymptote needs to be compiled from source. Download the source
+   and run the following commands:
+
+   $ ./configure
+   $ sudo make all
+   $ sudo make install
+
+3. Circuit Macros [http://www.ctan.org/tex-archive/graphics/circuit_macros/]
+
+   The circuit_macros package requires certain Groff utilities, available from
+   [http://www.gnu.org/software/groff/]. Most installations of MacOS and Linux
+   should have these packages already installed or available via a repository.
+   Cygwin packages are available from [http://loreley.ath.cx/cygwin/groff/].
+   Cygwin does not by default include the latest version of Groff, so it is
+   necessary to download this package if using Cygwin.
+
+--------------------------------------
+
+III. COMPILATION
+
+To compile the labs, simply run 'make' from the ee105 directory. You can clean
+all files created by make by typing 'make clean'. To test whether you have all
+the necessary software to compile the labs, type 'make test'. Any missing
+software will be reported.
+
+--------------------------------------
+
+ IV. DOCUMENTATION
+
+Further documentation is available as a LaTeX document, which will be compiled
+to a PDF after following the instructions above. It is located in the
+Documentation directory.
+
+--------------------------------------
+
+  V. AUTHORS
+
+These labs were written by the following students at UC Berkeley during the
+summer of 2007, listed alphabetically by name:
+
+  * Jonathan Ellithorpe
+  * Matt Johnson
+  * Wilson Ko
+  * Chen Sun
+  * Eudean Sun
+  * Kevin Wang
+
+Support from Prof. Tsu-Jae King Liu, Ferenc Kovac, Tho Nguyen, and the rest of
+the ESG staff was essential to the authoring of these labs. The original EE105
+labs, authored by W.T. Yeung and R.T. Howe, were extremely useful references
+for authoring these labs.

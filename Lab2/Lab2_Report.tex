@@ -1,0 +1,56 @@
+\documentclass{article}
+\usepackage{ee105}
+
+\pagestyle{headings}
+\usepackage{hyperref}
+
+%% Makes figure labels bold
+\usepackage[labelfont=bf]{caption}
+
+\begin{document}
+
+%% Prevent headings on the first page, since we're not using \maketitle
+\thispagestyle{plain}
+
+%% Standard header. Title of the lab goes here.
+\report{2}{Electronic Test Equipment}
+\name
+
+\begin{enumerate}
+  \item[3.1.1] Record the error in the power supply at \unit{+1}{\volt}, \unit{+5}{\volt}, and \unit{+9}{\volt}.
+
+\begin{table}[!htb]
+  \begin{center}
+    \begin{tabular}{|c|c|c|} \hline
+      Voltage Setting & DMM Measurement & \% Error \\\hline
+      \unit{1}{\volt} & ~ & ~ \\\hline
+      \unit{5}{\volt} & ~ & ~ \\\hline
+      \unit{9}{\volt} & ~ & ~ \\\hline
+    \end{tabular}
+  \end{center}
+\end{table}
+
+  \item[3.1.2] What is the error (in percent)? What is another error factor that may cause deviation from the ideal?
+    ~\\~\\~\\~\\~\\
+  \item[3.1.3] Why are you not supposed to connect the DMM in current mode to the terminals of a voltage source?
+    ~\\~\\~\\~\\~\\
+  \item[3.1.4] Measure the current and compare the value to your hand calculation.
+    ~\\~\\~\\~\\~\\
+  \item[3.2.1] What is the error on the function generator output at \unit{1}{\kilo\hertz}, \unit{1}{\volt}$_{p-p}$ after taking the voltage division factor into account?
+    ~\\~\\~\\~\\~\\
+    \item[3.2.2] What is the highest frequency sinusoid that the generator can produce? What is the error in the panel according to the oscilloscope?
+    ~\\~\\~\\~\\~\\
+  \item[3.2.3] What is the smallest $V_{p-p}$ that the function generator can produce? What is the error? Without averaging, does the oscilloscope \textbf{over-measure} or \textbf{under-measure} the $V_{p-p}$ value? (circle one)
+    ~\\~\\~\\~\\~\\
+  \item[3.2.4] What is the shortest pulse that the function generator can produce at \unit{500}{\milli\volt} height?
+    ~\\~\\~\\
+  \item[3.2.7] Calculate the value of $|\frac{v_{o}}{v_{s}}|$ at \unit{1}{\kilo\hertz} from your oscilloscope measurements..
+    ~\\~\\~\\
+  \item[3.3.1] Attach the printed plot of the \unit{100}{\ohm} I-V characteristic.
+  \item[3.3.2] Attach the printed plot of the diode I-V characteristic.
+  \item[3.3.3] What is the $V_O$ value calculated from your load-line? Does it match the value measured with the DMM?
+    ~\\~\\~\\~\\~\\
+
+\end{enumerate}
+
+\end{document}

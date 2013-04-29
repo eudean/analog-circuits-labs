@@ -1,0 +1,93 @@
+\documentclass{article}
+\usepackage{ee105}
+
+%% Makes figure labels bold
+\usepackage[labelfont=bf]{caption}
+
+\begin{document}
+
+%% Prevent headings on the first page, since we're not using \maketitle
+\thispagestyle{plain}
+
+%% Standard header. Title of the lab goes here.
+\lab{5}{Single Stage BJT Amplifiers: Common Collector and Common Base}
+
+\section{Objective}
+In the previous lab, we explored the properties of a common emitter amplifier. However, even though it had an extremely high gain, its output impedance prevented it from properly amplifying a signal to drive a speaker. In this lab, we will investigate the properties of two other single-stage amplifier configurations: the common collector and the common base. You will be applying the same techniques learned from the previous lab to extract the input impedance, output impedance, and gain for both of these amplifier configurations. By the end of this lab, you should be able to model any single stage amplifier using its two-port model and identify the strengths and weaknesses of each single-stage amplifier configuration.
+
+\section{Materials}
+
+\begin{table}[!htb]
+  \begin{center}
+    \begin{tabular}{|c|c|} \hline
+      Component & Quantity \\\hline
+      2N4401 NPN BJT & 1 \\
+      \unit{8}{\ohm} speaker & 1 \\
+      \unit{100}{\ohm} resistor & 1 \\
+      \unit{1}{\kilo\ohm} resistor & 1 \\
+      \unit{10}{\kilo\ohm} resistor & 1 \\
+      \unit{10}{\micro\farad} capacitor & 1 \\
+      \unit{10}{\kilo\ohm} potentiometer & 1 \\\hline
+    \end{tabular}
+    \caption{Components used in this lab}
+    \label{components}
+  \end{center}
+\end{table}
+
+\section{Procedure}
+
+\subsection{The Common Base Amplifier}
+For a common base amplifier, the base acts as the common terminal to the input and output, hence the name ``common base.'' The input is applied at the emitter and the output is taken at the collector.
+
+\begin{enumerate}
+\item Similar to the CE amplifier, the CB amplifier can also be used as a voltage amplifier. Set up the configuration shown in Figure \ref{nmos}. Let $V_{CC} = \unit{12}{\volt}$, $R_C = \unit{1}{\kilo\ohm}$, and $V_B = \unit{640}{\milli\volt}$.
+
+	\begin{figure}[!htb]
+		\input lab5_cbamp
+		\centerline{\box\graph}
+		\caption{CB amplifier}
+		\label{nmos}
+	\end{figure}
+
+\item Using ICS, perform a sweep of $V_{IN}$ from \unit{-0.1}{\volt} to \unit{0.1}{\volt} and plot $V_{OUT}$ vs. $V_{IN}$. Find the voltage gain from the slope at $V_{IN} = \unit{0}{\volt}$ (when the input has no DC offset).
+\item Find the input impedance by sweeping $V_{IN}$ from \unit{-0.1}{\volt} to \unit{0.1}{\volt} and plotting $I_{IN}$. 
+\item Find the output impedance using the same method used in the previous lab.
+\item Suppose the source resistance of $V_{IN}$ is \unit{50}{\ohm}. Would the CB amplifier amplify a signal from this source well? Why?
+
+\end{enumerate}
+
+\subsection{The Common Collector Amplifier}
+The common collector amplifier gets its name from the fact that the collector is common to both the input and output of the amplifier. Similar to the CE amplifier, the input is applied at the base. However, the output is taken at the emitter terminal of the BJT.
+
+\begin{enumerate}
+\item Build the circuit shown in Figure \ref{rc}, a simple common collector amplifier with no load attached. Note the $R_S$ resistor in series with the function generator. This is to simulate the presence of a large source resistance. Let $R_S = \unit{10}{\kilo\ohm}$, $R_E = \unit{100}{\ohm}$ and $V_{CC} = \unit{12}{\volt}$.
+
+	\begin{figure}[!htb]
+		\input lab5_ccamp
+		\centerline{\box\graph}
+		\caption{CC amplifier}
+		\label{rc}
+	\end{figure}
+
+\item A common collector amplifier is typically biased in the region that would give the greatest output voltage swing. Based on this criteria, find the DC bias voltage for $V_{IN}$. Record $V_{OUT}$ and the output voltage swing.
+\item Find the voltage gain, input impedance, and output impedance using the same methods as in the previous lab. Remove the $R_S$ resistor when finding the gain and input impedance. 
+\item Another name for the CC amplifier is the emitter follower. Based on the gain that you have found, why do you think it is called that?
+\end{enumerate}
+
+\subsection{The World's Second Worst Speaker Amplifier}
+This part will demonstrate the capabilities of your CC amplifier on a physically observable load. 
+\begin{enumerate}
+\item Apply a \unit{1}{\kilo\hertz}, \unit{1}{\volt} amplitude sine wave directly to the two terminals of the speaker using the function generator. Measure the voltage drop across the speaker using the oscilloscope and qualitatively observe how loud it is.
+\item Build the circuit shown in Figure \ref{rc}. Let $R_E = \unit{100}{\ohm}$ and $C = \unit{10}{\micro\farad}$.
+\item Bias $V_{IN}$ to achieve the maximum output voltage swing (you should have the bias voltage from a previous part) and apply a \unit{1}{\kilo\hertz}, \unit{1}{\volt} amplitude sine wave at the input. Attach the speaker to the output (indicated by $R_L$ in the diagram), measure the output waveform, and observe how loud it is. Is this louder, quieter, or about the same as when the signal was directly applied using the function generator? Why? \hint{The output impedance of the function generator is \unit{50}{\ohm}.}
+
+	\begin{figure}[!htb]
+		\input lab5_ccload
+		\centerline{\box\graph}
+		\caption{CC amplifier with load speaker attached}
+		\label{ccload}
+	\end{figure}
+
+\end{enumerate}
+
+\end{document}

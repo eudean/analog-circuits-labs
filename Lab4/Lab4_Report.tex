@@ -1,0 +1,102 @@
+\documentclass{article}
+\usepackage{ee105}
+
+%% Makes figure labels bold
+\usepackage[labelfont=bf]{caption}
+
+\begin{document}
+
+%% Prevent headings on the first page, since we're not using \maketitle
+\thispagestyle{plain}
+
+%% Standard header. Title of the lab goes here.
+\report{4}{Single Stage BJT Amplifiers: Common Emitter}
+\name
+
+\section{Lab Questions}
+
+\begin {enumerate}
+	
+	\item[3.1.2] DC values and gain when biased at maximum gain:\\~\\
+    	$\boxed{V_{IN}   = ~~~~~~~~~~~~~~~~~~~~~~~}$ \\ ~ \\
+    	$\boxed{V_{OUT}  = ~~~~~~~~~~~~~~~~~~~~~}$ \\ ~ \\
+    	$\boxed{A_{v}    = ~~~~~~~~~~~~~~~~~~~~~~~}$
+
+	\item[3.1.3] Using a load line for the pull up resistor on a BJT I-V curve, explain why a BJT has very low gain if it is not biased in the forward active region.
+	\\~\\~\\~\\~\\~\\~\\~\\~\\~\\~\\~\\~\\~\\~\\~\\
+
+	\item[3.2.1] What is the input resistance? \\~\\
+	  $\boxed{R_{in}   = ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}$
+	  
+	\item[3.2.2] What is the gain measured with the oscilloscope? Is the gain measured with the oscilloscope roughly the same as the gain you measured with ICS? \\~\\
+	  $\boxed{A_v = ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}$
+
+	\item[3.2.3] Why does clipping happen at the top? Why does clipping happen at the bottom? What is the output voltage swing? \\~\\~\\~\\~\\~\\
+	  $\boxed{\text{Output Voltage Swing} = ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}$
+
+        \item[3.2.4] Why is the capacitor needed when we attach the load? \\~\\~\\~\\
+
+	\item[3.2.5] What is the output resistance of the amplifier? \\~\\
+	  $\boxed{R_{out}  = ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}$
+
+	\item[3.3.2] DC values and gain biased at maximum gain:\\~\\
+    	$\boxed{V_{IN}   = ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}$ \\ ~ \\
+	$\boxed{V_{OUT}  = ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}$ \\ ~ \\
+    	$\boxed{A_{v}    = ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}$ \\ ~ \\
+	Is the gain more or less than the gain found without the degenerating resistor? Give an explanation for what's going on in the circuit that causes this change in gain.
+	\\~\\~\\~\\~\\~\\~\\~\\~\\
+        \item[3.3.3] Measured amplifier parameters:\\~\\
+    	$\boxed{R_{in}   = ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}$ \\ ~ \\
+    	$\boxed{R_{out}  = ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}$ \\ ~ \\
+	How are these values affected by the emitter degeneration resistor? Why?
+	\\~\\~\\~\\~\\~\\~\\~\\~\\~\\
+        \item[3.3.4] Theoretical amplifier parameters:\\~\\
+    	$\boxed{R_{in}   = ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}$ \\ ~ \\
+    	$\boxed{R_{out}  = ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}$ \\ ~ \\
+    	$\boxed{A_v  = ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}$
+	\item[3.3.5] Why might emitter degeneration be useful?
+	\\~\\~\\~\\~\\~\\~\\~\\~\\
+
+        \item[3.5.1--4] Compare the loudness of the speaker for the two following cases: \unit{10}{\milli\volt}, \unit{1}{\kilo\hertz} amplitude sine wave applied directly to speaker, and speaker placed on the output of the CE amplifier biased with a \unit{1}{\kilo\ohm} resistor. Which is the loudest and why?
+\\~\\~\\~\\~\\~\\~\\~\\~\\
+
+\end{enumerate}
+
+\pagebreak
+
+\section{Post-Lab Questions}
+\subsection{Amplifier Two-Port Model}
+\begin{enumerate}
+
+\begin{figure}[!htb]
+	\input lab4_2port
+	\centerline{\box\graph}
+	\caption{Generalized voltage amplifier}
+	\label{2port}
+\end{figure}
+
+\item A CE amplifier can be represented as a generalized voltage amplifier shown in Figure \ref{2port}, where $R_{in}$, $R_{out}$, and $A_v$ are the values you found for input resistance, output resistance, and voltage gain, respectively. This generalization was accomplished by applying the concept of a Th\'{e}venin equivalent circuit on its small signal model. Now suppose that $v_{in}$ is an ideal source supplying a \unit{1}{\kilo\hertz}, \unit{20}{\milli\volt} peak-to-peak sine wave. What is $v_{out}$? Use the values obtained from the lab (no emitter degeneration, \unit{10}{\kilo\ohm} biasing resistor) for $R_{in}$, $R_{out}$, and $A_v$.
+\\~\\~\\~\\~\\~\\~\\~\\~\\
+
+\begin{figure}[!htb]
+	\input lab4_2portload
+	\centerline{\box\graph}
+	\caption{Voltage amplifier with non-ideal source and load attached}
+	\label{2portload}
+\end{figure}
+
+\item Now suppose a non-ideal voltage source with an internal source resistance of \unit{1}{\kilo\ohm} was attached at $v_{in}$, and a load resistance of \unit{1}{\kilo\ohm} was attached at the output as shown in Figure \ref{2portload}. If a \unit{20}{\milli\volt} peak-to-peak sine wave was applied at the input, what would be the signal across the load?
+\\~\\~\\~\\~\\~\\~\\~\\~\\
+
+\item A good voltage amplifier is one that can create the greatest possible voltage swing across the load given an input. Given a fixed gain, what input and output impedances would the ideal voltage amplifier have? Why?
+\\~\\~\\~\\~\\~\\~\\~\\~\\
+
+\item A CE amplifier can also be generalized as a transconductance amplifier (input is a voltage, but output is a current related to the input voltage by the transconductance $G_m$). Using a Norton equivalent cicuit on the CE small signal model, draw the CE amplifier as a generalized transconductance amplifier (\hint{It will look similar, but not completely identical to Figure \ref{2port}}). Find $G_m$ using the data you have collected from the lab (no emitter degeneration, \unit{10}{\kilo\ohm} biasing resistor).
+\\~\\~\\~\\~\\~\\~\\~\\~\\
+\item A good transconductance amplifier is one that can get the greatest possible current through the load given an input voltage. Given a fixed gain, what input and output impedances would the ideal transconductance amplifier have? Why?
+\\~\\~\\~\\~\\~\\~\\~\\~\\
+\item Extending the idea further, we can also talk about current amplifiers. If a good current amplifier is one that can get the greatest current through the load, what input and output impedances would the ideal current amplifier have? Why?
+
+\end{enumerate}
+
+\end{document}

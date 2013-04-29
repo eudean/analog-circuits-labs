@@ -1,0 +1,112 @@
+\documentclass{article}
+\usepackage{ee105}
+
+%% Makes figure labels bold
+\usepackage[labelfont=bf]{caption}
+
+\begin{document}
+
+%% Prevent headings on the first page, since we're not using \maketitle
+\thispagestyle{plain}
+
+%% Standard header. Title of the lab goes here.
+\report{10}{Differential Amplifiers}
+\name
+
+\begin{enumerate}
+  \item[3.2.2] Measure $I_{C1}$, $I_{C2}$, $I_{C3}$, and $V_{OUT,DC}$. How do they compare with hand calculations?
+    \begin{align*}
+      \boxed{I_{C1} = ~~~~~~~~~~~~~~~~~~~~~~ } \\
+      \boxed{I_{C2} = ~~~~~~~~~~~~~~~~~~~~~~ } \\
+      \boxed{I_{C3} = ~~~~~~~~~~~~~~~~~~~~~~ } \\
+      \boxed{V_{OUT,DC} = ~~~~~~~~~~~~~~~~~~~~~~ } \\
+    \end{align*}
+    \\
+  \item[3.2.3] Sketch the waveforms at $v_{in+}$ and $v_{out+}$.
+
+\begin{figure}[!htb]
+\begin{center}
+\begin{asy}
+import math;
+size(250,0);
+
+add(shift(-5,-4)*grid(10,8));
+
+dot((0,0),black);
+\end{asy}
+\end{center}
+\end{figure}
+  \item[3.2.4] Measure the peak-to-peak voltages of $v_{in+}$ and $v_{out+}$
+    \begin{align*}
+      \boxed{v_{in+,p-p} = ~~~~~~~~~~~~~~~~~~~~~~ } \\
+      \boxed{v_{out+,p-p} = ~~~~~~~~~~~~~~~~~~~~~~ } \\
+    \end{align*}
+  \item[3.2.5] Qualitatively describe how $v_{out+}$ and $v_{out-}$ are related. Is this what you'd expect?
+    \\~\\~\\~\\~\\
+  \item[3.2.6] Measure the peak-to-peak voltage of $v_{out+} - v_{out-}$ and calculate the differential gain of the circuit. Does this match the gain you calculated in the prelab?
+    \begin{align*}
+      \boxed{v_{out,p-p} = ~~~~~~~~~~~~~~~~~~~~~~ } \\
+      \boxed{A_{DM} = ~~~~~~~~~~~~~~~~~~~~~~ } \\
+    \end{align*}
+    \\
+  \item[3.2.7] What do you see at the output? Why?
+    \\~\\~\\~\\~\\
+  \item[3.2.8] Measure the gain. Does it match your prelab calculations? Does it match your result from 3.2.6?
+    \begin{align*}
+      \boxed{A_{DM} = ~~~~~~~~~~~~~~~~~~~~~~ } \\
+    \end{align*}
+    \\
+  \item[3.3.2] Sketch the output waveform. Why isn't it sinusoidal?
+\begin{figure}[!htb]
+\begin{center}
+\begin{asy}
+import math;
+size(250,0);
+
+add(shift(-5,-4)*grid(10,8));
+
+dot((0,0),black);
+\end{asy}
+\end{center}
+\end{figure}
+\\
+  \item[3.3.4] Calculate the differential gain of the amplifier with the added load.
+    \\~\\~\\~\\
+    \begin{align*}
+      \boxed{A_{DM} = ~~~~~~~~~~~~~~~~~~~~~~ } \\
+    \end{align*}
+  \item[3.3.5] Sketch $v_{out}$. What is the measured differential gain of the circuit? How does it compare to your hand calculations? Does it match the gain you observed in step 3.2.6? Should it?
+\begin{figure}[!htb]
+\begin{center}
+\begin{asy}
+import math;
+size(250,0);
+
+add(shift(-5,-4)*grid(10,8));
+
+dot((0,0),black);
+\end{asy}
+\end{center}
+\end{figure}
+    \begin{align*}
+      \boxed{A_{DM} = ~~~~~~~~~~~~~~~~~~~~~~ } \\
+    \end{align*}
+    \\~\\~\\~\\~\\
+
+  \item[3.4.1] Attach your netlist on a separate sheet.
+  \item[3.4.2] Use SPICE to find $I_{C1}$, $I_{C2}$, $I_{C3}$, and $V_{out,DC}$. Compare these values with your calculations from the prelab and measurements in lab.
+    \begin{align*}
+      \boxed{I_{C1} = ~~~~~~~~~~~~~~~~~~~~~~ } \\
+      \boxed{I_{C2} = ~~~~~~~~~~~~~~~~~~~~~~ } \\
+      \boxed{I_{C3} = ~~~~~~~~~~~~~~~~~~~~~~ } \\
+      \boxed{V_{OUT,DC} = ~~~~~~~~~~~~~~~~~~~~~~ } \\
+    \end{align*}
+    \\~\\~\\~\\~\\
+  \item[3.4.3] Attach your plot on a separate sheet. What is the gain as measured from the plot? Does it match your hand calculations? Does it match your measurements?
+    \begin{align*}
+      \boxed{A_{DM} = ~~~~~~~~~~~~~~~~~~~~~~ }
+    \end{align*}
+    \\~\\~\\
+\end{enumerate}
+
+\end{document}
