@@ -5,7 +5,8 @@ CONTENTS
   I. INTRODUCTION
  II. REQUIRED SOFTWARE
 III. COMPILATION
- IV. AUTHORS
+ IV. SOLUTIONS
+  V. AUTHORS
 
 --------------------------------------
 
@@ -70,7 +71,15 @@ software will be reported.
 
 --------------------------------------
 
- IV. AUTHORS
+ IV. SOLUTIONS
+
+Solutions are currently held privately in order to avoid widespread
+distribution among students. Please contact the authors if you are interested
+in obtaining a copy of the solutions to the labs.
+
+--------------------------------------
+
+  V. AUTHORS
 
 These labs were written by the following students at UC Berkeley during the
 summer of 2007, listed alphabetically by name:
@@ -79,7 +88,7 @@ summer of 2007, listed alphabetically by name:
   * Matt Johnson
   * Wilson Ko
   * Chen Sun
-  * Eudean Sun
+  * Eudean Sun (eudean@eudean.com)
   * Kevin Wang
 
 Support from Prof. Tsu-Jae King Liu, Ferenc Kovac, Tho Nguyen, and the rest of
