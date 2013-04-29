@@ -5,8 +5,7 @@ CONTENTS
   I. INTRODUCTION
  II. REQUIRED SOFTWARE
 III. COMPILATION
- IV. DOCUMENTATION
-  V. AUTHORS
+ IV. AUTHORS
 
 --------------------------------------
 
@@ -71,15 +70,7 @@ software will be reported.
 
 --------------------------------------
 
- IV. DOCUMENTATION
-
-Further documentation is available as a LaTeX document, which will be compiled
-to a PDF after following the instructions above. It is located in the
-Documentation directory.
-
---------------------------------------
-
-  V. AUTHORS
+ IV. AUTHORS
 
 These labs were written by the following students at UC Berkeley during the
 summer of 2007, listed alphabetically by name:
