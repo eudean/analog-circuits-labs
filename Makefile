@@ -1,3 +1,4 @@
+SHELL=/bin/bash
 LAB1=Lab1/Lab1.pdf
 LAB2=Lab2/Lab2.pdf
 LAB3=Lab3/Lab3.pdf

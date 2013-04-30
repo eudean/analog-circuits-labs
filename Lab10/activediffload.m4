@@ -1,3 +1,4 @@
+include(libcct.m4)
 .PS
 cct_init
 l=0.75

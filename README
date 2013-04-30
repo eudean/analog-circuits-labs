@@ -42,6 +42,13 @@ should be enclosed within square brackets to eliminate ambiguities.
    Ghostscript is also available separately from
    [http://pages.cs.wisc.edu/~ghost/doc/GPL/index.htm].
 
+   We make use of various additional LaTeX packages such as SIUnits which may
+   not be included in your default LaTeX installation. These may be installed
+   individually as needed or by finding the appropriate package. Installing
+   the texlive-full Ubuntu package will pull everything you need, but it is a
+   very large download. You will need to install the provided ee105.sty file
+   into your texmf directory as well.
+
 2. Asymptote [http://asymptote.sourceforge.net/]
 
    For MacOS, Asymptote needs to be compiled from source. Download the source
@@ -56,15 +63,15 @@ should be enclosed within square brackets to eliminate ambiguities.
    The circuit_macros package requires certain Groff utilities, available from
    [http://www.gnu.org/software/groff/]. Most installations of MacOS and Linux
    should have these packages already installed or available via a repository.
-   Cygwin packages are available from [http://loreley.ath.cx/cygwin/groff/].
-   Cygwin does not by default include the latest version of Groff, so it is
-   necessary to download this package if using Cygwin.
+
+   The Makefiles by default assume that you install Circuit Macros at
+   $(HOME)/circuit_macros. 
 
 --------------------------------------
 
 III. COMPILATION
 
-To compile the labs, simply run 'make' from the ee105 directory. You can clean
+To compile the labs, simply run 'make' from the base directory. You can clean
 all files created by make by typing 'make clean'. To test whether you have all
 the necessary software to compile the labs, type 'make test'. Any missing
 software will be reported.

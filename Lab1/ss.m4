@@ -1,3 +1,4 @@
+include(libcct.m4)
 .PS
 
 l=0.75

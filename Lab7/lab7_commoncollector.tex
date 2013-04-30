@@ -1,3 +1,4 @@
+
 \expandafter\ifx\csname graph\endcsname\relax
    \csname newbox\expandafter\endcsname\csname graph\endcsname
 \fi
@@ -25,10 +26,10 @@
     \special{ar 125 825 125 125 0 6.28319}%
     \graphtemp=.5ex
     \advance\graphtemp by 0.888in
-    \rlap{\kern 0.125in\lower\graphtemp\hbox to 0pt{\hss $-$\hss}}%
+    \rlap{\kern 0.125in\lower\graphtemp\hbox to 0pt{\hss $_-$\hss}}%
     \graphtemp=.5ex
     \advance\graphtemp by 0.763in
-    \rlap{\kern 0.125in\lower\graphtemp\hbox to 0pt{\hss $+$\hss}}%
+    \rlap{\kern 0.125in\lower\graphtemp\hbox to 0pt{\hss $_+$\hss}}%
     \special{pa 125 700}%
     \special{pa 125 450}%
     \special{fp}%
@@ -39,8 +40,8 @@
     \special{pa 375 450}%
     \special{fp}%
     \special{ar 500 450 125 125 0 6.28319}%
-    \special{ar 458 450 42 42 -3.141593 0.000000}%
-    \special{ar 542 450 42 42 0.000000 3.141593}%
+    \special{ar 458 450 42 42 -3.141593 -0.000000}%
+    \special{ar 542 450 42 42 -0.000000 3.141593}%
     \special{pa 625 450}%
     \special{pa 875 450}%
     \special{fp}%

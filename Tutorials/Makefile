@@ -1,5 +1,5 @@
-LIBS=~/circuit_macros
-LIBCCT=$(LIBS)/libcct.m4
+SHELL=/bin/bash
+CMLIB=$(HOME)/circuit_macros
 
 all: HP4155_Tutorial.pdf HSPICE_Tutorial.pdf HP8116A_Tutorial.pdf HP54615B_Tutorial.pdf HP6235A_Tutorial.pdf HP34401A_Tutorial.pdf Bode_Tutorial.pdf
 
@@ -26,7 +26,7 @@ HP6235A_Tutorial.pdf: HP6235A_Tutorial.tex
 
 HP8116A_Tutorial.pdf: HP8116A_Tutorial.tex
 	for file in HP8116A*.m4; do \
-		m4 $(LIBCCT) $$file | pic -t > $${file/.m4/.tex}; \
+		m4 -I $(CMLIB) $$file | pic -t > $${file/.m4/.tex}; \
 	done
 	latex HP8116A_Tutorial.tex;
 	latex HP8116A_Tutorial.tex;
@@ -43,7 +43,7 @@ HP4155_Tutorial.pdf: HP4155_Tutorial.tex
 
 HSPICE_Tutorial.pdf: HSPICE_Tutorial.tex hspice*.m4
 	for file in hspice*.m4; do \
-		m4 $(LIBCCT) $$file | pic -t > $${file/.m4/.tex}; \
+		m4 -I $(CMLIB) $$file | pic -t > $${file/.m4/.tex}; \
 	done
 	latex HSPICE_Tutorial.tex;
 	latex HSPICE_Tutorial.tex;
@@ -53,10 +53,10 @@ HSPICE_Tutorial.pdf: HSPICE_Tutorial.tex hspice*.m4
 
 Bode_Tutorial.pdf: Bode_Tutorial.tex hspice*.m4
 	for file in hspice*.m4; do \
-		m4 $(LIBCCT) $$file | pic -t > $${file/.m4/.tex}; \
+		m4 -I $(CMLIB) $$file | pic -t > $${file/.m4/.tex}; \
 	done
 	latex Bode_Tutorial.tex;
-	asy Bode_Tutorial;
+	asy Bode_Tutorial*.asy;
 	latex Bode_Tutorial.tex;
 	dvips Bode_Tutorial.dvi;
 	gs -dSAFER -dBATCH -dNOPAUSE -sDEVICE=pdfwrite -sOutputFile="Bode_Tutorial.pdf" -f "Bode_Tutorial.ps";

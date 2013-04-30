@@ -1,3 +1,4 @@
+
 \expandafter\ifx\csname graph\endcsname\relax
    \csname newbox\expandafter\endcsname\csname graph\endcsname
 \fi
@@ -11,8 +12,8 @@
     \special{pa 125 917}%
     \special{fp}%
     \special{ar 125 792 125 125 0 6.28319}%
-    \special{ar 83 792 42 42 -3.141593 0.000000}%
-    \special{ar 167 792 42 42 0.000000 3.141593}%
+    \special{ar 83 792 42 42 -3.141593 -0.000000}%
+    \special{ar 167 792 42 42 -0.000000 3.141593}%
     \special{pa 125 667}%
     \special{pa 125 42}%
     \special{fp}%
@@ -89,11 +90,8 @@
     \special{pa 1625 267}%
     \special{pa 1775 417}%
     \special{pa 1625 567}%
-    \special{fp}%
-    \special{pa 1625 267}%
     \special{pa 1475 417}%
-    \special{pa 1625 567}%
-    \special{pa 1625 792}%
+    \special{pa 1625 267}%
     \special{fp}%
     \special{sh 1.000}%
     \special{pn 1}%
@@ -105,6 +103,9 @@
     \special{pn 8}%
     \special{pa 1625 304}%
     \special{pa 1625 429}%
+    \special{fp}%
+    \special{pa 1625 567}%
+    \special{pa 1625 792}%
     \special{fp}%
     \graphtemp=.5ex
     \advance\graphtemp by 0.417in
