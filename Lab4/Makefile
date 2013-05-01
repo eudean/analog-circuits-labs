@@ -19,7 +19,7 @@ $(LAB)_Prelab.pdf: $(LAB)_Prelab.tex lab4_bjt.tex
 	dvips $(LAB)_Prelab.dvi;
 	gs -dSAFER -dBATCH -dNOPAUSE -sDEVICE=pdfwrite -sOutputFile="$(LAB)_Prelab.pdf" -f "$(LAB)_Prelab.ps";
 
-$(LAB)_Report.pdf: $(LAB)_Report.tex lab4_2port.tex lab4_2portload.tex lab4_bjtcur.tex lab4_bjtcurres.tex
+$(LAB)_Report.pdf: $(LAB)_Report.tex lab4_2port.tex lab4_2portload.tex
 	latex $(LAB)_Report.tex;
 	latex $(LAB)_Report.tex;
 	dvips $(LAB)_Report.dvi;
