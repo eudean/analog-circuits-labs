@@ -50,9 +50,6 @@ lab6_prelab_vsource1.tex: lab6_prelab_vsource1.m4
 lab6_prelab_csource3.tex: lab6_prelab_csource3.m4
 	m4 -I $(CMLIB) lab6_prelab_csource3.m4 | pic -t > lab6_prelab_csource3.tex;
 
-lab6_vsource3.tex: lab6_vsource3.m4
-	m4 -I $(CMLIB) lab6_vsource3.m4 | pic -t > lab6_vsource3.tex;
-
 clean:
 	rm -f `find . -maxdepth 1 ! -name "*.eps" ! -name "$(LAB)*.tex" ! -name "*.m4" ! -name "Makefile" -type f -print`;
 	rm -f `find . -maxdepth 1 -name "$(LAB)*-*.eps"`;
