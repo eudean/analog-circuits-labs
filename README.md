@@ -17,9 +17,6 @@ Editing these labs requires knowledge of LaTeX. Editing diagrams requires
 knowledge of the circuit_macros package, and editing graphs requires knowledge
 of the Asymptote software.
 
-This document should be written with the standard 80 column width. All URLs
-should be enclosed within square brackets to eliminate ambiguities.
-
 ## 2. Required Software
 
 ### LaTeX
