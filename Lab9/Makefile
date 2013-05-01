@@ -3,7 +3,8 @@ LAB=Lab9
 CMLIB=$(HOME)/circuit_macros
 
 all: $(LAB).pdf $(LAB)_Report.pdf $(LAB)_Prelab.pdf
-	rm -f `find . -maxdepth 1 -name "Lab*-*.eps" ! -name "*.tex" ! -name "$(LAB)*.pdf" ! -name "*.m4" ! -name "Make*" -type f -print`;
+	rm -f `find . -maxdepth 1 ! -name "*.tex" ! -name "$(LAB)*.pdf" ! -name "*.m4" ! -name "Make*" -type f -print`;
+	rm -f `find . -maxdepth 1 -name "Lab*-*.eps"`;
 
 $(LAB).pdf: $(LAB).tex lab9_mosfet.tex lab9_mosdiode.tex lab9_2stage.tex lab9_micin.tex
 	latex $(LAB).tex;
@@ -48,5 +49,6 @@ lab9_cgamp_ssm.tex: lab9_cgamp_ssm.m4
 	m4 -I $(CMLIB) lab9_cgamp_ssm.m4 | pic -t > lab9_cgamp_ssm.tex;
 
 clean:
-	rm -f `find . -maxdepth 1 -name "Lab*-*.eps" ! -name "*.tex" ! -name "*.m4" ! -name "*.sty" ! -name "Makefile" -type f -print`;
-	rm -f `find . -name "*~" ! -name "*svn*" -type f -print`;
+	rm -f `find . -maxdepth 1 ! -name "*.tex" ! -name "*.m4" ! -name "*.sty" ! -name "Makefile" -type f -print`;
+	rm -f `find . -maxdepth 1 -name "Lab*-*.eps"`;
+	rm -f `find . -name "*~" -type f -print`;

@@ -3,7 +3,8 @@ LAB=Lab4
 CMLIB=$(HOME)/circuit_macros
 
 all: $(LAB).pdf $(LAB)_Prelab.pdf $(LAB)_Report.pdf
-	rm -f `find . -maxdepth 1 -name "Lab*-*.eps" ! -name "*.tex" ! -name "$(LAB)*.pdf" ! -name "*.m4" ! -name "Make*" -type f -print`;
+	rm -f `find . -maxdepth 1 ! -name "*.tex" ! -name "$(LAB)*.pdf" ! -name "*.m4" ! -name "Make*" -type f -print`;
+	rm -f `find . -maxdepth 1 -name "Lab*-*.eps"`;
 
 $(LAB).pdf: $(LAB).tex lab4_bjt_1.tex lab4_bjtload.tex lab4_degen.tex
 	latex $(LAB).tex;
@@ -58,4 +59,5 @@ lab4_gm_amp_two_port.tex: lab4_gm_amp_two_port.m4
 	m4 -I $(CMLIB) lab4_gm_amp_two_port.m4 | pic -t > lab4_gm_amp_two_port.tex;
 
 clean:
-	rm -f `find . -maxdepth 1 -name "Lab*-*.eps" ! -name "*.tex" ! -name "*.m4" ! -name "Makefile" -type f -print`;
+	rm -f `find . -maxdepth 1 ! -name "*.tex" ! -name "*.m4" ! -name "Makefile" -type f -print`;
+	rm -f `find . -maxdepth 1 -name "Lab*-*.eps"`;
