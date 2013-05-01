@@ -33,15 +33,6 @@ lab5_cbamp.tex: lab5_cbamp.m4
 lab5_ccload.tex: lab5_ccload.m4
 	m4 -I $(CMLIB) lab5_ccload.m4 | pic -t > lab5_ccload.tex;
 
-lab5_ccamp_ssm.tex: lab5_ccamp_ssm.m4
-	m4 -I $(CMLIB) lab5_ccamp_ssm.m4 | pic -t > lab5_ccamp_ssm.tex;
-
-lab5_cbamp_ssm.tex: lab5_cbamp_ssm.m4
-	m4 -I $(CMLIB) lab5_cbamp_ssm.m4 | pic -t > lab5_cbamp_ssm.tex;
-
-lab5_2portcur.tex: lab5_2portcur.m4
-	m4 -I $(CMLIB) lab5_2portcur.m4 | pic -t > lab5_2portcur.tex;
-
 lab5_cbamp_iin.tex: lab5_cbamp_iin.m4
 	m4 -I $(CMLIB) lab5_cbamp_iin.m4 | pic -t > lab5_cbamp_iin.tex;
 
