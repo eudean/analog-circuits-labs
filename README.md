@@ -38,7 +38,7 @@ Mac OS, Linux
 Although there are many LaTeX packages, we've tested the ones listed above
 and have confirmed their functionality with these labs. It is essential that
 the LaTeX package you have includes latex, dvips, and gs (Ghostscript).
-[Ghostscript is also available separately.](http://pages.cs.wisc.edu/~ghost/doc/GPL/index.htm).
+[Ghostscript is also available separately](http://pages.cs.wisc.edu/~ghost/doc/GPL/index.htm).
 
 We make use of various additional LaTeX packages such as SIUnits which may
 not be included in your default LaTeX installation. These may be installed
