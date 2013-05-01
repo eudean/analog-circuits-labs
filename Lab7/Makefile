@@ -3,8 +3,8 @@ LAB=Lab7
 CMLIB=$(HOME)/circuit_macros
 
 all: $(LAB).pdf $(LAB)_Report.pdf $(LAB)_Prelab.pdf
-	rm -f `find . -maxdepth 1 ! -name "*.eps" ! -name "*.tex" ! -name "$(LAB)*.pdf" ! -name "*.m4" ! -name "Make*" -type f -print`;
-	rm -f `find . -maxdepth 1 -name "Lab*-*.eps"`;
+	rm -f `find . -maxdepth 1 ! -name "*.eps" ! -name "$(LAB)*.tex" ! -name "$(LAB)*.pdf" ! -name "*.m4" ! -name "Make*" -type f -print`;
+	rm -f `find . -maxdepth 1 -name "$(LAB)*-*.eps"`;
 
 $(LAB).pdf: $(LAB).tex lab7_commonemitter.tex lab7_millerlab.tex lab7_outputcap.tex lab7_commoncollector.tex
 	latex $(LAB).tex;
@@ -50,6 +50,6 @@ lab7_commoncollector.tex: lab7_commoncollector.m4
 	m4 -I $(CMLIB) lab7_commoncollector.m4 | pic -t > lab7_commoncollector.tex;
 
 clean:
-	rm -f `find . -maxdepth 1 ! -name "*.eps" ! -name "*.tex" ! -name "*.m4" ! -name "*.sty" ! -name "Makefile" -type f -print`;
-	rm -f `find . -maxdepth 1 -name "Lab*-*.eps"`;
+	rm -f `find . -maxdepth 1 ! -name "*.eps" ! -name "$(LAB)*.tex" ! -name "*.m4" ! -name "*.sty" ! -name "Makefile" -type f -print`;
+	rm -f `find . -maxdepth 1 -name "$(LAB)*-*.eps"`;
 	rm -f `find . -name "*~" -type f -print`;

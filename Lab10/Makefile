@@ -3,8 +3,8 @@ LAB=Lab10
 CMLIB=$(HOME)/circuit_macros
 
 all: $(LAB).pdf $(LAB)_Prelab.pdf $(LAB)_Report.pdf
-	rm -f `find . -maxdepth 1 ! -name "*.eps" ! -name "*.tex" ! -name "$(LAB)*.pdf" ! -name "*.m4" ! -name "Make*" -type f -print`;
-	rm -f `find . -maxdepth 1 -name "Lab*-*.eps"`;
+	rm -f `find . -maxdepth 1 ! -name "*.eps" ! -name "$(LAB)*.tex" ! -name "$(LAB)*.pdf" ! -name "*.m4" ! -name "Make*" -type f -print`;
+	rm -f `find . -maxdepth 1 -name "$(LAB)*-*.eps"`;
 
 $(LAB).pdf: $(LAB).tex diff.tex activediff.tex activediffload.tex inverter.tex
 	latex $(LAB).tex;
@@ -38,6 +38,6 @@ inverter.tex: inverter.m4
 	m4 -I $(CMLIB) inverter.m4 | pic -t > inverter.tex;
 
 clean:
-	rm -f `find . -maxdepth 1 ! -name "*.eps" ! -name "*.tex" ! -name "*.m4" ! -name "Makefile" -type f -print`;
-	rm -f `find . -maxdepth 1 -name "Lab*-*.eps"`;
+	rm -f `find . -maxdepth 1 ! -name "*.eps" ! -name "$(LAB)*.tex" ! -name "*.m4" ! -name "Makefile" -type f -print`;
+	rm -f `find . -maxdepth 1 -name "$(LAB)*-*.eps"`;
 	rm -f `find . -name "*~" ! -type f -print`;
