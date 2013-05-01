@@ -42,12 +42,6 @@ lab9_cdamp.tex: lab9_cdamp.m4
 lab9_cgamp.tex: lab9_cgamp.m4
 	m4 -I $(CMLIB) lab9_cgamp.m4 | pic -t > lab9_cgamp.tex;
 
-lab9_cdamp_ssm.tex: lab9_cdamp_ssm.m4
-	m4 -I $(CMLIB) lab9_cdamp_ssm.m4 | pic -t > lab9_cdamp_ssm.tex;
-
-lab9_cgamp_ssm.tex: lab9_cgamp_ssm.m4
-	m4 -I $(CMLIB) lab9_cgamp_ssm.m4 | pic -t > lab9_cgamp_ssm.tex;
-
 clean:
 	rm -f `find . -maxdepth 1 ! -name "*.eps" ! -name "$(LAB)*.tex" ! -name "*.m4" ! -name "*.sty" ! -name "Makefile" -type f -print`;
 	rm -f `find . -maxdepth 1 -name "$(LAB)*-*.eps"`;
