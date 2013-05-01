@@ -32,7 +32,7 @@ should be enclosed within square brackets to eliminate ambiguities.
    b. teTeX [http://www.tug.org/tetex/]
    c. TeX Live [http://www.tug.org/texlive/]
 
-   MacOS, Linux
+   Mac OS, Linux
    a. MacTeX [http://www.tug.org/mactex/]
    b. TeX Live [http://www.tug.org/texlive/]
 
@@ -51,8 +51,9 @@ should be enclosed within square brackets to eliminate ambiguities.
 
 2. Asymptote [http://asymptote.sourceforge.net/]
 
-   For MacOS, Asymptote needs to be compiled from source. Download the source
-   and run the following commands:
+   For Mac OS, Asymptote can be installed from MacPorts, Homebrew, or from
+   source. To install from source, download the source and run the following
+   commands in the source directory:
 
    $ ./configure
    $ sudo make all
@@ -61,7 +62,7 @@ should be enclosed within square brackets to eliminate ambiguities.
 3. Circuit Macros [http://www.ctan.org/tex-archive/graphics/circuit_macros/]
 
    The circuit_macros package requires certain Groff utilities, available from
-   [http://www.gnu.org/software/groff/]. Most installations of MacOS and Linux
+   [http://www.gnu.org/software/groff/]. Most installations of Mac OS and Linux
    should have these packages already installed or available via a repository.
 
    The Makefiles by default assume that you install Circuit Macros at
