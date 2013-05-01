@@ -31,12 +31,6 @@ lab7_miller.tex: lab7_miller.m4
 lab7_prelab0.tex: lab7_prelab0.m4
 	m4 -I $(CMLIB) lab7_prelab0.m4 | pic -t > lab7_prelab0.tex;
 
-lab7_ss.tex: lab7_ss.m4
-	m4 -I $(CMLIB) lab7_ss.m4 | pic -t > lab7_ss.tex;
-
-lab7_ss_miller.tex: lab7_ss_miller.m4
-	m4 -I $(CMLIB) lab7_ss_miller.m4 | pic -t > lab7_ss_miller.tex;
-
 lab7_commonemitter.tex: lab7_commonemitter.m4
 	m4 -I $(CMLIB) lab7_commonemitter.m4 | pic -t > lab7_commonemitter.tex;
 
